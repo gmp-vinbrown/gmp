@@ -1,6 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace gmp.DomainModels.Entities
 {
@@ -356,7 +354,7 @@ namespace gmp.DomainModels.Entities
 
             modelBuilder.Entity<Registration>(entity =>
             {
-                entity.HasOne(d => d.EventActivity)
+                entity.HasOne(d => d.Event)
                     .WithMany(p => p.Registration)
                     .HasForeignKey(d => d.EventActivityId)
                     .OnDelete(DeleteBehavior.ClientSetNull)

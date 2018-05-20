@@ -7,8 +7,7 @@ namespace gmp.DomainModels.Entities
     {
         public EventActivity()
         {
-            MemberEventActivity = new HashSet<MemberEventActivity>();
-            Registration = new HashSet<Registration>();
+            MemberEventActivity = new HashSet<MemberEventActivity>();            
         }
 
         public int EventActivityId { get; set; }
@@ -17,7 +16,6 @@ namespace gmp.DomainModels.Entities
 
         public Event Event { get; set; }
         public EventActivityType EventActivityType { get; set; }
-        public ICollection<MemberEventActivity> MemberEventActivity { get; set; }
-        public ICollection<Registration> Registration { get; set; }
+        public ICollection<MemberEventActivity> MemberEventActivity { get; set; }        
     }
 }

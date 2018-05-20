@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27703.2000
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gmp.api", "gmp.api\gmp.api.csproj", "{F9C9DC6F-0518-4C64-B070-80F7825EA10E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gmp.api", "gmp.api\gmp.api.csproj", "{F9C9DC6F-0518-4C64-B070-80F7825EA10E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gmp.DomainModels", "gmp.DomainModels\gmp.DomainModels.csproj", "{FF296AF0-8687-4CCB-B73F-BECD1B51E780}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gmp.DomainModels", "gmp.DomainModels\gmp.DomainModels.csproj", "{FF296AF0-8687-4CCB-B73F-BECD1B51E780}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gmp.services.contracts", "gmp.services.contracts\gmp.services.contracts.csproj", "{8180E844-97B6-44BD-828F-55EFDD565100}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{FF296AF0-8687-4CCB-B73F-BECD1B51E780}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FF296AF0-8687-4CCB-B73F-BECD1B51E780}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FF296AF0-8687-4CCB-B73F-BECD1B51E780}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8180E844-97B6-44BD-828F-55EFDD565100}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8180E844-97B6-44BD-828F-55EFDD565100}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8180E844-97B6-44BD-828F-55EFDD565100}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8180E844-97B6-44BD-828F-55EFDD565100}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

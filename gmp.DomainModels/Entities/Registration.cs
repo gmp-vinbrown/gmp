@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace gmp.DomainModels.Entities
+﻿namespace gmp.DomainModels.Entities
 {
     public partial class Registration
     {
@@ -10,7 +7,7 @@ namespace gmp.DomainModels.Entities
         public int MemberId { get; set; }
         public int? PaymentId { get; set; }
 
-        public EventActivity EventActivity { get; set; }
+        public Event Event { get; set; }
         public Member Member { get; set; }
         public Payment Payment { get; set; }
     }
