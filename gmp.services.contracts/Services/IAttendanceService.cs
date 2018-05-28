@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using gmp.DomainModels.Entities;
 
-namespace gmp.services.contracts
+namespace gmp.services.contracts.Services
 {
     public interface IAttendanceService
     {

@@ -193,9 +193,11 @@ namespace gmp.DomainModels.Entities
                     .HasMaxLength(250)
                     .IsUnicode(false);
 
-                entity.Property(e => e.Discount)
-                    .HasColumnType("decimal(5, 2)")
-                    .HasDefaultValueSql("((0))");
+                entity.Property(e => e.DiscountAmount)
+                    .HasColumnType("decimal(5, 2)");
+
+                entity.Property(e => e.DiscountPercent)
+                    .HasColumnType("decimal(5, 2)");
 
                 entity.Property(e => e.Name)
                     .IsRequired()
@@ -220,7 +222,7 @@ namespace gmp.DomainModels.Entities
                     .IsUnicode(false);
 
                 entity.HasOne(d => d.School)
-                    .WithMany(p => p.Level)
+                    .WithMany(p => p.Levels)
                     .HasForeignKey(d => d.SchoolId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Level_School");
@@ -288,6 +290,7 @@ namespace gmp.DomainModels.Entities
                     .HasForeignKey(d => d.SchoolLocationId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Member_SchoolLocation");
+
             });
 
             modelBuilder.Entity<MemberEventActivity>(entity =>
@@ -321,10 +324,10 @@ namespace gmp.DomainModels.Entities
 
                 entity.Property(e => e.TransactionDate).HasColumnType("datetime");
 
-                entity.HasOne(d => d.FeeSchedule)
-                    .WithMany(p => p.Payment)
-                    .HasForeignKey(d => d.FeeScheduleId)
-                    .HasConstraintName("FK_Payment_FeeSchedule");
+                entity.HasOne(d => d.Member)
+                    .WithMany(p => p.Payments)
+                    .HasForeignKey(d => d.MemberId)
+                    .HasConstraintName("FK_Payment_Member");
 
                 entity.HasOne(d => d.TransactionType)
                     .WithMany(p => p.Payment)
@@ -346,7 +349,7 @@ namespace gmp.DomainModels.Entities
                     .IsUnicode(false);
 
                 entity.HasOne(d => d.School)
-                    .WithMany(p => p.Program)
+                    .WithMany(p => p.Programs)
                     .HasForeignKey(d => d.SchoolId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Program_School");
@@ -383,7 +386,7 @@ namespace gmp.DomainModels.Entities
                     .IsUnicode(false);
 
                 entity.HasOne(d => d.School)
-                    .WithMany(p => p.Role)
+                    .WithMany(p => p.Roles)
                     .HasForeignKey(d => d.SchoolId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Role_School");
@@ -434,7 +437,7 @@ namespace gmp.DomainModels.Entities
                     .IsUnicode(false);
 
                 entity.HasOne(d => d.School)
-                    .WithMany(p => p.SchoolLocation)
+                    .WithMany(p => p.SchoolLocations)
                     .HasForeignKey(d => d.SchoolId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_SchoolLocation_School");

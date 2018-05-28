@@ -31,6 +31,7 @@ namespace gmp.DomainModels.Entities
         public Level Level { get; set; }
         public Role Role { get; set; }
         public SchoolLocation SchoolLocation { get; set; }
+        public ICollection<Payment> Payments { get; set; }
         public ICollection<Attendance> Attendance { get; set; }
         public ICollection<MemberEventActivity> MemberEventActivity { get; set; }
         public ICollection<Registration> Registration { get; set; }

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace gmp.DomainModels.Entities
 {
@@ -8,18 +7,19 @@ namespace gmp.DomainModels.Entities
         public FeeSchedule()
         {
             Member = new HashSet<Member>();
-            Payment = new HashSet<Payment>();
         }
 
         public int FeeScheduleId { get; set; }
         public int ProgramId { get; set; }
         public string Name { get; set; }
+        public virtual TransactionType TransactionType { get; set; }
         public int NumberOfPayments { get; set; }
-        public decimal Discount { get; set; }
+        public decimal? DiscountAmount { get; set; }
+        public decimal? DiscountPercent { get; set; }
         public string Description { get; set; }
+        public bool Active { get; set; }
 
         public Program Program { get; set; }
         public ICollection<Member> Member { get; set; }
-        public ICollection<Payment> Payment { get; set; }
     }
 }

@@ -7,10 +7,10 @@ namespace gmp.DomainModels.Entities
     {
         public School()
         {
-            Level = new HashSet<Level>();
-            Program = new HashSet<Program>();
-            Role = new HashSet<Role>();
-            SchoolLocation = new HashSet<SchoolLocation>();
+            Levels = new HashSet<Level>();
+            Programs = new HashSet<Program>();
+            Roles = new HashSet<Role>();
+            SchoolLocations = new HashSet<SchoolLocation>();
         }
 
         public int SchoolId { get; set; }
@@ -18,9 +18,9 @@ namespace gmp.DomainModels.Entities
         public string Code { get; set; }
         public DateTime? Created { get; set; }
 
-        public ICollection<Level> Level { get; set; }
-        public ICollection<Program> Program { get; set; }
-        public ICollection<Role> Role { get; set; }
-        public ICollection<SchoolLocation> SchoolLocation { get; set; }
+        public ICollection<Level> Levels { get; set; }
+        public ICollection<Program> Programs { get; set; }
+        public ICollection<Role> Roles { get; set; }
+        public ICollection<SchoolLocation> SchoolLocations { get; set; }
     }
 }

@@ -1,7 +1,6 @@
 ﻿using gmp.DomainModels.Entities;
-using System;
 
-namespace gmp.services.contracts
+namespace gmp.services.contracts.Services
 {
     public interface IMembershipService
     {

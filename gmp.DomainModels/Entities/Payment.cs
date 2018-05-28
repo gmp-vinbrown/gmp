@@ -12,12 +12,12 @@ namespace gmp.DomainModels.Entities
 
         public int PaymentId { get; set; }
         public int TransactionTypeId { get; set; }
-        public int? FeeScheduleId { get; set; }
+        public int MemberId { get; set; }
         public string Notes { get; set; }
         public DateTime TransactionDate { get; set; }
         public decimal Amount { get; set; }
 
-        public FeeSchedule FeeSchedule { get; set; }
+        public Member Member { get; set; }
         public TransactionType TransactionType { get; set; }
         public ICollection<Registration> Registration { get; set; }
     }

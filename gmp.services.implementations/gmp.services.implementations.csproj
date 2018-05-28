@@ -5,11 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\gmp.DomainModels\gmp.DomainModels.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Folder Include="Repositories\" />
+    <Folder Include="Services\" />
   </ItemGroup>
 
 </Project>

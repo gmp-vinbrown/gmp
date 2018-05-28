@@ -11,9 +11,10 @@ using System;
 namespace gmp.DomainModels.Migrations
 {
     [DbContext(typeof(gmpContext))]
-    partial class gmpContextModelSnapshot : ModelSnapshot
+    [Migration("20180528015637_FeeScheduleAmountsMigration")]
+    partial class FeeScheduleAmountsMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -224,10 +225,10 @@ namespace gmp.DomainModels.Migrations
                         .IsUnicode(false);
 
                     b.Property<decimal?>("DiscountAmount")
-                        .HasColumnType("decimal(5, 2)");
+                        .HasColumnType("decimal(5, 2) NULL");
 
                     b.Property<decimal?>("DiscountPercent")
-                        .HasColumnType("decimal(5, 2)");
+                        .HasColumnType("decimal(5, 2) NULL");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -238,13 +239,9 @@ namespace gmp.DomainModels.Migrations
 
                     b.Property<int>("ProgramId");
 
-                    b.Property<int?>("TransactionTypeId");
-
                     b.HasKey("FeeScheduleId");
 
                     b.HasIndex("ProgramId");
-
-                    b.HasIndex("TransactionTypeId");
 
                     b.ToTable("FeeSchedule");
                 });
@@ -369,7 +366,7 @@ namespace gmp.DomainModels.Migrations
                     b.Property<decimal>("Amount")
                         .HasColumnType("decimal(5, 2)");
 
-                    b.Property<int>("MemberId");
+                    b.Property<int?>("FeeScheduleId");
 
                     b.Property<string>("Notes")
                         .HasMaxLength(250)
@@ -382,7 +379,7 @@ namespace gmp.DomainModels.Migrations
 
                     b.HasKey("PaymentId");
 
-                    b.HasIndex("MemberId");
+                    b.HasIndex("FeeScheduleId");
 
                     b.HasIndex("TransactionTypeId");
 
@@ -612,16 +609,12 @@ namespace gmp.DomainModels.Migrations
                         .WithMany("FeeSchedule")
                         .HasForeignKey("ProgramId")
                         .HasConstraintName("FK_FeeSchedule_Program");
-
-                    b.HasOne("gmp.DomainModels.Entities.TransactionType", "TransactionType")
-                        .WithMany()
-                        .HasForeignKey("TransactionTypeId");
                 });
 
             modelBuilder.Entity("gmp.DomainModels.Entities.Level", b =>
                 {
                     b.HasOne("gmp.DomainModels.Entities.School", "School")
-                        .WithMany("Levels")
+                        .WithMany("Level")
                         .HasForeignKey("SchoolId")
                         .HasConstraintName("FK_Level_School");
                 });
@@ -664,11 +657,10 @@ namespace gmp.DomainModels.Migrations
 
             modelBuilder.Entity("gmp.DomainModels.Entities.Payment", b =>
                 {
-                    b.HasOne("gmp.DomainModels.Entities.Member", "Member")
-                        .WithMany("Payments")
-                        .HasForeignKey("MemberId")
-                        .HasConstraintName("FK_Payment_Member")
-                        .OnDelete(DeleteBehavior.Cascade);
+                    b.HasOne("gmp.DomainModels.Entities.FeeSchedule", "FeeSchedule")
+                        .WithMany("Payment")
+                        .HasForeignKey("FeeScheduleId")
+                        .HasConstraintName("FK_Payment_FeeSchedule");
 
                     b.HasOne("gmp.DomainModels.Entities.TransactionType", "TransactionType")
                         .WithMany("Payment")
@@ -679,7 +671,7 @@ namespace gmp.DomainModels.Migrations
             modelBuilder.Entity("gmp.DomainModels.Entities.Program", b =>
                 {
                     b.HasOne("gmp.DomainModels.Entities.School", "School")
-                        .WithMany("Programs")
+                        .WithMany("Program")
                         .HasForeignKey("SchoolId")
                         .HasConstraintName("FK_Program_School");
                 });
@@ -705,7 +697,7 @@ namespace gmp.DomainModels.Migrations
             modelBuilder.Entity("gmp.DomainModels.Entities.Role", b =>
                 {
                     b.HasOne("gmp.DomainModels.Entities.School", "School")
-                        .WithMany("Roles")
+                        .WithMany("Role")
                         .HasForeignKey("SchoolId")
                         .HasConstraintName("FK_Role_School");
                 });
@@ -713,7 +705,7 @@ namespace gmp.DomainModels.Migrations
             modelBuilder.Entity("gmp.DomainModels.Entities.SchoolLocation", b =>
                 {
                     b.HasOne("gmp.DomainModels.Entities.School", "School")
-                        .WithMany("SchoolLocations")
+                        .WithMany("SchoolLocation")
                         .HasForeignKey("SchoolId")
                         .HasConstraintName("FK_SchoolLocation_School");
                 });
