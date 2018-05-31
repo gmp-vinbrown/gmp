@@ -6,7 +6,10 @@
 
   <ItemGroup>
     <Folder Include="Repositories\" />
-    <Folder Include="Services\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\gmp.services.contracts\gmp.services.contracts.csproj" />
   </ItemGroup>
 
 </Project>
