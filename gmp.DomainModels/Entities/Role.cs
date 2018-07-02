@@ -7,7 +7,6 @@ namespace gmp.DomainModels.Entities
     {
         public Role()
         {
-            Contact = new HashSet<Contact>();
             Member = new HashSet<Member>();
         }
 
@@ -17,7 +16,6 @@ namespace gmp.DomainModels.Entities
         public string Description { get; set; }
 
         public School School { get; set; }
-        public ICollection<Contact> Contact { get; set; }
         public ICollection<Member> Member { get; set; }
     }
 }

@@ -8,12 +8,13 @@ namespace gmp.DomainModels.Entities
         public Member()
         {
             Attendance = new HashSet<Attendance>();
-            MemberEventActivity = new HashSet<MemberEventActivity>();
-            Registration = new HashSet<Registration>();
+            MemberEventActivities = new HashSet<MemberEventActivity>();
+            Registrations = new HashSet<Registration>();
         }
 
         public int MemberId { get; set; }
         public int SchoolLocationId { get; set; }
+        public int ContactInfoId { get; set; }
         public int RoleId { get; set; }
         public int FeeScheduleId { get; set; }
         public string Prefix { get; set; }
@@ -27,13 +28,14 @@ namespace gmp.DomainModels.Entities
         public DateTime Created { get; set; }
         public bool Deleted { get; set; }
 
+        public ContactInfo ContactInfo { get; set; }
         public FeeSchedule FeeSchedule { get; set; }
         public Level Level { get; set; }
         public Role Role { get; set; }
         public SchoolLocation SchoolLocation { get; set; }
         public ICollection<Payment> Payments { get; set; }
         public ICollection<Attendance> Attendance { get; set; }
-        public ICollection<MemberEventActivity> MemberEventActivity { get; set; }
-        public ICollection<Registration> Registration { get; set; }
+        public ICollection<MemberEventActivity> MemberEventActivities { get; set; }
+        public ICollection<Registration> Registrations { get; set; }
     }
 }

@@ -7,7 +7,6 @@ namespace gmp.DomainModels.Entities
     {
         public SchoolLocation()
         {
-            Contact = new HashSet<Contact>();
             Member = new HashSet<Member>();
         }
 
@@ -24,7 +23,6 @@ namespace gmp.DomainModels.Entities
         public bool Deleted { get; set; }
 
         public School School { get; set; }
-        public ICollection<Contact> Contact { get; set; }
         public ICollection<Member> Member { get; set; }
     }
 }

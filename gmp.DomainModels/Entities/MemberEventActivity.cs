@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace gmp.DomainModels.Entities
+﻿namespace gmp.DomainModels.Entities
 {
     public partial class MemberEventActivity
     {

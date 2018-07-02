@@ -62,9 +62,9 @@ namespace gmp.DomainModels.Migrations
                     b.ToTable("AttendanceEventActivityType");
                 });
 
-            modelBuilder.Entity("gmp.DomainModels.Entities.Contact", b =>
+            modelBuilder.Entity("gmp.DomainModels.Entities.ContactInfo", b =>
                 {
-                    b.Property<int>("ContactId")
+                    b.Property<int>("ContactInfoId")
                         .ValueGeneratedOnAdd();
 
                     b.Property<DateTime?>("Created")
@@ -80,18 +80,6 @@ namespace gmp.DomainModels.Migrations
                         .HasMaxLength(10)
                         .IsUnicode(false);
 
-                    b.Property<string>("FirstName")
-                        .HasMaxLength(150)
-                        .IsUnicode(false);
-
-                    b.Property<string>("LastName")
-                        .HasMaxLength(150)
-                        .IsUnicode(false);
-
-                    b.Property<string>("MiddleName")
-                        .HasMaxLength(150)
-                        .IsUnicode(false);
-
                     b.Property<string>("Notes")
                         .IsUnicode(false);
 
@@ -103,29 +91,13 @@ namespace gmp.DomainModels.Migrations
                         .HasMaxLength(10)
                         .IsUnicode(false);
 
-                    b.Property<string>("Prefix")
-                        .HasMaxLength(50)
-                        .IsUnicode(false);
-
-                    b.Property<int>("RoleId");
-
-                    b.Property<int>("SchoolLocationId");
-
-                    b.Property<string>("Suffix")
-                        .HasMaxLength(50)
-                        .IsUnicode(false);
-
                     b.Property<string>("Title")
                         .HasMaxLength(150)
                         .IsUnicode(false);
 
-                    b.HasKey("ContactId");
+                    b.HasKey("ContactInfoId");
 
-                    b.HasIndex("RoleId");
-
-                    b.HasIndex("SchoolLocationId");
-
-                    b.ToTable("Contact");
+                    b.ToTable("ContactInfo");
                 });
 
             modelBuilder.Entity("gmp.DomainModels.Entities.Event", b =>
@@ -278,6 +250,8 @@ namespace gmp.DomainModels.Migrations
                     b.Property<int>("MemberId")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<int>("ContactInfoId");
+
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime");
 
@@ -322,6 +296,8 @@ namespace gmp.DomainModels.Migrations
                         .IsUnicode(false);
 
                     b.HasKey("MemberId");
+
+                    b.HasIndex("ContactInfoId");
 
                     b.HasIndex("FeeScheduleId");
 
@@ -572,19 +548,6 @@ namespace gmp.DomainModels.Migrations
                         .HasConstraintName("FK_AttendanceEventActivityType_EventActivityType");
                 });
 
-            modelBuilder.Entity("gmp.DomainModels.Entities.Contact", b =>
-                {
-                    b.HasOne("gmp.DomainModels.Entities.Role", "Role")
-                        .WithMany("Contact")
-                        .HasForeignKey("RoleId")
-                        .HasConstraintName("FK_Contact_Role1");
-
-                    b.HasOne("gmp.DomainModels.Entities.SchoolLocation", "SchoolLocation")
-                        .WithMany("Contact")
-                        .HasForeignKey("SchoolLocationId")
-                        .HasConstraintName("FK_Contact_SchoolLocation");
-                });
-
             modelBuilder.Entity("gmp.DomainModels.Entities.Event", b =>
                 {
                     b.HasOne("gmp.DomainModels.Entities.EventType", "EventType")
@@ -628,6 +591,11 @@ namespace gmp.DomainModels.Migrations
 
             modelBuilder.Entity("gmp.DomainModels.Entities.Member", b =>
                 {
+                    b.HasOne("gmp.DomainModels.Entities.ContactInfo", "ContactInfo")
+                        .WithMany()
+                        .HasForeignKey("ContactInfoId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
                     b.HasOne("gmp.DomainModels.Entities.FeeSchedule", "FeeSchedule")
                         .WithMany("Member")
                         .HasForeignKey("FeeScheduleId")
@@ -657,7 +625,7 @@ namespace gmp.DomainModels.Migrations
                         .HasConstraintName("FK_MemberEventActivity_EventActivity");
 
                     b.HasOne("gmp.DomainModels.Entities.Member", "Member")
-                        .WithMany("MemberEventActivity")
+                        .WithMany("MemberEventActivities")
                         .HasForeignKey("MemberId")
                         .HasConstraintName("FK_MemberEventActivity_Member");
                 });
@@ -692,7 +660,7 @@ namespace gmp.DomainModels.Migrations
                         .HasConstraintName("FK_Registration_EventActivity");
 
                     b.HasOne("gmp.DomainModels.Entities.Member", "Member")
-                        .WithMany("Registration")
+                        .WithMany("Registrations")
                         .HasForeignKey("MemberId")
                         .HasConstraintName("FK_Registration_Member");
 

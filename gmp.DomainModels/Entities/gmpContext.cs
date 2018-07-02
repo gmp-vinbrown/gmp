@@ -11,7 +11,7 @@ namespace gmp.DomainModels.Entities
 
         public virtual DbSet<Attendance> Attendance { get; set; }
         public virtual DbSet<AttendanceEventActivityType> AttendanceEventActivityType { get; set; }
-        public virtual DbSet<Contact> Contact { get; set; }
+        public virtual DbSet<ContactInfo> ContactInfo { get; set; }
         public virtual DbSet<Event> Event { get; set; }
         public virtual DbSet<EventActivity> EventActivity { get; set; }
         public virtual DbSet<EventActivityType> EventActivityType { get; set; }
@@ -73,7 +73,7 @@ namespace gmp.DomainModels.Entities
                     .HasConstraintName("FK_AttendanceEventActivityType_EventActivityType");
             });
 
-            modelBuilder.Entity<Contact>(entity =>
+            modelBuilder.Entity<ContactInfo>(entity =>
             {
                 entity.Property(e => e.Created).HasColumnType("datetime");
 
@@ -83,18 +83,6 @@ namespace gmp.DomainModels.Entities
 
                 entity.Property(e => e.Fax)
                     .HasMaxLength(10)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.FirstName)
-                    .HasMaxLength(150)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.LastName)
-                    .HasMaxLength(150)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.MiddleName)
-                    .HasMaxLength(150)
                     .IsUnicode(false);
 
                 entity.Property(e => e.Notes).IsUnicode(false);
@@ -107,29 +95,9 @@ namespace gmp.DomainModels.Entities
                     .HasMaxLength(10)
                     .IsUnicode(false);
 
-                entity.Property(e => e.Prefix)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.Suffix)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
                 entity.Property(e => e.Title)
                     .HasMaxLength(150)
                     .IsUnicode(false);
-
-                entity.HasOne(d => d.Role)
-                    .WithMany(p => p.Contact)
-                    .HasForeignKey(d => d.RoleId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Contact_Role1");
-
-                entity.HasOne(d => d.SchoolLocation)
-                    .WithMany(p => p.Contact)
-                    .HasForeignKey(d => d.SchoolLocationId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Contact_SchoolLocation");
             });
 
             modelBuilder.Entity<Event>(entity =>
@@ -308,7 +276,7 @@ namespace gmp.DomainModels.Entities
                     .HasConstraintName("FK_MemberEventActivity_EventActivity");
 
                 entity.HasOne(d => d.Member)
-                    .WithMany(p => p.MemberEventActivity)
+                    .WithMany(p => p.MemberEventActivities)
                     .HasForeignKey(d => d.MemberId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_MemberEventActivity_Member");
@@ -364,7 +332,7 @@ namespace gmp.DomainModels.Entities
                     .HasConstraintName("FK_Registration_EventActivity");
 
                 entity.HasOne(d => d.Member)
-                    .WithMany(p => p.Registration)
+                    .WithMany(p => p.Registrations)
                     .HasForeignKey(d => d.MemberId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Registration_Member");
