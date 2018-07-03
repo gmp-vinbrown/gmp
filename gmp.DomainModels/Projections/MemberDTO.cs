@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using AutoMapper.Attributes;
 using gmp.DomainModels.Entities;
 
 namespace gmp.DomainModels.Projections
 {
+    [MapsFrom(typeof(Member))]
     public class MemberDTO
     {
         public MemberDTO()
@@ -30,6 +31,7 @@ namespace gmp.DomainModels.Projections
         public int Age { get; set; }
         public int LevelId { get; set; }
         public string Notes { get; set; }
+        public bool Deleted { get; set; }
 
         public ContactInfo ContactInfo { get; set; }
         public FeeSchedule FeeSchedule { get; set; }

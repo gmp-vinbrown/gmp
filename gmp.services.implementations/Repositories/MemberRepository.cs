@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using gmp.DomainModels.Entities;
+using gmp.DomainModels.Projections;
 using gmp.services.contracts.Repositories;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,39 +18,61 @@ namespace gmp.services.implementations.Repositories
             _ctx = new gmpContext(new DbContextOptions<gmpContext>());
         }
 
-        public Member getMemberById(int id)
+        public async Task<MemberDTO> getMemberById(int id)
         {
-            return _ctx.Find<Member>(id);
+            var member = await _ctx.FindAsync<Member>(id);
+            return AutoMapper.Mapper.Map<MemberDTO>(member);
         }
 
-        public int AddMember(Member member)
+        public async Task<int> AddMember(MemberDTO member)
         {
             if (member == null)
             {
                 throw new ArgumentNullException($"Member cannot be null");
             }
 
-            return 0;
+            var newMember = AutoMapper.Mapper.Map<Member>(member);
+            await _ctx.Members.AddAsync(newMember);
+
+            return newMember.MemberId;
         }
 
-        public bool DeleteMember(int id)
+        public async Task<bool> DeleteMember(int id)
         {
-            throw new NotImplementedException();
+            var member = _ctx.Members.Find(id);
+            member.Deleted = true;
+            return await _ctx.SaveChangesAsync() > 0;
         }
 
-        public Member UpdateMember(Member member)
+        public async Task<MemberDTO> UpdateMember(MemberDTO memberSrc)
         {
-            throw new NotImplementedException();
+            var entityDest = await _ctx.Members.FindAsync(memberSrc.MemberId);
+            if (entityDest != null)
+            {
+                AutoMapper.Mapper.Map(memberSrc, entityDest);
+            }
+            await _ctx.SaveChangesAsync();
+
+            return await Task.FromResult(memberSrc);
         }
 
-        public IEnumerable<Member> GetMembersBySchool(int schoolId)
+        public async Task<IEnumerable<MemberDTO>> GetMembersBySchool(int schoolId)
         {
-            throw new NotImplementedException();
+            var members = await (from member in _ctx.Members
+                from schoolLocation in _ctx.SchoolLocations
+                where schoolLocation.SchoolId == schoolId
+                select member).ToListAsync();
+
+            return members.Select(AutoMapper.Mapper.Map<MemberDTO>);
         }
 
-        public IEnumerable<Member> GetMembersBySchoolLocation(int schoolLocationId)
+        public async Task<IEnumerable<MemberDTO>> GetMembersBySchoolLocation(int schoolLocationId)
         {
-            throw new NotImplementedException();
+            var members = await (from member in _ctx.Members
+                                 where member.SchoolLocationId == schoolLocationId
+                                 select member).ToListAsync();
+
+            return members.Select(AutoMapper.Mapper.Map<MemberDTO>);
         }
 
         public void Dispose()

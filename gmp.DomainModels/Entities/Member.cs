@@ -28,7 +28,8 @@ namespace gmp.DomainModels.Entities
         public int Age { get; set; }
         public int LevelId { get; set; }
         public string Notes { get; set; }
-        
+        public bool Deleted { get; set; }
+
         public ContactInfo ContactInfo { get; set; }
         public FeeSchedule FeeSchedule { get; set; }
         public Level Level { get; set; }

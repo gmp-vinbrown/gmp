@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
-using gmp.DomainModels.Entities;
+using System.Threading.Tasks;
+using gmp.DomainModels.Projections;
 using gmp.services.contracts.Repositories;
 using gmp.services.contracts.Services;
 
@@ -14,34 +15,35 @@ namespace gmp.services.implementations.Services
             _memberRepository = memberRepository;
         }
 
-        public Member GetMemberById(int id)
+
+        public async Task<MemberDTO> GetMemberById(int id)
         {
-            return _memberRepository.getMemberById(id);
+            return await _memberRepository.getMemberById(id);
         }
 
-        public int AddMember(Member member)
+        public async Task<int> AddMember(MemberDTO member)
         {
-            return _memberRepository.AddMember(member);
+            return await _memberRepository.AddMember(member);
         }
 
-        public bool DeleteMember(int id)
+        public async Task<bool> DeleteMember(int id)
         {
-            return _memberRepository.DeleteMember(id);
+            return await _memberRepository.DeleteMember(id);
         }
 
-        public Member UpdateMember(Member member)
+        public async Task<MemberDTO> UpdateMember(MemberDTO member)
         {
-            return _memberRepository.UpdateMember(member);
+            return await _memberRepository.UpdateMember(member);
         }
 
-        public IEnumerable<Member> GetMembersBySchool(int schoolId)
+        public async Task<IEnumerable<MemberDTO>> GetMembersBySchool(int schoolId)
         {
-            return _memberRepository.GetMembersBySchool(schoolId);
+            return await _memberRepository.GetMembersBySchool(schoolId);
         }
 
-        public IEnumerable<Member> GetMembersBySchoolLocation(int schoolLocationId)
+        public async Task<IEnumerable<MemberDTO>> GetMembersBySchoolLocation(int schoolLocationId)
         {
-            return _memberRepository.GetMembersBySchoolLocation(schoolLocationId);
+            return await _memberRepository.GetMembersBySchoolLocation(schoolLocationId);
         }
     }
 }

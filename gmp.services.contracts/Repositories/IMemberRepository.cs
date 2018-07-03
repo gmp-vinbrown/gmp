@@ -1,17 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using gmp.DomainModels.Entities;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using gmp.DomainModels.Projections;
 
 namespace gmp.services.contracts.Repositories
 {
     public interface IMemberRepository
     {
-        Member getMemberById(int id);
-        int AddMember(Member member);
-        bool DeleteMember(int id);
-        Member UpdateMember(Member member);
-        IEnumerable<Member> GetMembersBySchool(int schoolId);
-        IEnumerable<Member> GetMembersBySchoolLocation(int schoolLocationId);
+        Task<MemberDTO> getMemberById(int id);
+        Task<int> AddMember(MemberDTO member);
+        Task<bool> DeleteMember(int id);
+        Task<MemberDTO> UpdateMember(MemberDTO member);
+        Task<IEnumerable<MemberDTO>> GetMembersBySchool(int schoolId);
+        Task<IEnumerable<MemberDTO>> GetMembersBySchoolLocation(int schoolLocationId);
     }
 }
