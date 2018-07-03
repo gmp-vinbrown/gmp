@@ -463,6 +463,10 @@ namespace gmp.DomainModels.Entities
             {
                 
             }
+            if (userId == 0)
+            {
+                throw new UnauthorizedAccessException("This action requires authentication");
+            }
 
             var addedEntities = ChangeTracker.Entries<AuditableEntity>()
                 .Where(e => e.State == EntityState.Added)

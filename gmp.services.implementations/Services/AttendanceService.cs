@@ -42,6 +42,16 @@ namespace gmp.services.implementations.Services
             throw new NotImplementedException();
         }
 
+        public IEnumerable<Member> GetMembersForEvent(int eventId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Member> GetMembersForEventActivity(int eventActivityId)
+        {
+            throw new NotImplementedException();
+        }
+
         public List<Event> GetSchoolLocationEvents(int schoolLocationId)
         {
             throw new NotImplementedException();
@@ -60,6 +70,6 @@ namespace gmp.services.implementations.Services
         public bool DeleteEvent(int eventId)
         {
             throw new NotImplementedException();
-        }
+        }        
     }
 }

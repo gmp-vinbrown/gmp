@@ -12,6 +12,8 @@ namespace gmp.services.contracts.Services
         bool DeleteRegistration(int registrationId);
         Event GetEvent(int eventId);
         List<Event> GetMemberEvents(int memberId);
+        IEnumerable<Member> GetMembersForEvent(int eventId);
+        IEnumerable<Member> GetMembersForEventActivity(int eventActivityId);
         List<Event> GetSchoolLocationEvents(int schoolLocationId);
         List<EventActivityType> GetEventActivityTypes();
         int AddEvent(Event e, int repeatTimes = 1);

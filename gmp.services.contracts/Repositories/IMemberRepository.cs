@@ -1,11 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
 using gmp.DomainModels.Entities;
 
-namespace gmp.services.contracts.Services
+namespace gmp.services.contracts.Repositories
 {
-    public interface IMembershipService
+    public interface IMemberRepository
     {
-        Member GetMemberById(int id);
+        Member getMemberById(int id);
         int AddMember(Member member);
         bool DeleteMember(int id);
         Member UpdateMember(Member member);
