@@ -1,4 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using gmp.Core;
+using gmp.Core.Services;
+using Microsoft.EntityFrameworkCore;
 
 namespace gmp.DomainModels.Entities
 {
@@ -10,23 +16,23 @@ namespace gmp.DomainModels.Entities
         }
 
         public virtual DbSet<Attendance> Attendance { get; set; }
-        public virtual DbSet<AttendanceEventActivityType> AttendanceEventActivityType { get; set; }
+        public virtual DbSet<AttendanceEventActivityType> AttendanceEventActivityTypes { get; set; }
         public virtual DbSet<ContactInfo> ContactInfo { get; set; }
-        public virtual DbSet<Event> Event { get; set; }
-        public virtual DbSet<EventActivity> EventActivity { get; set; }
-        public virtual DbSet<EventActivityType> EventActivityType { get; set; }
-        public virtual DbSet<EventType> EventType { get; set; }
-        public virtual DbSet<FeeSchedule> FeeSchedule { get; set; }
-        public virtual DbSet<Level> Level { get; set; }
-        public virtual DbSet<Member> Member { get; set; }
-        public virtual DbSet<MemberEventActivity> MemberEventActivity { get; set; }
-        public virtual DbSet<Payment> Payment { get; set; }
-        public virtual DbSet<Program> Program { get; set; }
-        public virtual DbSet<Registration> Registration { get; set; }
-        public virtual DbSet<Role> Role { get; set; }
-        public virtual DbSet<School> School { get; set; }
-        public virtual DbSet<SchoolLocation> SchoolLocation { get; set; }
-        public virtual DbSet<TransactionType> TransactionType { get; set; }
+        public virtual DbSet<Event> Events { get; set; }
+        public virtual DbSet<EventActivity> EventActivities { get; set; }
+        public virtual DbSet<EventActivityType> EventActivityTypes { get; set; }
+        public virtual DbSet<EventType> EventTypes { get; set; }
+        public virtual DbSet<FeeSchedule> FeeSchedules { get; set; }
+        public virtual DbSet<Level> Levels { get; set; }
+        public virtual DbSet<Member> Members { get; set; }
+        public virtual DbSet<MemberEventActivity> MemberEventActivities { get; set; }
+        public virtual DbSet<Payment> Payments { get; set; }
+        public virtual DbSet<Program> Programs { get; set; }
+        public virtual DbSet<EventRegistration> EventRegistrations { get; set; }
+        public virtual DbSet<Role> Roles { get; set; }
+        public virtual DbSet<School> Schools { get; set; }
+        public virtual DbSet<SchoolLocation> SchoolLocations { get; set; }
+        public virtual DbSet<TransactionType> TransactionTypes { get; set; }
 
 //        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 //        {
@@ -205,6 +211,7 @@ namespace gmp.DomainModels.Entities
                     .HasName("IX_SchoolLocation");
 
                 entity.Property(e => e.Created).HasColumnType("datetime");
+                entity.Property(e => e.Updated).HasColumnType("datetime");
 
                 entity.Property(e => e.FirstName)
                     .IsRequired()
@@ -254,7 +261,7 @@ namespace gmp.DomainModels.Entities
                     .HasConstraintName("FK_Member_Role");
 
                 entity.HasOne(d => d.SchoolLocation)
-                    .WithMany(p => p.Member)
+                    .WithMany(p => p.Members)
                     .HasForeignKey(d => d.SchoolLocationId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Member_SchoolLocation");
@@ -323,7 +330,7 @@ namespace gmp.DomainModels.Entities
                     .HasConstraintName("FK_Program_School");
             });
 
-            modelBuilder.Entity<Registration>(entity =>
+            modelBuilder.Entity<EventRegistration>(entity =>
             {
                 entity.HasOne(d => d.Event)
                     .WithMany(p => p.Registration)
@@ -422,6 +429,60 @@ namespace gmp.DomainModels.Entities
                     .HasMaxLength(100)
                     .IsUnicode(false);
             });
+        }
+
+        public override int SaveChanges()
+        {
+            SetAuditInfo();
+            return base.SaveChanges();
+        }
+
+        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
+        {
+            SetAuditInfo();
+            return base.SaveChangesAsync(cancellationToken);
+        }
+
+        private void SetAuditInfo()
+        {
+            var now = DateTime.UtcNow;
+            var userId = 0;
+
+            try
+            {
+                var userService =
+                    IoC.GetService(typeof(gmp.Core.Services.IUserInfoService<int>)) as
+                        gmp.Core.Services.IUserInfoService<int>;
+
+                if (userService is IUserInfoService<int>)
+                {
+                    userId = userService.GetCurrentUserId();
+                }
+            }
+            catch (Exception ex)
+            {
+                
+            }
+
+            var addedEntities = ChangeTracker.Entries<AuditableEntity>()
+                .Where(e => e.State == EntityState.Added)
+                .Select(e => e.Entity);
+
+            foreach (var auditableEntity in addedEntities)
+            {
+                auditableEntity.Created = now;
+                auditableEntity.CreatedId = userId;
+            }
+
+            var updatedEntities = ChangeTracker.Entries<AuditableEntity>()
+                .Where(e => e.State == EntityState.Modified)
+                .Select(e => e.Entity);
+
+            foreach (var auditableEntity in updatedEntities)
+            {
+                auditableEntity.Updated = now;
+                auditableEntity.UpdatedId = userId;
+            }
         }
     }
 }

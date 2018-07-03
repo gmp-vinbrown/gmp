@@ -7,8 +7,8 @@ namespace gmp.services.contracts.Services
     {
         int AddAttendance(Attendance attendance);
         bool DeleteAttendance(int attendanceId);
-        int AddRegistration(Registration registration);
-        void UpdateRegistration(Registration registration);
+        int AddRegistration(EventRegistration eventRegistration);
+        void UpdateRegistration(EventRegistration eventRegistration);
         bool DeleteRegistration(int registrationId);
         Event GetEvent(int eventId);
         List<Event> GetMemberEvents(int memberId);

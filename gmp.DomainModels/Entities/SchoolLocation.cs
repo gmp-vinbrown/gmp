@@ -3,11 +3,11 @@ using System.Collections.Generic;
 
 namespace gmp.DomainModels.Entities
 {
-    public partial class SchoolLocation
+    public partial class SchoolLocation : AuditableEntity
     {
         public SchoolLocation()
         {
-            Member = new HashSet<Member>();
+            Members = new HashSet<Member>();
         }
 
         public int SchoolLocationId { get; set; }
@@ -19,10 +19,9 @@ namespace gmp.DomainModels.Entities
         public string City { get; set; }
         public string StateCode { get; set; }
         public string Zip { get; set; }
-        public DateTime? Created { get; set; }
         public bool Deleted { get; set; }
 
         public School School { get; set; }
-        public ICollection<Member> Member { get; set; }
+        public ICollection<Member> Members { get; set; }
     }
 }

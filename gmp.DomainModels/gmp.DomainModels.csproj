@@ -14,4 +14,8 @@
     <Folder Include="Projections\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\gmp.Core\gmp.Core.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -17,12 +17,12 @@ namespace gmp.services.implementations.Services
             throw new NotImplementedException();
         }
 
-        public int AddRegistration(Registration registration)
+        public int AddRegistration(EventRegistration eventRegistration)
         {
             throw new NotImplementedException();
         }
 
-        public void UpdateRegistration(Registration registration)
+        public void UpdateRegistration(EventRegistration eventRegistration)
         {
             throw new NotImplementedException();
         }

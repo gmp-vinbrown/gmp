@@ -410,7 +410,7 @@ namespace gmp.DomainModels.Migrations
                     b.ToTable("Program");
                 });
 
-            modelBuilder.Entity("gmp.DomainModels.Entities.Registration", b =>
+            modelBuilder.Entity("gmp.DomainModels.Entities.EventRegistration", b =>
                 {
                     b.Property<int>("RegistrationId")
                         .ValueGeneratedOnAdd();
@@ -429,7 +429,7 @@ namespace gmp.DomainModels.Migrations
 
                     b.HasIndex("PaymentId");
 
-                    b.ToTable("Registration");
+                    b.ToTable("EventRegistration");
                 });
 
             modelBuilder.Entity("gmp.DomainModels.Entities.Role", b =>
@@ -673,20 +673,20 @@ namespace gmp.DomainModels.Migrations
                         .HasConstraintName("FK_Program_School");
                 });
 
-            modelBuilder.Entity("gmp.DomainModels.Entities.Registration", b =>
+            modelBuilder.Entity("gmp.DomainModels.Entities.EventRegistration", b =>
                 {
                     b.HasOne("gmp.DomainModels.Entities.Event", "Event")
-                        .WithMany("Registration")
+                        .WithMany("EventRegistration")
                         .HasForeignKey("EventActivityId")
                         .HasConstraintName("FK_Registration_EventActivity");
 
                     b.HasOne("gmp.DomainModels.Entities.Member", "Member")
-                        .WithMany("Registration")
+                        .WithMany("EventRegistration")
                         .HasForeignKey("MemberId")
                         .HasConstraintName("FK_Registration_Member");
 
                     b.HasOne("gmp.DomainModels.Entities.Payment", "Payment")
-                        .WithMany("Registration")
+                        .WithMany("EventRegistration")
                         .HasForeignKey("PaymentId")
                         .HasConstraintName("FK_Registration_Payment");
                 });

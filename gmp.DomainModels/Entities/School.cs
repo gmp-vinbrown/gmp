@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace gmp.DomainModels.Entities
 {
-    public partial class School
+    public partial class School : AuditableEntity
     {
         public School()
         {

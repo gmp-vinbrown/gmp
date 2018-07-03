@@ -1,8 +1,8 @@
 ﻿namespace gmp.DomainModels.Entities
 {
-    public partial class Registration
+    public partial class EventRegistration
     {
-        public int RegistrationId { get; set; }
+        public int EventRegistrationId { get; set; }
         public int EventActivityId { get; set; }
         public int MemberId { get; set; }
         public int? PaymentId { get; set; }
