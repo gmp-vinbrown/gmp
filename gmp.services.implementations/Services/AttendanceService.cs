@@ -1,75 +1,87 @@
-﻿using System;
-using System.Collections.Generic;
-using gmp.DomainModels.Entities;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using gmp.DomainModels.Projections;
+using gmp.services.contracts.Repositories;
 using gmp.services.contracts.Services;
 
 namespace gmp.services.implementations.Services
-{
+{    
     public class AttendanceService : IAttendanceService
     {
-        public int AddAttendance(Attendance attendance)
+        private readonly IAttendanceRepository _attendanceRepository;
+
+        public AttendanceService(IAttendanceRepository attendanceRepository)
         {
-            throw new NotImplementedException();
+            _attendanceRepository = attendanceRepository;
         }
 
-        public bool DeleteAttendance(int attendanceId)
+
+        public async Task<int> AddAttendance(AttendanceDTO attendance)
         {
-            throw new NotImplementedException();
+            return await _attendanceRepository.AddAttendance(attendance);
         }
 
-        public int AddRegistration(EventRegistration eventRegistration)
+        public async Task<bool> DeleteAttendance(int attendanceId)
         {
-            throw new NotImplementedException();
+            return await _attendanceRepository.DeleteAttendance(attendanceId);
         }
 
-        public void UpdateRegistration(EventRegistration eventRegistration)
+        public async Task<int> AddRegistration(EventRegistrationDTO eventRegistration)
         {
-            throw new NotImplementedException();
+            return await _attendanceRepository.AddRegistration(eventRegistration);
         }
 
-        public bool DeleteRegistration(int registrationId)
+        public async Task<EventRegistrationDTO> UpdateRegistration(EventRegistrationDTO eventRegistration)
         {
-            throw new NotImplementedException();
+            return await _attendanceRepository.UpdateRegistration(eventRegistration);
         }
 
-        public Event GetEvent(int eventId)
+        public async Task<bool> DeleteRegistration(int registrationId)
         {
-            throw new NotImplementedException();
+            return await _attendanceRepository.DeleteRegistration(registrationId);
         }
 
-        public List<Event> GetMemberEvents(int memberId)
+        public async Task<EventDTO> GetEvent(int eventId)
         {
-            throw new NotImplementedException();
+            return await _attendanceRepository.GetEvent(eventId);
         }
 
-        public IEnumerable<Member> GetMembersForEvent(int eventId)
+        public async Task<IEnumerable<EventDTO>> GetMemberEvents(int memberId)
         {
-            throw new NotImplementedException();
+            return await _attendanceRepository.GetMemberEvents(memberId);
         }
 
-        public IEnumerable<Member> GetMembersForEventActivity(int eventActivityId)
+        public async Task<IEnumerable<MemberDTO>> GetMembersForEvent(int eventId)
         {
-            throw new NotImplementedException();
+            return await _attendanceRepository.GetMembersForEvent(eventId);
         }
 
-        public List<Event> GetSchoolLocationEvents(int schoolLocationId)
+        public async Task<IEnumerable<MemberDTO>> GetMembersForEventActivity(int eventActivityId)
         {
-            throw new NotImplementedException();
+            return await _attendanceRepository.GetMembersForEventActivity(eventActivityId);
         }
 
-        public List<EventActivityType> GetEventActivityTypes()
+        public async Task<IEnumerable<EventDTO>> GetSchoolLocationEvents(int schoolLocationId)
         {
-            throw new NotImplementedException();
+            return await _attendanceRepository.GetSchoolLocationEvents(schoolLocationId);
         }
 
-        public int AddEvent(Event e, int repeatTimes = 1)
+        public async Task<IEnumerable<EventActivityTypeDTO>> GetEventActivityTypes()
         {
-            throw new NotImplementedException();
+            return await _attendanceRepository.GetEventActivityTypes();
         }
 
-        public bool DeleteEvent(int eventId)
+        public async Task<int> AddEvent(EventDTO e, int repeatTimes = 1)
         {
-            throw new NotImplementedException();
-        }        
+            const int FOREVER = 9999;
+
+            // TODO: Add repeat logic
+            return await _attendanceRepository.AddEvent(e);
+        }
+
+        public async Task<bool> DeleteEvent(int eventId)
+        {
+            return await _attendanceRepository.DeleteEvent(eventId);
+        }
     }
 }

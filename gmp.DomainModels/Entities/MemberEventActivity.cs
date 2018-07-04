@@ -7,6 +7,7 @@
         public int EventActivityId { get; set; }
         public string Result { get; set; }
         public string Notes { get; set; }
+        public bool Deleted { get; set; }
 
         public EventActivity EventActivity { get; set; }
         public Member Member { get; set; }

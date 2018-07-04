@@ -18,7 +18,7 @@ namespace gmp.services.implementations.Services
 
         public async Task<MemberDTO> GetMemberById(int id)
         {
-            return await _memberRepository.getMemberById(id);
+            return await _memberRepository.GetMemberById(id);
         }
 
         public async Task<int> AddMember(MemberDTO member)

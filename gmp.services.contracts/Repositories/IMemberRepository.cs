@@ -6,7 +6,7 @@ namespace gmp.services.contracts.Repositories
 {
     public interface IMemberRepository
     {
-        Task<MemberDTO> getMemberById(int id);
+        Task<MemberDTO> GetMemberById(int id);
         Task<int> AddMember(MemberDTO member);
         Task<bool> DeleteMember(int id);
         Task<MemberDTO> UpdateMember(MemberDTO member);

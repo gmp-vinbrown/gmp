@@ -19,6 +19,7 @@ namespace gmp.DomainModels.Entities
         public int SchoolLocationId { get; set; }
         public DateTime EventStartDate { get; set; }
         public DateTime? EventEndDate { get; set; }
+        public bool Deleted { get; set; }
 
         public EventType EventType { get; set; }
         public ICollection<Attendance> Attendance { get; set; }

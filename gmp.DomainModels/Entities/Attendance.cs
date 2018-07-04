@@ -15,6 +15,7 @@ namespace gmp.DomainModels.Entities
         public int EventId { get; set; }
         public DateTime EventDate { get; set; }
         public string Notes { get; set; }
+        public bool Deleted { get; set; }
 
         public Event Event { get; set; }
         public Member Member { get; set; }

@@ -9,19 +9,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace gmp.services.implementations.Repositories
 {
-    public class MemberRepository : IMemberRepository, IDisposable
-    {
-        private readonly gmpContext _ctx;
-
-        public MemberRepository()
-        {
-            _ctx = new gmpContext(new DbContextOptions<gmpContext>());
-        }
-
-        public async Task<MemberDTO> getMemberById(int id)
+    public class MemberRepository : BaseRepository, IMemberRepository, IDisposable
+    {       
+        public async Task<MemberDTO> GetMemberById(int id)
         {
             var member = await _ctx.FindAsync<Member>(id);
-            return AutoMapper.Mapper.Map<MemberDTO>(member);
+            return member.Deleted ? null : AutoMapper.Mapper.Map<MemberDTO>(member);
         }
 
         public async Task<int> AddMember(MemberDTO member)
@@ -60,7 +53,8 @@ namespace gmp.services.implementations.Repositories
         {
             var members = await (from member in _ctx.Members
                 from schoolLocation in _ctx.SchoolLocations
-                where schoolLocation.SchoolId == schoolId
+                where schoolLocation.SchoolId == schoolId 
+                && schoolLocation.Deleted == false && member.Deleted == false
                 select member).ToListAsync();
 
             return members.Select(AutoMapper.Mapper.Map<MemberDTO>);
@@ -70,6 +64,7 @@ namespace gmp.services.implementations.Repositories
         {
             var members = await (from member in _ctx.Members
                                  where member.SchoolLocationId == schoolLocationId
+                                 && member.Deleted == false
                                  select member).ToListAsync();
 
             return members.Select(AutoMapper.Mapper.Map<MemberDTO>);
