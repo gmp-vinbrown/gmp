@@ -17,8 +17,8 @@ namespace gmp.DomainModels.Entities
         public string Notes { get; set; }
         public bool Deleted { get; set; }
 
-        public Event Event { get; set; }
-        public Member Member { get; set; }
-        public ICollection<AttendanceEventActivityType> AttendanceEventActivityType { get; set; }
+        public virtual Event Event { get; set; }
+        public virtual Member Member { get; set; }
+        public virtual ICollection<AttendanceEventActivityType> AttendanceEventActivityType { get; set; }
     }
 }

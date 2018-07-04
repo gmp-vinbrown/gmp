@@ -71,11 +71,8 @@ namespace gmp.services.implementations.Services
             return await _attendanceRepository.GetEventActivityTypes();
         }
 
-        public async Task<int> AddEvent(EventDTO e, int repeatTimes = 1)
+        public async Task<int> AddEvent(EventDTO e)
         {
-            const int FOREVER = 9999;
-
-            // TODO: Add repeat logic
             return await _attendanceRepository.AddEvent(e);
         }
 

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace gmp.DomainModels.Entities
 {
@@ -16,7 +15,7 @@ namespace gmp.DomainModels.Entities
         public string Description { get; set; }
         public int? Value { get; set; }
 
-        public School School { get; set; }
-        public ICollection<Member> Member { get; set; }
+        public virtual School School { get; set; }
+        public virtual ICollection<Member> Member { get; set; }
     }
 }

@@ -18,9 +18,9 @@ namespace gmp.DomainModels.Entities
         public string Code { get; set; }
         public DateTime? Created { get; set; }
 
-        public ICollection<Level> Levels { get; set; }
-        public ICollection<Program> Programs { get; set; }
-        public ICollection<Role> Roles { get; set; }
-        public ICollection<SchoolLocation> SchoolLocations { get; set; }
+        public virtual ICollection<Level> Levels { get; set; }
+        public virtual ICollection<Program> Programs { get; set; }
+        public virtual ICollection<Role> Roles { get; set; }
+        public virtual ICollection<SchoolLocation> SchoolLocations { get; set; }
     }
 }

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace gmp.DomainModels.Entities
 {
@@ -14,6 +13,6 @@ namespace gmp.DomainModels.Entities
         public string Name { get; set; }
         public string Description { get; set; }
 
-        public ICollection<Payment> Payment { get; set; }
+        public virtual ICollection<Payment> Payment { get; set; }
     }
 }

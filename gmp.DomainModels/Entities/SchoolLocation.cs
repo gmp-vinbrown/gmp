@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace gmp.DomainModels.Entities
 {
@@ -21,7 +20,7 @@ namespace gmp.DomainModels.Entities
         public string Zip { get; set; }
         public bool Deleted { get; set; }
 
-        public School School { get; set; }
-        public ICollection<Member> Members { get; set; }
+        public virtual School School { get; set; }
+        public virtual ICollection<Member> Members { get; set; }
     }
 }

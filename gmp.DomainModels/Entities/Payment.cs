@@ -17,8 +17,8 @@ namespace gmp.DomainModels.Entities
         public DateTime TransactionDate { get; set; }
         public decimal Amount { get; set; }
 
-        public Member Member { get; set; }
-        public TransactionType TransactionType { get; set; }
-        public ICollection<EventRegistration> Registration { get; set; }
+        public virtual Member Member { get; set; }
+        public virtual TransactionType TransactionType { get; set; }
+        public virtual ICollection<EventRegistration> Registration { get; set; }
     }
 }

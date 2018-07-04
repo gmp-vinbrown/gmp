@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace gmp.DomainModels.Entities
+﻿namespace gmp.DomainModels.Entities
 {
     public partial class AttendanceEventActivityType
     {
@@ -9,7 +6,7 @@ namespace gmp.DomainModels.Entities
         public int AttendanceId { get; set; }
         public int EventActivityTypeId { get; set; }
 
-        public Attendance Attendance { get; set; }
-        public EventActivityType EventActivityType { get; set; }
+        public virtual Attendance Attendance { get; set; }
+        public virtual EventActivityType EventActivityType { get; set; }
     }
 }

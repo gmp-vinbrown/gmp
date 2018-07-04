@@ -20,6 +20,7 @@ namespace gmp.services.implementations.Repositories
 
             var newAttendance = AutoMapper.Mapper.Map<Attendance>(attendance);
             await _ctx.Attendance.AddAsync(newAttendance);
+            await _ctx.SaveChangesAsync();
 
             return newAttendance.AttendanceId;
         }
@@ -40,6 +41,7 @@ namespace gmp.services.implementations.Repositories
 
             var newRegistration = AutoMapper.Mapper.Map<EventRegistration>(eventRegistration);
             await _ctx.EventRegistrations.AddAsync(newRegistration);
+            await _ctx.SaveChangesAsync();
 
             return newRegistration.EventRegistrationId;
         }
@@ -129,6 +131,14 @@ namespace gmp.services.implementations.Repositories
 
             var newEvent = AutoMapper.Mapper.Map<Event>(e);
             await _ctx.Events.AddAsync(newEvent);
+
+            foreach (var schedule in e.Schedules)
+            {
+                var newSchedule = AutoMapper.Mapper.Map<Schedule>(schedule);
+                await _ctx.Schedules.AddAsync(newSchedule);
+            }
+
+            await _ctx.SaveChangesAsync();
 
             return newEvent.EventId;
         }

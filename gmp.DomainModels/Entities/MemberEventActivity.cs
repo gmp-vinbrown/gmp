@@ -9,7 +9,7 @@
         public string Notes { get; set; }
         public bool Deleted { get; set; }
 
-        public EventActivity EventActivity { get; set; }
-        public Member Member { get; set; }
+        public virtual EventActivity EventActivity { get; set; }
+        public virtual Member Member { get; set; }
     }
 }

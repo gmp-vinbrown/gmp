@@ -19,6 +19,7 @@ namespace gmp.DomainModels.Entities
         public virtual DbSet<AttendanceEventActivityType> AttendanceEventActivityTypes { get; set; }
         public virtual DbSet<ContactInfo> ContactInfo { get; set; }
         public virtual DbSet<Event> Events { get; set; }
+        public virtual DbSet<Schedule> Schedules { get; set; }
         public virtual DbSet<EventActivity> EventActivities { get; set; }
         public virtual DbSet<EventActivityType> EventActivityTypes { get; set; }
         public virtual DbSet<EventType> EventTypes { get; set; }
@@ -117,6 +118,10 @@ namespace gmp.DomainModels.Entities
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(200)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Schedule)
+                    .HasMaxLength(13)
                     .IsUnicode(false);
 
                 entity.HasOne(d => d.EventType)

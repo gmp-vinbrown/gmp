@@ -6,7 +6,7 @@ using gmp.DomainModels.Entities;
 namespace gmp.DomainModels.Projections
 {
     [MapsFrom(typeof(Event))]
-    public class EventDTO
+    public class EventDTO : AuditableEntity
     {
         public EventDTO()
         {
@@ -22,11 +22,13 @@ namespace gmp.DomainModels.Projections
         public int SchoolLocationId { get; set; }
         public DateTime EventStartDate { get; set; }
         public DateTime? EventEndDate { get; set; }
+        public string Schedule { get; set; }
         public bool Deleted { get; set; }
 
-        public EventTypeDTO EventType { get; set; }
-        public ICollection<AttendanceDTO> Attendance { get; set; }
-        public ICollection<EventActivityDTO> EventActivity { get; set; }
-        public ICollection<EventRegistrationDTO> Registration { get; set; }
+        public virtual EventTypeDTO EventType { get; set; }
+        public virtual ICollection<AttendanceDTO> Attendance { get; set; }
+        public virtual ICollection<EventActivityDTO> EventActivity { get; set; }
+        public virtual ICollection<EventRegistrationDTO> Registration { get; set; }
+        public virtual ICollection<ScheduleDTO> Schedules { get; set; }
     }
 }

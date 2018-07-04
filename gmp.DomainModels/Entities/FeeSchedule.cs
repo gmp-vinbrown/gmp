@@ -19,7 +19,7 @@ namespace gmp.DomainModels.Entities
         public string Description { get; set; }
         public bool Active { get; set; }
 
-        public Program Program { get; set; }
-        public ICollection<Member> Member { get; set; }
+        public virtual Program Program { get; set; }
+        public virtual ICollection<Member> Member { get; set; }
     }
 }

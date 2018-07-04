@@ -26,7 +26,7 @@ namespace gmp.services.implementations.Repositories
 
             var newMember = AutoMapper.Mapper.Map<Member>(member);
             await _ctx.Members.AddAsync(newMember);
-
+            await _ctx.SaveChangesAsync();
             return newMember.MemberId;
         }
 

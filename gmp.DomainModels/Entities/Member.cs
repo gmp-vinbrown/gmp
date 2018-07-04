@@ -30,14 +30,14 @@ namespace gmp.DomainModels.Entities
         public string Notes { get; set; }
         public bool Deleted { get; set; }
 
-        public ContactInfo ContactInfo { get; set; }
-        public FeeSchedule FeeSchedule { get; set; }
-        public Level Level { get; set; }
-        public Role Role { get; set; }
-        public SchoolLocation SchoolLocation { get; set; }
-        public ICollection<Payment> Payments { get; set; }
-        public ICollection<Attendance> Attendance { get; set; }
-        public ICollection<MemberEventActivity> MemberEventActivities { get; set; }
-        public ICollection<EventRegistration> Registrations { get; set; }
+        public virtual ContactInfo ContactInfo { get; set; }
+        public virtual FeeSchedule FeeSchedule { get; set; }
+        public virtual Level Level { get; set; }
+        public virtual Role Role { get; set; }
+        public virtual SchoolLocation SchoolLocation { get; set; }
+        public virtual ICollection<Payment> Payments { get; set; }
+        public virtual ICollection<Attendance> Attendance { get; set; }
+        public virtual ICollection<MemberEventActivity> MemberEventActivities { get; set; }
+        public virtual ICollection<EventRegistration> Registrations { get; set; }
     }
 }
