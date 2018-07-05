@@ -1,125 +1,183 @@
 ﻿using System;
 using System.Collections.Generic;
-using gmp.DomainModels.Entities;
+using System.Linq;
+using System.Threading.Tasks;
+using gmp.DomainModels.Enums;
+using gmp.DomainModels.Projections;
+using gmp.services.contracts.Repositories;
 using gmp.services.contracts.Services;
 
 namespace gmp.services.implementations.Services
 {
     public class FinancialService : IFinancialService
     {
-        public Program GetProgramById(int id)
+        private readonly IFinancialRepository _financialRepository;
+
+        public FinancialService(IFinancialRepository financialRepository)
         {
-            throw new NotImplementedException();
+            _financialRepository = financialRepository;
         }
 
-        public int AddProgram(Program program)
+
+        public async Task<ProgramDTO> GetProgramById(int id)
         {
-            throw new NotImplementedException();
+            return await _financialRepository.GetProgramById(id);
         }
 
-        public bool DeleteProgram(int id)
+        public async Task<int> AddProgram(ProgramDTO program)
         {
-            throw new NotImplementedException();
+            return await _financialRepository.AddProgram(program);
         }
 
-        public Program UpdateProgram(Program program)
+        public async Task<bool> DeleteProgram(int id)
         {
-            throw new NotImplementedException();
+            var program = await _financialRepository.GetProgramById(id);
+            if (program != null)
+            {
+                // We cannot delete a program for which a member is still making payments
+                foreach (var fs in program.FeeSchedules.Where(fs => fs.Members.Any()))
+                {
+                    foreach (var member in fs.Members)
+                    {
+                        var balanceDue = await GetMemberBalanceDue(member.MemberId);
+                        if (balanceDue > 0)
+                        {
+                            throw new InvalidOperationException("Cannot delete a Program that is in use by one or more members");
+                        }
+                    }
+                }
+                return await _financialRepository.DeleteProgram(id);
+            }
+            return false;
         }
 
-        public List<Program> GetProgramsForSchool(int schoolId)
+        public async Task<ProgramDTO> UpdateProgram(ProgramDTO program)
         {
-            throw new NotImplementedException();
+            return await _financialRepository.UpdateProgram(program);
         }
 
-        public List<Program> GetProgramsForMember(int memberId)
+        public async Task<IEnumerable<ProgramDTO>> GetProgramsForSchool(int schoolId)
         {
-            throw new NotImplementedException();
+            return await _financialRepository.GetProgramsForSchool(schoolId);
         }
 
-        public FeeSchedule GetFeeScheduleById(int id)
+        public async Task<IEnumerable<ProgramDTO>> GetProgramsForMember(int memberId)
         {
-            throw new NotImplementedException();
+            return await _financialRepository.GetProgramsForMember(memberId);
         }
 
-        public int AddFeeSchedule(FeeSchedule schedule)
+        public async Task<FeeScheduleDTO> GetFeeScheduleById(int id)
         {
-            throw new NotImplementedException();
+            return await _financialRepository.GetFeeScheduleById(id);
         }
 
-        public bool DeleteFeeSchedule(int id)
+        public async Task<int> AddFeeSchedule(FeeScheduleDTO schedule)
         {
-            throw new NotImplementedException();
+            return await _financialRepository.AddFeeSchedule(schedule);
         }
 
-        public FeeSchedule UpdateFeeSchedule(FeeSchedule schedule)
+        public async Task<bool> DeleteFeeSchedule(int id)
         {
-            throw new NotImplementedException();
+            var fs = await _financialRepository.GetFeeScheduleById(id);
+            foreach (var member in fs.Members)
+            {
+                var balanceDue = await GetMemberBalanceDue(member.MemberId);
+                if (balanceDue > 0)
+                {
+                    throw new InvalidOperationException("Cannot delete a FeeSchedule that is in use by one or more members");
+                }
+            }
+            return await _financialRepository.DeleteFeeSchedule(id);
         }
 
-        public List<FeeSchedule> GetFeeSchedulesForProgram(int programId)
+        public async Task<FeeScheduleDTO> UpdateFeeSchedule(FeeScheduleDTO schedule)
         {
-            throw new NotImplementedException();
+            return await _financialRepository.UpdateFeeSchedule(schedule);
         }
 
-        public FeeSchedule GetFeeScheduleForMember(int memberId)
+        public async Task<IEnumerable<FeeScheduleDTO>> GetFeeSchedulesForProgram(int programId)
         {
-            throw new NotImplementedException();
+            return await _financialRepository.GetFeeSchedulesForProgram(programId);
         }
 
-        public List<Payment> GetPaymentsForMember(int memberId)
+        public async Task<FeeScheduleDTO> GetFeeScheduleForMember(int memberId)
         {
-            throw new NotImplementedException();
+            return await _financialRepository.GetFeeScheduleForMember(memberId);
         }
 
-        public Payment AddPayment(Payment payment)
+        public async Task<IEnumerable<PaymentDTO>> GetPaymentsForMember(int memberId)
         {
-            throw new NotImplementedException();
+            return await _financialRepository.GetPaymentsForMember(memberId);
         }
 
-        public bool DeletePayment(int id)
+        public async Task<int> AddPayment(PaymentDTO payment)
         {
-            throw new NotImplementedException();
+            return await _financialRepository.AddPayment(payment);
         }
 
-        public Payment UpdatePayment(Payment payment)
+        public async Task<bool> DeletePayment(int id)
         {
-            throw new NotImplementedException();
+            return await _financialRepository.DeletePayment(id);
         }
 
-        public double GetMemberBalanceDue(int memberId)
+        public async Task<PaymentDTO> UpdatePayment(PaymentDTO payment)
         {
-            throw new NotImplementedException();
+            return await _financialRepository.UpdatePayment(payment);
         }
 
-        public List<Payment> GetMemberPaymentsByType(int memberId, TransactionType type)
+        public async Task<decimal> GetMemberBalanceDue(int memberId)
         {
-            throw new NotImplementedException();
+            var payments = await _financialRepository.GetPaymentsForMember(memberId);
+            var fs = await _financialRepository.GetFeeScheduleForMember(memberId);
+            var baseFee = fs.Program.BaseFee;
+            var discount = fs.DiscountAmount ?? (baseFee * fs.DiscountPercent ?? 0);
+
+            var paidToDate = payments
+                .Where(p => p.TransactionTypeId == (int)TransactionTypes.TuitionPayment
+                && p.TransactionDate >= fs.StartDate)
+                .Sum(p => p.Amount);
+
+            return baseFee - discount - paidToDate;
         }
 
-        public List<Payment> GetPaymentsForSchool(int schoolId)
+        public async Task<IEnumerable<PaymentDTO>> GetMemberPaymentsByType(int memberId, TransactionTypeDTO type, DateTime? asOfDate = null)
         {
-            throw new NotImplementedException();
+            var payments = await _financialRepository.GetMemberPaymentsByType(memberId, type);
+            if (asOfDate.HasValue)
+            {
+                return payments.Where(p => p.TransactionDate >= asOfDate.Value);
+            }
+            return payments;
         }
 
-        public TransactionType AddTransactionType(TransactionType type)
+        public async Task<IEnumerable<PaymentDTO>> GetPaymentsForSchool(int schoolId)
         {
-            throw new NotImplementedException();
+            return await _financialRepository.GetPaymentsForSchool(schoolId);
         }
 
-        public bool DeleteTransactionType(int id)
+        public async Task<IEnumerable<TransactionTypeDTO>> GetAllTransactionTypes()
         {
-            throw new NotImplementedException();
+            return await _financialRepository.GetAllTransactionTypes();
         }
 
-        public TransactionType UpdateTransactionType(TransactionType type)
-        {
-            throw new NotImplementedException();
-        }
+        //public async Task<int> AddTransactionType(TransactionTypeDTO type)
+        //{
+        //    return await _financialRepository.AddTransactionType(type);
+        //}
 
-        public List<TransactionType> GetTransactionTypesForSchool(int schoolId)
-        {
-            throw new NotImplementedException();
-        }
+        //public async Task<bool> DeleteTransactionType(int id)
+        //{
+        //    return await _financialRepository.DeleteTransactionType(id);
+        //}
+
+        //public async Task<TransactionTypeDTO> UpdateTransactionType(TransactionTypeDTO type)
+        //{
+        //    return await _financialRepository.UpdateTransactionType(type);
+        //}
+
+        //public async Task<IEnumerable<TransactionTypeDTO>> GetTransactionTypesForSchool(int schoolId)
+        //{
+        //    return await _financialRepository.GetTransactionTypesForSchool(schoolId);
+        //}
     }
 }

@@ -6,7 +6,7 @@ namespace gmp.DomainModels.Entities
     {
         public Program()
         {
-            FeeSchedule = new HashSet<FeeSchedule>();
+            FeeSchedules = new HashSet<FeeSchedule>();
         }
 
         public int ProgramId { get; set; }
@@ -15,8 +15,9 @@ namespace gmp.DomainModels.Entities
         public int DurationDays { get; set; }
         public decimal BaseFee { get; set; }
         public string Description { get; set; }
+        public bool Deleted { get; set; }
 
         public virtual School School { get; set; }
-        public virtual ICollection<FeeSchedule> FeeSchedule { get; set; }
+        public virtual ICollection<FeeSchedule> FeeSchedules { get; set; }
     }
 }

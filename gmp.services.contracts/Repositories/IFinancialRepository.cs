@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using gmp.DomainModels.Projections;
 
-namespace gmp.services.contracts.Services
+namespace gmp.services.contracts.Repositories
 {
-    public interface IFinancialService
+    public interface IFinancialRepository
     {
         #region Programs
 
@@ -36,8 +35,7 @@ namespace gmp.services.contracts.Services
         Task<bool> DeletePayment(int id);
         Task<PaymentDTO> UpdatePayment(PaymentDTO payment);
 
-        Task<decimal> GetMemberBalanceDue(int memberId);
-        Task<IEnumerable<PaymentDTO>> GetMemberPaymentsByType(int memberId, TransactionTypeDTO type, DateTime? asOfDate = null);
+        Task<IEnumerable<PaymentDTO>> GetMemberPaymentsByType(int memberId, TransactionTypeDTO type);
         Task<IEnumerable<PaymentDTO>> GetPaymentsForSchool(int schoolId);
 
         #endregion

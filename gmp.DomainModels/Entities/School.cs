@@ -17,6 +17,7 @@ namespace gmp.DomainModels.Entities
         public string Name { get; set; }
         public string Code { get; set; }
         public DateTime? Created { get; set; }
+        public bool Deleted { get; set; }
 
         public virtual ICollection<Level> Levels { get; set; }
         public virtual ICollection<Program> Programs { get; set; }

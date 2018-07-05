@@ -19,6 +19,7 @@ namespace gmp.DomainModels.Projections
         public string Notes { get; set; }
         public DateTime TransactionDate { get; set; }
         public decimal Amount { get; set; }
+        public bool Deleted { get; set; }
 
         public MemberDTO Member { get; set; }
         public TransactionTypeDTO TransactionType { get; set; }

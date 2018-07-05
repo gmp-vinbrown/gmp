@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using AutoMapper.Attributes;
+using gmp.DomainModels.Entities;
 
-namespace gmp.DomainModels.Entities
+namespace gmp.DomainModels.Projections
 {
-    public partial class FeeSchedule
+    [MapsFrom(typeof(FeeSchedule))]
+    public class FeeScheduleDTO
     {
-        public FeeSchedule()
+        public FeeScheduleDTO()
         {
-            Members = new HashSet<Member>();
+            Members = new HashSet<MemberDTO>();
         }
 
         public int FeeScheduleId { get; set; }
@@ -22,7 +25,7 @@ namespace gmp.DomainModels.Entities
         public bool Active { get; set; }
         public bool Deleted { get; set; }
 
-        public virtual Program Program { get; set; }
-        public virtual ICollection<Member> Members { get; set; }
+        public virtual ProgramDTO Program { get; set; }
+        public virtual ICollection<MemberDTO> Members { get; set; }
     }
 }

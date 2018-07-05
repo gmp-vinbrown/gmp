@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace gmp.services.implementations.Repositories
 {
-    public class AttendanceRepository : BaseRepository, IAttendanceRepository
+    public class AttendanceRepository : BaseRepository, IAttendanceRepository, IDisposable
     {
         public async Task<int> AddAttendance(AttendanceDTO attendance)
         {
@@ -27,7 +27,7 @@ namespace gmp.services.implementations.Repositories
 
         public async Task<bool> DeleteAttendance(int id)
         {
-            var attendance = _ctx.Attendance.Find(id);
+            var attendance = await _ctx.Attendance.FindAsync(id);
             attendance.Deleted = true;
             return await _ctx.SaveChangesAsync() > 0;
         }
@@ -60,7 +60,7 @@ namespace gmp.services.implementations.Repositories
 
         public async Task<bool> DeleteRegistration(int id)
         {
-            var registration = _ctx.EventRegistrations.Find(id);
+            var registration = await _ctx.EventRegistrations.FindAsync(id);
             registration.Deleted = true;
             return await _ctx.SaveChangesAsync() > 0;
         }
@@ -145,9 +145,14 @@ namespace gmp.services.implementations.Repositories
 
         public async Task<bool> DeleteEvent(int eventId)
         {
-            var e = _ctx.Events.Find(eventId);
+            var e = await _ctx.Events.FindAsync(eventId);
             e.Deleted = true;
             return await _ctx.SaveChangesAsync() > 0;
+        }
+
+        public void Dispose()
+        {
+            _ctx?.Dispose();
         }
     }
 }

@@ -32,7 +32,7 @@ namespace gmp.services.implementations.Repositories
 
         public async Task<bool> DeleteMember(int id)
         {
-            var member = _ctx.Members.Find(id);
+            var member = await _ctx.Members.FindAsync(id);
             member.Deleted = true;
             return await _ctx.SaveChangesAsync() > 0;
         }

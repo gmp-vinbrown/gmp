@@ -6,7 +6,7 @@ namespace gmp.DomainModels.Entities
     {
         public Role()
         {
-            Member = new HashSet<Member>();
+            Members = new HashSet<Member>();
         }
 
         public int RoleId { get; set; }
@@ -15,6 +15,6 @@ namespace gmp.DomainModels.Entities
         public string Description { get; set; }
 
         public virtual School School { get; set; }
-        public virtual ICollection<Member> Member { get; set; }
+        public virtual ICollection<Member> Members { get; set; }
     }
 }

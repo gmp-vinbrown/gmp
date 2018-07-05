@@ -183,8 +183,10 @@ namespace gmp.DomainModels.Entities
                     .HasMaxLength(150)
                     .IsUnicode(false);
 
+                entity.Property(e => e.StartDate).HasColumnType("datetime");
+
                 entity.HasOne(d => d.Program)
-                    .WithMany(p => p.FeeSchedule)
+                    .WithMany(p => p.FeeSchedules)
                     .HasForeignKey(d => d.ProgramId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_FeeSchedule_Program");
@@ -248,7 +250,7 @@ namespace gmp.DomainModels.Entities
                     .IsUnicode(false);
 
                 entity.HasOne(d => d.FeeSchedule)
-                    .WithMany(p => p.Member)
+                    .WithMany(p => p.Members)
                     .HasForeignKey(d => d.FeeScheduleId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Member_FeeSchedule");
@@ -260,7 +262,7 @@ namespace gmp.DomainModels.Entities
                     .HasConstraintName("FK_Member_Level");
 
                 entity.HasOne(d => d.Role)
-                    .WithMany(p => p.Member)
+                    .WithMany(p => p.Members)
                     .HasForeignKey(d => d.RoleId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Member_Role");
