@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace gmp.services.implementations.Repositories
 {
-    public class MemberRepository : BaseRepository, IMemberRepository, IDisposable
+    public class MembershipRepository : BaseRepository, IMembershipRepository, IDisposable
     {       
         public async Task<MemberDTO> GetMemberById(int id)
         {

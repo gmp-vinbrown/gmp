@@ -4,7 +4,7 @@ using gmp.DomainModels.Projections;
 
 namespace gmp.services.contracts.Repositories
 {
-    public interface IMemberRepository
+    public interface IMembershipRepository
     {
         Task<MemberDTO> GetMemberById(int id);
         Task<int> AddMember(MemberDTO member);

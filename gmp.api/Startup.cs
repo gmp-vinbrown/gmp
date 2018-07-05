@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using gmp.Core.Security;
 using gmp.Core.Services;
 using gmp.DomainModels.Entities;
+using gmp.services.contracts.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -10,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using gmp.services.contracts.Services;
+using gmp.services.implementations.Repositories;
 using gmp.services.implementations.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -43,6 +45,12 @@ namespace gmp.api
             services.AddTransient<IFinancialService, FinancialService>();
             services.AddTransient<IMembershipService, MembershipService>();
             services.AddTransient<IAttendanceService, AttendanceService>();
+            services.AddTransient<ISchoolService, SchoolService>();
+
+            services.AddTransient<IFinancialRepository, FinancialRepository>();
+            services.AddTransient<IMembershipRepository, MembershipRepository>();
+            services.AddTransient<IAttendanceRepository, AttendanceRepository>();
+            services.AddTransient<ISchoolRepository, SchoolRepository>();
 
             //services.AddIdentity<AppUser, IdentityRole>()
             //    .AddEntityFrameworkStores<gmpContext>()

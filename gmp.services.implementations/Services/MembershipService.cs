@@ -8,42 +8,42 @@ namespace gmp.services.implementations.Services
 {
     public class MembershipService : IMembershipService
     {
-        private readonly IMemberRepository _memberRepository;
+        private readonly IMembershipRepository _membershipRepository;
 
-        public MembershipService(IMemberRepository memberRepository)
+        public MembershipService(IMembershipRepository membershipRepository)
         {
-            _memberRepository = memberRepository;
+            _membershipRepository = membershipRepository;
         }
 
 
         public async Task<MemberDTO> GetMemberById(int id)
         {
-            return await _memberRepository.GetMemberById(id);
+            return await _membershipRepository.GetMemberById(id);
         }
 
         public async Task<int> AddMember(MemberDTO member)
         {
-            return await _memberRepository.AddMember(member);
+            return await _membershipRepository.AddMember(member);
         }
 
         public async Task<bool> DeleteMember(int id)
         {
-            return await _memberRepository.DeleteMember(id);
+            return await _membershipRepository.DeleteMember(id);
         }
 
         public async Task<MemberDTO> UpdateMember(MemberDTO member)
         {
-            return await _memberRepository.UpdateMember(member);
+            return await _membershipRepository.UpdateMember(member);
         }
 
         public async Task<IEnumerable<MemberDTO>> GetMembersBySchool(int schoolId)
         {
-            return await _memberRepository.GetMembersBySchool(schoolId);
+            return await _membershipRepository.GetMembersBySchool(schoolId);
         }
 
         public async Task<IEnumerable<MemberDTO>> GetMembersBySchoolLocation(int schoolLocationId)
         {
-            return await _memberRepository.GetMembersBySchoolLocation(schoolLocationId);
+            return await _membershipRepository.GetMembersBySchoolLocation(schoolLocationId);
         }
     }
 }
