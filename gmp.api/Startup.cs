@@ -1,9 +1,23 @@
-﻿using gmp.DomainModels.Entities;
+﻿using System;
+using System.Threading.Tasks;
+using gmp.Core.Security;
+using gmp.Core.Services;
+using gmp.DomainModels.Entities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
+using gmp.services.contracts.Services;
+using gmp.services.implementations.Services;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Authorization;
 
 namespace gmp.api
 {
@@ -20,10 +34,37 @@ namespace gmp.api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            
             services.AddCors();
 
-            var connection = @"Server=(local);Database=gmp;Trusted_Connection=True;ConnectRetryCount=0";
-            services.AddDbContext<gmpContext>(options => options.UseSqlServer(connection));
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+            services.AddTransient<IUserInfoService<int>, UserInfoService>();
+            services.AddTransient<IFinancialService, FinancialService>();
+            services.AddTransient<IMembershipService, MembershipService>();
+            services.AddTransient<IAttendanceService, AttendanceService>();
+
+            //services.AddIdentity<AppUser, IdentityRole>()
+            //    .AddEntityFrameworkStores<gmpContext>()
+            //    .AddDefaultTokenProviders();
+
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options =>
+                {
+                    options.LoginPath = "/api/account/login";
+                    options.LogoutPath = "/api/account/logout";
+                    options.Cookie.Path = "gmp";
+                    options.Cookie.Name = "gmp-auth";
+                    options.SlidingExpiration = true;
+                    options.Events.OnRedirectToLogin = (context) =>
+                    {
+                        context.Response.StatusCode = 401;
+                        return Task.CompletedTask;
+                    };
+                });
+
+            services.AddDbContext<gmpContext>(
+                options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -34,6 +75,7 @@ namespace gmp.api
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseAuthentication();
             app.UseMvc();
         }
     }

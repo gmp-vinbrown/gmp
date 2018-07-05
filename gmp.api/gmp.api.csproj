@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication" Version="2.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Cors" Version="2.1.1" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.1" />
   </ItemGroup>
@@ -20,6 +21,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\gmp.DomainModels\gmp.DomainModels.csproj" />
+    <ProjectReference Include="..\gmp.services.contracts\gmp.services.contracts.csproj" />
+    <ProjectReference Include="..\gmp.services.implementations\gmp.services.implementations.csproj" />
   </ItemGroup>
 
 </Project>

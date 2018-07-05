@@ -6,9 +6,9 @@ namespace gmp.Core.Services
     public class UserInfoService : IUserInfoService<int>
     {
         private AppUser _appUser;
-        private readonly HttpContext _context;
+        private readonly IHttpContextAccessor _context;
 
-        public UserInfoService(Microsoft.AspNetCore.Http.HttpContext context)
+        public UserInfoService(IHttpContextAccessor context)
         {
             _context = context;
         }
@@ -17,9 +17,9 @@ namespace gmp.Core.Services
         {
             get
             {
-                if (_appUser == null && _context?.User != null && _context.User.Identity.IsAuthenticated)
+                if (_appUser == null && _context?.HttpContext.User != null && _context.HttpContext.User.Identity.IsAuthenticated)
                 {
-                    _appUser = new AppUser(_context.User);
+                    _appUser = new AppUser(_context.HttpContext.User);
                 }
                 return _appUser;
             }

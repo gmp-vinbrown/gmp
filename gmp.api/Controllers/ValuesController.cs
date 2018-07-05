@@ -2,17 +2,28 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using gmp.Core.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace gmp.api.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
-    public class ValuesController : Controller
+    public class ValuesController : ControllerBase
     {
+        private readonly IUserInfoService<int> _userInfoService;
+
+        public ValuesController(IUserInfoService<int> userInfoService)
+        {
+            _userInfoService = userInfoService;
+        }
+
         // GET api/values
         [HttpGet]
         public IEnumerable<string> Get()
         {
+            var user = _userInfoService.GetCurrentUserId();
             return new string[] { "value1", "value2" };
         }
 
@@ -20,6 +31,7 @@ namespace gmp.api.Controllers
         [HttpGet("{id}")]
         public string Get(int id)
         {
+            
             return "value";
         }
 
