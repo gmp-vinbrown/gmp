@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using gmp.Core.Services;
 using gmp.DomainModels.Entities;
 using gmp.DomainModels.Projections;
 using gmp.services.contracts.Repositories;
@@ -10,7 +11,12 @@ using Microsoft.EntityFrameworkCore;
 namespace gmp.services.implementations.Repositories
 {
     public class MembershipRepository : BaseRepository, IMembershipRepository, IDisposable
-    {       
+    {
+        public MembershipRepository(IUserInfoService<int> userInfoService) : base(userInfoService)
+        {
+
+        }
+
         public async Task<MemberDTO> GetMemberById(int id)
         {
             var member = await _ctx.FindAsync<Member>(id);

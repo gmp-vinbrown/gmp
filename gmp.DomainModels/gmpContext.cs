@@ -10,9 +10,12 @@ namespace gmp.DomainModels.Entities
 {
     public partial class gmpContext : DbContext
     {
-        public gmpContext(DbContextOptions<gmpContext> options)
+        private readonly IUserInfoService<int> _userInfoService;
+
+        public gmpContext(DbContextOptions<gmpContext> options, IUserInfoService<int> userInfoService)
             : base(options)
         {
+            _userInfoService = userInfoService;
         }
 
         public virtual DbSet<Attendance> Attendance { get; set; }
@@ -457,14 +460,7 @@ namespace gmp.DomainModels.Entities
 
             try
             {
-                var userService =
-                    IoC.GetService(typeof(gmp.Core.Services.IUserInfoService<int>)) as
-                        gmp.Core.Services.IUserInfoService<int>;
-
-                if (userService is IUserInfoService<int>)
-                {
-                    userId = userService.GetCurrentUserId();
-                }
+                userId = _userInfoService.GetCurrentUserId();
             }
             catch (Exception ex)
             {

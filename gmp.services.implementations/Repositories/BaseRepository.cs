@@ -1,4 +1,7 @@
-﻿using gmp.DomainModels.Entities;
+﻿using System.Configuration;
+using gmp.Core.Services;
+using gmp.DomainModels;
+using gmp.DomainModels.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace gmp.services.implementations.Repositories
@@ -7,9 +10,12 @@ namespace gmp.services.implementations.Repositories
     {
         protected readonly gmpContext _ctx;
 
-        public BaseRepository()
+        public BaseRepository(IUserInfoService<int> userInfoService )
         {
-            _ctx = new gmpContext(new DbContextOptions<gmpContext>());
+            var connectionFactory = new gmpContextFactory(userInfoService);
+
+            var args = new string[]{};
+            _ctx = connectionFactory.CreateDbContext(args);
         }
     }
 }

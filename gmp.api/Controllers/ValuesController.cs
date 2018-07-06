@@ -23,7 +23,6 @@ namespace gmp.api.Controllers
         [HttpGet]
         public IEnumerable<string> Get()
         {
-            var user = _userInfoService.GetCurrentUserId();
             return new string[] { "value1", "value2" };
         }
 

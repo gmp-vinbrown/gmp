@@ -6,7 +6,7 @@ using gmp.DomainModels.Entities;
 namespace gmp.DomainModels.Projections
 {
     [MapsFrom(typeof(School))]
-    public class SchoolDTO
+    public class SchoolDTO : AuditableEntity
     {
         public SchoolDTO()
         {
@@ -19,7 +19,6 @@ namespace gmp.DomainModels.Projections
         public int SchoolId { get; set; }
         public string Name { get; set; }
         public string Code { get; set; }
-        public DateTime? Created { get; set; }
         public bool Deleted { get; set; }
 
         public virtual ICollection<LevelDTO> Levels { get; set; }

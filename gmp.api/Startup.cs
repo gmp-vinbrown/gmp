@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using gmp.Core.Security;
 using gmp.Core.Services;
 using gmp.DomainModels.Entities;
@@ -36,11 +38,17 @@ namespace gmp.api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-            
+            services.AddAutoMapper();
+
             services.AddCors();
+
+            var conn = Configuration.GetConnectionString("DefaultConnection");
+            services.AddDbContext<gmpContext>(
+                options => options.UseSqlServer(conn));
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
+            
             services.AddTransient<IUserInfoService<int>, UserInfoService>();
             services.AddTransient<IFinancialService, FinancialService>();
             services.AddTransient<IMembershipService, MembershipService>();
@@ -51,6 +59,7 @@ namespace gmp.api
             services.AddTransient<IMembershipRepository, MembershipRepository>();
             services.AddTransient<IAttendanceRepository, AttendanceRepository>();
             services.AddTransient<ISchoolRepository, SchoolRepository>();
+
 
             //services.AddIdentity<AppUser, IdentityRole>()
             //    .AddEntityFrameworkStores<gmpContext>()
@@ -71,8 +80,7 @@ namespace gmp.api
                     };
                 });
 
-            services.AddDbContext<gmpContext>(
-                options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -85,6 +93,9 @@ namespace gmp.api
 
             app.UseAuthentication();
             app.UseMvc();
+
+          
         }
     }
 }
+

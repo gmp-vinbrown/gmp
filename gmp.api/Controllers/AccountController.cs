@@ -17,6 +17,12 @@ namespace gmp.api.Controllers
     {
         private readonly IUserInfoService<int> _userInfoService;
 
+        public class LoginParams
+        {
+            public string UserName { get; set; }
+            public string Password { get; set; }
+        }
+
         public AccountController(IUserInfoService<int> userInfoService)
         {
             _userInfoService = userInfoService;
@@ -25,9 +31,16 @@ namespace gmp.api.Controllers
         [HttpGet]
         public async Task<int> Get()
         {
+            
+            return _userInfoService.GetCurrentUserId();
+        }
+
+        [HttpPost]
+        public async Task<bool> Login([FromBody] LoginParams p)
+        {
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name, "vinbrown"),
+                new Claim(ClaimTypes.Name, p.UserName),
                 new Claim(ClaimTypes.Sid, "123")
             };
 
@@ -35,7 +48,9 @@ namespace gmp.api.Controllers
 
             var principal = new ClaimsPrincipal(userIdentity);
             await HttpContext.SignInAsync(principal);
-            return _userInfoService.GetCurrentUserId();
+            HttpContext.User = principal;
+
+            return true;
         }
     }
 }

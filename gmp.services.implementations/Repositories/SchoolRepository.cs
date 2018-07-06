@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using gmp.Core.Services;
 using gmp.DomainModels.Entities;
 using gmp.DomainModels.Projections;
 using gmp.services.contracts.Repositories;
@@ -8,10 +9,15 @@ namespace gmp.services.implementations.Repositories
 {
     public class SchoolRepository : BaseRepository, ISchoolRepository
     {
+        public SchoolRepository(IUserInfoService<int> userInfoService) : base(userInfoService)
+        {
+
+        }
+
         public async Task<SchoolDTO> GetSchoolById(int id)
         {
             var school = await _ctx.FindAsync<School>(id);
-            return school.Deleted ? null : AutoMapper.Mapper.Map<SchoolDTO>(school);
+            return (school != null && school.Deleted) ? null : AutoMapper.Mapper.Map<SchoolDTO>(school);
         }
 
         public async Task<int> AddSchool(SchoolDTO school)

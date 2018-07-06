@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using gmp.Core.Services;
 using gmp.DomainModels.Entities;
 using gmp.DomainModels.Projections;
 using gmp.services.contracts.Repositories;
@@ -11,6 +12,11 @@ namespace gmp.services.implementations.Repositories
 {
     public class AttendanceRepository : BaseRepository, IAttendanceRepository, IDisposable
     {
+        public AttendanceRepository(IUserInfoService<int> userInfoService) : base(userInfoService)
+        {
+
+        }
+
         public async Task<int> AddAttendance(AttendanceDTO attendance)
         {
             if (attendance == null)
