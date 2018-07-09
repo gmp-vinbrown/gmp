@@ -48,6 +48,10 @@ namespace gmp.services.implementations.Repositories
             {
                 AutoMapper.Mapper.Map(schoolSrc, entityDest);
             }
+            else
+            {
+                return null;
+            }
             await _ctx.SaveChangesAsync();
 
             return await Task.FromResult(schoolSrc);
@@ -89,10 +93,21 @@ namespace gmp.services.implementations.Repositories
             var entityDest = await _ctx.SchoolLocations.FindAsync(locationSrc.SchoolLocationId);
             if (entityDest != null)
             {
-                AutoMapper.Mapper.Map(locationSrc, entityDest);
-            }
-            await _ctx.SaveChangesAsync();
+                entityDest.Name = locationSrc.Name;
+                entityDest.IsPrimary = locationSrc.IsPrimary;
+                entityDest.Address1 = locationSrc.Address1;
+                entityDest.Address2 = locationSrc.Address2;
+                entityDest.City = locationSrc.City;
+                entityDest.StateCode = locationSrc.StateCode;
+                entityDest.Zip = locationSrc.Zip;
 
+                await _ctx.SaveChangesAsync();
+            }
+            else
+            {
+                return null;
+            }
+             
             return await Task.FromResult(locationSrc);
         }
 

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using AutoMapper.Attributes;
+﻿using AutoMapper.Attributes;
 using gmp.DomainModels.Entities;
 
 namespace gmp.DomainModels.Projections
@@ -14,8 +11,8 @@ namespace gmp.DomainModels.Projections
         public int MemberId { get; set; }
         public int? PaymentId { get; set; }
 
-        public EventDTO Event { get; set; }
-        public MemberDTO Member { get; set; }
-        public PaymentDTO Payment { get; set; }
+        public virtual EventDTO Event { get; set; }
+        public virtual MemberDTO Member { get; set; }
+        public virtual PaymentDTO Payment { get; set; }
     }
 }

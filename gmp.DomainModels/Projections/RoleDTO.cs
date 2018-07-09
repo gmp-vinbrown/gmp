@@ -1,9 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
+using AutoMapper.Attributes;
+using gmp.DomainModels.Entities;
 
 namespace gmp.DomainModels.Projections
 {
+    [MapsFrom(typeof(Role))]
     public class RoleDTO
     {
         public RoleDTO()

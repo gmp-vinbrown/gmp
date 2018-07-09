@@ -20,8 +20,8 @@ namespace gmp.DomainModels.Projections
         public string Notes { get; set; }
         public bool Deleted { get; set; }
 
-        public EventDTO Event { get; set; }
-        public MemberDTO Member { get; set; }
-        public ICollection<AttendanceEventActivityTypeDTO> AttendanceEventActivityType { get; set; }
+        public virtual EventDTO Event { get; set; }
+        public virtual MemberDTO Member { get; set; }
+        public virtual ICollection<AttendanceEventActivityTypeDTO> AttendanceEventActivityType { get; set; }
     }
 }

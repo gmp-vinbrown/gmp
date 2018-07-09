@@ -21,8 +21,8 @@ namespace gmp.DomainModels.Projections
         public decimal Amount { get; set; }
         public bool Deleted { get; set; }
 
-        public MemberDTO Member { get; set; }
-        public TransactionTypeDTO TransactionType { get; set; }
-        public ICollection<EventRegistrationDTO> Registrations { get; set; }
+        public virtual MemberDTO Member { get; set; }
+        public virtual TransactionTypeDTO TransactionType { get; set; }
+        public virtual ICollection<EventRegistrationDTO> Registrations { get; set; }
     }
 }

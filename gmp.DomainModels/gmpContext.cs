@@ -270,11 +270,11 @@ namespace gmp.DomainModels.Entities
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Member_Role");
 
-                entity.HasOne(d => d.SchoolLocation)
-                    .WithMany(p => p.Members)
-                    .HasForeignKey(d => d.SchoolLocationId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Member_SchoolLocation");
+                //entity.HasOne(d => d.SchoolLocation)
+                //    .WithMany(p => p.Members)
+                //    .HasForeignKey(d => d.SchoolLocationId)
+                //    .OnDelete(DeleteBehavior.ClientSetNull)
+                //    .HasConstraintName("FK_Member_SchoolLocation");
 
             });
 
@@ -389,9 +389,9 @@ namespace gmp.DomainModels.Entities
                     .HasMaxLength(250)
                     .IsUnicode(false);
 
-                //entity.HasMany(e => e.SchoolLocations)
-                //    .WithOne(e => e.School)
-                //    .HasForeignKey(e => e.SchoolLocationId);
+                entity.HasMany(e => e.SchoolLocations)
+                    .WithOne(e => e.School)
+                    .HasForeignKey(e => e.SchoolLocationId);
 
             });
 

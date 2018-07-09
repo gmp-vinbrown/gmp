@@ -12,6 +12,7 @@ namespace gmp.DomainModels.Entities
             Attendance = new HashSet<Attendance>();
             MemberEventActivities = new HashSet<MemberEventActivity>();
             Registrations = new HashSet<EventRegistration>();
+            Payments = new HashSet<Payment>();
         }
 
         public int MemberId { get; set; }

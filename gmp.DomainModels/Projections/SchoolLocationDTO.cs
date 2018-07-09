@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using AutoMapper.Attributes;
 using gmp.DomainModels.Entities;
 
 namespace gmp.DomainModels.Projections
 {
+    [MapsFrom(typeof(SchoolLocation))]
     public class SchoolLocationDTO : AuditableEntity
     {
         public SchoolLocationDTO()
@@ -14,21 +16,16 @@ namespace gmp.DomainModels.Projections
         public int SchoolLocationId { get; set; }
         public int SchoolId { get; set; }
         public bool IsPrimary { get; set; }
-        [MaxLength(250)]
         public string Name { get; set; }
-        [MaxLength(250)]
         public string Address1 { get; set; }
-        [MaxLength(250)]
         public string Address2 { get; set; }
-        [MaxLength(150)]
         public string City { get; set; }
-        [MaxLength(4)]
         public string StateCode { get; set; }
-        [MaxLength(10)]
         public string Zip { get; set; }
         public bool Deleted { get; set; }
 
-        public SchoolDTO School { get; set; }
-        public ICollection<MemberDTO> Members { get; set; }
+
+        public virtual SchoolDTO School { get; set; }
+        public virtual ICollection<MemberDTO> Members { get; set; }
     }
 }

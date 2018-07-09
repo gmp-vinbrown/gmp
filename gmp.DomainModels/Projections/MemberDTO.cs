@@ -10,9 +10,10 @@ namespace gmp.DomainModels.Projections
     {
         public MemberDTO()
         {
-            Attendance = new HashSet<Attendance>();
-            MemberEventActivities = new HashSet<MemberEventActivity>();
-            Registrations = new HashSet<EventRegistration>();
+            Attendance = new HashSet<AttendanceDTO>();
+            MemberEventActivities = new HashSet<MemberEventActivityDTO>();
+            Registrations = new HashSet<EventRegistrationDTO>();
+            Payments = new HashSet<PaymentDTO>();
         }
 
         public int MemberId { get; set; }
@@ -33,14 +34,14 @@ namespace gmp.DomainModels.Projections
         public string Notes { get; set; }
         public bool Deleted { get; set; }
 
-        public ContactInfo ContactInfo { get; set; }
-        public FeeSchedule FeeSchedule { get; set; }
-        public Level Level { get; set; }
-        public Role Role { get; set; }
-        public SchoolLocation SchoolLocation { get; set; }
-        public ICollection<Payment> Payments { get; set; }
-        public ICollection<Attendance> Attendance { get; set; }
-        public ICollection<MemberEventActivity> MemberEventActivities { get; set; }
-        public ICollection<EventRegistration> Registrations { get; set; }
+        public virtual ContactInfoDTO ContactInfo { get; set; }
+        public virtual FeeScheduleDTO FeeSchedule { get; set; }
+        public virtual LevelDTO Level { get; set; }
+        public virtual RoleDTO Role { get; set; }
+        public virtual SchoolLocationDTO SchoolLocation { get; set; }
+        public virtual ICollection<PaymentDTO> Payments { get; set; }
+        public virtual ICollection<AttendanceDTO> Attendance { get; set; }
+        public virtual ICollection<MemberEventActivityDTO> MemberEventActivities { get; set; }
+        public virtual ICollection<EventRegistrationDTO> Registrations { get; set; }
     }
 }

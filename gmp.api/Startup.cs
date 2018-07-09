@@ -42,7 +42,9 @@ namespace gmp.api
                 {
                     options.SerializerSettings.MaxDepth = 1;
                 });
-            Mapper.Initialize(cfg => {
+            Mapper.Initialize(cfg =>
+            {
+                cfg.CreateMissingTypeMaps = true;
                 cfg.ForAllMaps((typeMap, mapConfig) => mapConfig.MaxDepth(3));
             });
            // services.AddAutoMapper();

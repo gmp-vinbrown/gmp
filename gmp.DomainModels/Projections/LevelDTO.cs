@@ -1,7 +1,10 @@
 ﻿using System.Collections.Generic;
+using AutoMapper.Attributes;
+using gmp.DomainModels.Entities;
 
 namespace gmp.DomainModels.Projections
 {
+    [MapsFrom(typeof(Level))]
     public class LevelDTO
     {
         public LevelDTO()
@@ -15,7 +18,7 @@ namespace gmp.DomainModels.Projections
         public string Description { get; set; }
         public int? Value { get; set; }
 
-        public SchoolDTO School { get; set; }
-        public ICollection<MemberDTO> Members { get; set; }
+        public virtual SchoolDTO School { get; set; }
+        public virtual ICollection<MemberDTO> Members { get; set; }
     }
 }

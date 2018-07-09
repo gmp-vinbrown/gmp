@@ -13,7 +13,7 @@ namespace gmp.DomainModels.Projections
         public string Notes { get; set; }
         public bool Deleted { get; set; }
 
-        public EventActivityDTO EventActivity { get; set; }
-        public MemberDTO Member { get; set; }
+        public virtual EventActivityDTO EventActivity { get; set; }
+        public virtual MemberDTO Member { get; set; }
     }
 }

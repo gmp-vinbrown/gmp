@@ -1,7 +1,9 @@
-﻿using gmp.DomainModels.Entities;
+﻿using AutoMapper.Attributes;
+using gmp.DomainModels.Entities;
 
 namespace gmp.DomainModels.Projections
 {
+    [MapsFrom(typeof(Schedule))]
     public class ScheduleDTO : AuditableEntity
     {
         public int ScheduleId { get; set; }
@@ -10,6 +12,6 @@ namespace gmp.DomainModels.Projections
         public string StartTime { get; set; }
         public int DurationMinutes { get; set; }
 
-        public EventDTO Event { get; set; }
+        public virtual EventDTO Event { get; set; }
     }
 }

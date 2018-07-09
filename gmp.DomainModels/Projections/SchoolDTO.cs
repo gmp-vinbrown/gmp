@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using AutoMapper.Attributes;
 using gmp.DomainModels.Entities;
@@ -9,6 +8,8 @@ namespace gmp.DomainModels.Projections
     [MapsFrom(typeof(School))]
     public class SchoolDTO : AuditableEntity
     {
+        
+
         public SchoolDTO()
         {
             Levels = new HashSet<LevelDTO>();
