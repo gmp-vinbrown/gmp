@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using gmp.Core.Services;
 using gmp.DomainModels.Entities;
 using gmp.DomainModels.Projections;
 using gmp.services.contracts.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace gmp.services.implementations.Repositories
 {
@@ -16,8 +19,13 @@ namespace gmp.services.implementations.Repositories
 
         public async Task<SchoolDTO> GetSchoolById(int id)
         {
-            var school = await _ctx.FindAsync<School>(id);
-            return (school != null && school.Deleted) ? null : AutoMapper.Mapper.Map<SchoolDTO>(school);
+            var school = await (from s in _ctx.Schools
+                                where s.SchoolId == id && !s.Deleted
+                select s)
+                .SingleOrDefaultAsync();
+
+            var ret = Mapper.Map<SchoolDTO>(school);
+            return ret;
         }
 
         public async Task<int> AddSchool(SchoolDTO school)
@@ -54,8 +62,13 @@ namespace gmp.services.implementations.Repositories
 
         public async Task<SchoolLocationDTO> GetSchoolLocationById(int id)
         {
-            var location = await _ctx.FindAsync<SchoolLocation>(id);
-            return location.Deleted ? null : AutoMapper.Mapper.Map<SchoolLocationDTO>(location);
+            var location = await (from loc in _ctx.SchoolLocations
+                                where loc.SchoolLocationId == id && !loc.Deleted
+                                select loc)
+                .SingleOrDefaultAsync();
+
+            var ret = Mapper.Map<SchoolLocationDTO>(location);
+            return ret;
         }
 
         public async Task<int> AddSchoolLocation(SchoolLocationDTO location)

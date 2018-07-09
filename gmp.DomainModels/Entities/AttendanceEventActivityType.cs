@@ -1,5 +1,8 @@
-﻿namespace gmp.DomainModels.Entities
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace gmp.DomainModels.Entities
 {
+    [Table("AttendanceEventActivityType")]
     public partial class AttendanceEventActivityType
     {
         public int AttendanceEventActivityTypeId { get; set; }

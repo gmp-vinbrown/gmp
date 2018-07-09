@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace gmp.DomainModels.Entities
 {
+    [Table("Payment")]
     public partial class Payment
     {
         public Payment()

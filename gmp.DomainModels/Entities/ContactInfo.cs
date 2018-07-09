@@ -1,6 +1,9 @@
 ﻿
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace gmp.DomainModels.Entities
 {
+    [Table("ContactInfo")]
     public partial class ContactInfo : AuditableEntity
     {
         public int ContactInfoId { get; set; }

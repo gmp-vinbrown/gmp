@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace gmp.DomainModels.Entities
 {
+    [Table("EventActivity")]
     public partial class EventActivity
     {
         public EventActivity()

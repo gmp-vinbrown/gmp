@@ -388,6 +388,11 @@ namespace gmp.DomainModels.Entities
                 entity.Property(e => e.Name)
                     .HasMaxLength(250)
                     .IsUnicode(false);
+
+                //entity.HasMany(e => e.SchoolLocations)
+                //    .WithOne(e => e.School)
+                //    .HasForeignKey(e => e.SchoolLocationId);
+
             });
 
             modelBuilder.Entity<SchoolLocation>(entity =>
@@ -468,7 +473,7 @@ namespace gmp.DomainModels.Entities
             }
             if (userId == 0)
             {
-                throw new UnauthorizedAccessException("This action requires authentication");
+                // throw new UnauthorizedAccessException("This action requires authentication");
             }
 
             var addedEntities = ChangeTracker.Entries<AuditableEntity>()

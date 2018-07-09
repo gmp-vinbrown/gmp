@@ -1,5 +1,8 @@
-﻿namespace gmp.DomainModels.Entities
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace gmp.DomainModels.Entities
 {
+    [Table("Schedule")]
     public class Schedule : AuditableEntity
     {
         public int ScheduleId { get; set; }

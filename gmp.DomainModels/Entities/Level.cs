@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace gmp.DomainModels.Entities
 {
+    [Table("Level")]
     public partial class Level
     {
         public Level()

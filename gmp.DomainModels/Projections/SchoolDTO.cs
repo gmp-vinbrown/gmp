@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using AutoMapper.Attributes;
 using gmp.DomainModels.Entities;
 
@@ -17,7 +18,9 @@ namespace gmp.DomainModels.Projections
         }
 
         public int SchoolId { get; set; }
+        [MaxLength(250)]
         public string Name { get; set; }
+        [MaxLength(10)]
         public string Code { get; set; }
         public bool Deleted { get; set; }
 

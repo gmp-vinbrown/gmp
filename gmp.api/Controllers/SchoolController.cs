@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace gmp.api.Controllers
 {
-    //[Route("api/school")]
     [ApiController]
     public class SchoolController : ControllerBase
     {
