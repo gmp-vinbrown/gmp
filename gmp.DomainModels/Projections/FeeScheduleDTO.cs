@@ -17,7 +17,6 @@ namespace gmp.DomainModels.Projections
         public int ProgramId { get; set; }
         public string Name { get; set; }
         public DateTime StartDate { get; set; }
-        public virtual TransactionType TransactionType { get; set; }
         public int NumberOfPayments { get; set; }
         public decimal? DiscountAmount { get; set; }
         public decimal? DiscountPercent { get; set; }

@@ -53,7 +53,10 @@ namespace gmp.services.implementations.Repositories
             var entityDest = await _ctx.Programs.FindAsync(programSrc.ProgramId);
             if (entityDest != null)
             {
-                AutoMapper.Mapper.Map(programSrc, entityDest);
+                entityDest.BaseFee = programSrc.BaseFee;
+                entityDest.Description = programSrc.Description;
+                entityDest.DurationDays = programSrc.DurationDays;
+                entityDest.Name = programSrc.Name;
             }
             await _ctx.SaveChangesAsync();
 
