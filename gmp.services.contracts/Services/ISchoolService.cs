@@ -17,5 +17,9 @@ namespace gmp.services.contracts.Services
         Task<int> AddSchoolLocation(SchoolLocationDTO location);
         Task<SchoolLocationDTO> UpdateSchoolLocation(SchoolLocationDTO location);
         Task<bool> DeleteSchoolLocation(int id);
+
+        Task<int> AddRole(RoleDTO role);
+        Task<bool> DeleteRole(int id);
+        Task<RoleDTO> UpdateRole(RoleDTO role);
     }
 }

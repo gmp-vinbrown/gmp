@@ -60,6 +60,11 @@ namespace gmp.services.implementations.Repositories
         public async Task<bool> DeleteSchool(int id)
         {
             var school = await _ctx.Schools.FindAsync(id);
+            if (school == null)
+            {
+                return false;
+            }
+
             school.Deleted = true;
             return await _ctx.SaveChangesAsync() > 0;
         }
@@ -114,8 +119,54 @@ namespace gmp.services.implementations.Repositories
         public async Task<bool> DeleteSchoolLocation(int id)
         {
             var location = await _ctx.SchoolLocations.FindAsync(id);
+            if (location == null)
+            {
+                return false;
+            }
+
             location.Deleted = true;
             return await _ctx.SaveChangesAsync() > 0;
+        }
+
+        public async Task<int> AddRole(RoleDTO role)
+        {
+            if (role == null)
+            {
+                throw new ArgumentNullException($"Role cannot be null");
+            }
+
+            var newRole = AutoMapper.Mapper.Map<Role>(role);
+            await _ctx.Roles.AddAsync(newRole);
+            await _ctx.SaveChangesAsync();
+            return newRole.RoleId;
+        }
+
+        public async Task<bool> DeleteRole(int id)
+        {
+            var role = await _ctx.Roles.FindAsync(id);
+            if (role == null)
+            {
+                return false;
+            }
+
+            role.Deleted = true;
+            return await _ctx.SaveChangesAsync() > 0;
+        }
+
+        public async Task<RoleDTO> UpdateRole(RoleDTO roleSrc)
+        {
+            var entityDest = await _ctx.Roles.FindAsync(roleSrc.RoleId);
+            if (entityDest != null)
+            {
+                AutoMapper.Mapper.Map(roleSrc, entityDest);
+            }
+            else
+            {
+                return null;
+            }
+            await _ctx.SaveChangesAsync();
+
+            return await Task.FromResult(roleSrc);
         }
     }
 }

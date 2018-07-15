@@ -53,5 +53,20 @@ namespace gmp.services.implementations.Services
         {
             return await _schoolRepository.DeleteSchoolLocation(id);
         }
+
+        public async Task<int> AddRole(RoleDTO role)
+        {
+            return await _schoolRepository.AddRole(role);
+        }
+
+        public async Task<bool> DeleteRole(int id)
+        {
+            return await _schoolRepository.DeleteRole(id);
+        }
+
+        public async Task<RoleDTO> UpdateRole(RoleDTO role)
+        {
+            return await _schoolRepository.UpdateRole(role);
+        }
     }
 }

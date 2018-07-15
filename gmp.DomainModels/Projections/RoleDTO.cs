@@ -16,6 +16,7 @@ namespace gmp.DomainModels.Projections
         public int SchoolId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
+        public bool Deleted { get; set; }
 
         public virtual SchoolDTO School { get; set; }
         public virtual ICollection<MemberDTO> Members { get; set; }
