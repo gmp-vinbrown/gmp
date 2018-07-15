@@ -19,6 +19,7 @@ namespace gmp.DomainModels.Entities
         public int SchoolLocationId { get; set; }
         public int ContactInfoId { get; set; }
         public int RoleId { get; set; }
+        public int ProgramId { get; set; }
         public int? FeeScheduleId { get; set; }
         public string Prefix { get; set; }
         public string FirstName { get; set; }
@@ -34,6 +35,7 @@ namespace gmp.DomainModels.Entities
         public bool Deleted { get; set; }
 
         public virtual ContactInfo ContactInfo { get; set; }
+        public virtual Program Program { get; set; }
         public virtual FeeSchedule FeeSchedule { get; set; }
         public virtual Level Level { get; set; }
         public virtual Role Role { get; set; }

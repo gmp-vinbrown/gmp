@@ -13,7 +13,6 @@ namespace gmp.DomainModels.Entities
         }
 
         public int FeeScheduleId { get; set; }
-        public int ProgramId { get; set; }
         public string Name { get; set; }
         public DateTime StartDate { get; set; }
         public int NumberOfPayments { get; set; }
@@ -23,7 +22,6 @@ namespace gmp.DomainModels.Entities
         public bool Active { get; set; }
         public bool Deleted { get; set; }
 
-        public virtual Program Program { get; set; }
         public virtual ICollection<Member> Members { get; set; }
     }
 }

@@ -20,6 +20,7 @@ namespace gmp.DomainModels.Projections
         public int SchoolLocationId { get; set; }
         public int ContactInfoId { get; set; }
         public int RoleId { get; set; }
+        public int ProgramId { get; set; }
         public int? FeeScheduleId { get; set; }
         public string Prefix { get; set; }
         public string FirstName { get; set; }
@@ -35,6 +36,7 @@ namespace gmp.DomainModels.Projections
         public bool Deleted { get; set; }
 
         public virtual ContactInfoDTO ContactInfo { get; set; }
+        public virtual ProgramDTO Program { get; set; }
         public virtual FeeScheduleDTO FeeSchedule { get; set; }
         public virtual LevelDTO Level { get; set; }
         public virtual RoleDTO Role { get; set; }

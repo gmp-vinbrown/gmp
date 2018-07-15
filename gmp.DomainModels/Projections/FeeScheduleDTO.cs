@@ -14,7 +14,6 @@ namespace gmp.DomainModels.Projections
         }
 
         public int FeeScheduleId { get; set; }
-        public int ProgramId { get; set; }
         public string Name { get; set; }
         public DateTime StartDate { get; set; }
         public int NumberOfPayments { get; set; }
@@ -24,7 +23,6 @@ namespace gmp.DomainModels.Projections
         public bool Active { get; set; }
         public bool Deleted { get; set; }
 
-        public virtual ProgramDTO Program { get; set; }
         public virtual ICollection<MemberDTO> Members { get; set; }
     }
 }
