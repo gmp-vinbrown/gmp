@@ -39,9 +39,9 @@ namespace gmp.services.implementations.Repositories
         public async Task<bool> DeleteProgram(int id)
         {
             var program = await _ctx.Programs.FindAsync(id);
-            foreach (var feeSchedule in program.FeeSchedules)
+            if (program == null)
             {
-                feeSchedule.Deleted = true;
+                return false;
             }
 
             program.Deleted = true;
@@ -74,17 +74,16 @@ namespace gmp.services.implementations.Repositories
             return programs.Select(AutoMapper.Mapper.Map<ProgramDTO>);
         }
 
-        public async Task<IEnumerable<ProgramDTO>> GetProgramsForMember(int memberId)
+        public async Task<ProgramDTO> GetProgramForMember(int memberId)
         {
-            var programs = await (
+            var program = await (
                 from p in _ctx.Programs
-                from fs in p.FeeSchedules
-                from member in fs.Members
+                from member in p.Members
                 where member.MemberId == memberId &&
-                      !member.Deleted && !fs.Deleted && !p.Deleted
-                select p).ToListAsync();
+                      !member.Deleted && !p.Deleted
+                select p).SingleOrDefaultAsync();
 
-            return programs.Select(AutoMapper.Mapper.Map<ProgramDTO>);
+            return AutoMapper.Mapper.Map<ProgramDTO>(program);
         }
 
         public async Task<FeeScheduleDTO> GetFeeScheduleById(int id)
@@ -124,17 +123,6 @@ namespace gmp.services.implementations.Repositories
             await _ctx.SaveChangesAsync();
 
             return await Task.FromResult(scheduleSrc);
-        }
-
-        public async Task<IEnumerable<FeeScheduleDTO>> GetFeeSchedulesForProgram(int programId)
-        {
-            var feeSchedules = await (from fs in _ctx.FeeSchedules
-                                  where fs.ProgramId == programId &&
-                                        !fs.Deleted && !fs.Program.Deleted
-                                  select fs).
-                ToListAsync();
-
-            return feeSchedules.Select(AutoMapper.Mapper.Map<FeeScheduleDTO>);
         }
 
         public async Task<FeeScheduleDTO> GetFeeScheduleForMember(int memberId)

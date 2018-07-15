@@ -9,7 +9,7 @@ namespace gmp.DomainModels.Projections
     {
         public ProgramDTO()
         {
-            FeeSchedules = new HashSet<FeeScheduleDTO>();
+            Members = new HashSet<MemberDTO>();
         }
 
         public int ProgramId { get; set; }
@@ -21,6 +21,6 @@ namespace gmp.DomainModels.Projections
         public bool Deleted { get; set; }
 
         public virtual SchoolDTO School { get; set; }
-        public virtual ICollection<FeeScheduleDTO> FeeSchedules { get; set; }
+        public virtual ICollection<MemberDTO> Members { get; set; }
     }
 }

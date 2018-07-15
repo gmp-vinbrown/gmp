@@ -13,7 +13,7 @@ namespace gmp.services.contracts.Repositories
         Task<bool> DeleteProgram(int id);
         Task<ProgramDTO> UpdateProgram(ProgramDTO program);
         Task<IEnumerable<ProgramDTO>> GetProgramsForSchool(int schoolId);
-        Task<IEnumerable<ProgramDTO>> GetProgramsForMember(int memberId);
+        Task<ProgramDTO> GetProgramForMember(int memberId);
 
         #endregion
 
@@ -23,7 +23,6 @@ namespace gmp.services.contracts.Repositories
         Task<int> AddFeeSchedule(FeeScheduleDTO schedule);
         Task<bool> DeleteFeeSchedule(int id);
         Task<FeeScheduleDTO> UpdateFeeSchedule(FeeScheduleDTO schedule);
-        Task<IEnumerable<FeeScheduleDTO>> GetFeeSchedulesForProgram(int programId);
         Task<FeeScheduleDTO> GetFeeScheduleForMember(int memberId);
 
         #endregion

@@ -8,7 +8,7 @@ namespace gmp.DomainModels.Entities
     {
         public Program()
         {
-            FeeSchedules = new HashSet<FeeSchedule>();
+            Members = new HashSet<Member>();
         }
 
         public int ProgramId { get; set; }
@@ -20,6 +20,6 @@ namespace gmp.DomainModels.Entities
         public bool Deleted { get; set; }
 
         public virtual School School { get; set; }
-        public virtual ICollection<FeeSchedule> FeeSchedules { get; set; }
+        public virtual ICollection<Member> Members { get; set; }
     }
 }

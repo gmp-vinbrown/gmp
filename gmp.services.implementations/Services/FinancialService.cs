@@ -35,17 +35,15 @@ namespace gmp.services.implementations.Services
             if (program != null)
             {
                 // We cannot delete a program for which a member is still making payments
-                foreach (var fs in program.FeeSchedules.Where(fs => fs.Members.Any()))
+                foreach (var member in program.Members)
                 {
-                    foreach (var member in fs.Members)
+                    var balanceDue = await GetMemberBalanceDue(member.MemberId);
+                    if (balanceDue > 0)
                     {
-                        var balanceDue = await GetMemberBalanceDue(member.MemberId);
-                        if (balanceDue > 0)
-                        {
-                            throw new InvalidOperationException("Cannot delete a Program that is in use by one or more members");
-                        }
+                        throw new InvalidOperationException("Cannot delete a Program that is in use by one or more members");
                     }
                 }
+                
                 return await _financialRepository.DeleteProgram(id);
             }
             return false;
@@ -61,9 +59,9 @@ namespace gmp.services.implementations.Services
             return await _financialRepository.GetProgramsForSchool(schoolId);
         }
 
-        public async Task<IEnumerable<ProgramDTO>> GetProgramsForMember(int memberId)
+        public async Task<ProgramDTO> GetProgramForMember(int memberId)
         {
-            return await _financialRepository.GetProgramsForMember(memberId);
+            return await _financialRepository.GetProgramForMember(memberId);
         }
 
         public async Task<FeeScheduleDTO> GetFeeScheduleById(int id)
@@ -95,11 +93,6 @@ namespace gmp.services.implementations.Services
             return await _financialRepository.UpdateFeeSchedule(schedule);
         }
 
-        public async Task<IEnumerable<FeeScheduleDTO>> GetFeeSchedulesForProgram(int programId)
-        {
-            return await _financialRepository.GetFeeSchedulesForProgram(programId);
-        }
-
         public async Task<FeeScheduleDTO> GetFeeScheduleForMember(int memberId)
         {
             return await _financialRepository.GetFeeScheduleForMember(memberId);
@@ -127,9 +120,10 @@ namespace gmp.services.implementations.Services
 
         public async Task<decimal> GetMemberBalanceDue(int memberId)
         {
+            var program = await _financialRepository.GetProgramForMember(memberId);
             var payments = await _financialRepository.GetPaymentsForMember(memberId);
             var fs = await _financialRepository.GetFeeScheduleForMember(memberId);
-            var baseFee = fs.Program.BaseFee;
+            var baseFee = program.BaseFee;
             var discount = fs.DiscountAmount ?? (baseFee * fs.DiscountPercent ?? 0);
 
             var paidToDate = payments
