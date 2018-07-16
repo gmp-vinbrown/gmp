@@ -17,7 +17,7 @@ namespace gmp.DomainModels.Entities
 
         public int MemberId { get; set; }
         public int SchoolLocationId { get; set; }
-        public int ContactInfoId { get; set; }
+        public int? ContactInfoId { get; set; }
         public int RoleId { get; set; }
         public int ProgramId { get; set; }
         public int? FeeScheduleId { get; set; }
