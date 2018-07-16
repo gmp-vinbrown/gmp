@@ -108,6 +108,10 @@ namespace gmp.services.implementations.Repositories
         public async Task<bool> DeleteFeeSchedule(int id)
         {
             var fs = await _ctx.FeeSchedules.FindAsync(id);
+            if (fs == null)
+            {
+                return false;
+            }
 
             fs.Deleted = true;
             return await _ctx.SaveChangesAsync() > 0;
