@@ -21,5 +21,10 @@ namespace gmp.services.contracts.Services
         Task<int> AddRole(RoleDTO role);
         Task<bool> DeleteRole(int id);
         Task<RoleDTO> UpdateRole(RoleDTO role);
+
+        Task<LevelDTO> GetLevelById(int id);
+        Task<int> AddLevel(LevelDTO level);
+        Task<bool> DeleteLevel(int id);
+        Task<LevelDTO> UpdateLevel(LevelDTO level);
     }
 }

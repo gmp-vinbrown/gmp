@@ -259,7 +259,7 @@ namespace gmp.DomainModels.Entities
                     .HasConstraintName("FK_Member_FeeSchedule");
 
                 entity.HasOne(d => d.Level)
-                    .WithMany(p => p.Member)
+                    .WithMany(p => p.Members)
                     .HasForeignKey(d => d.LevelId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Member_Level");

@@ -44,7 +44,7 @@ namespace gmp.services.implementations.Repositories
         public async Task<SchoolDTO> UpdateSchool(SchoolDTO schoolSrc)
         {
             var entityDest = await _ctx.Schools.FindAsync(schoolSrc.SchoolId);
-            if (entityDest != null)
+            if (entityDest != null && !entityDest.Deleted)
             {
                 AutoMapper.Mapper.Map(schoolSrc, entityDest);
             }
@@ -96,7 +96,7 @@ namespace gmp.services.implementations.Repositories
         public async Task<SchoolLocationDTO> UpdateSchoolLocation(SchoolLocationDTO locationSrc)
         {
             var entityDest = await _ctx.SchoolLocations.FindAsync(locationSrc.SchoolLocationId);
-            if (entityDest != null)
+            if (entityDest != null && !entityDest.Deleted)
             {
                 entityDest.Name = locationSrc.Name;
                 entityDest.IsPrimary = locationSrc.IsPrimary;
@@ -156,7 +156,7 @@ namespace gmp.services.implementations.Repositories
         public async Task<RoleDTO> UpdateRole(RoleDTO roleSrc)
         {
             var entityDest = await _ctx.Roles.FindAsync(roleSrc.RoleId);
-            if (entityDest != null)
+            if (entityDest != null && !entityDest.Deleted)
             {
                 AutoMapper.Mapper.Map(roleSrc, entityDest);
             }
@@ -167,6 +167,61 @@ namespace gmp.services.implementations.Repositories
             await _ctx.SaveChangesAsync();
 
             return await Task.FromResult(roleSrc);
+        }
+
+        public async Task<LevelDTO> GetLevelById(int id)
+        {
+            var level = await(from lvl in _ctx.Levels
+                              where lvl.LevelId == id && !lvl.Deleted
+                              select lvl)
+                .SingleOrDefaultAsync();
+
+            var ret = Mapper.Map<LevelDTO>(level);
+            return ret;
+            
+        }
+
+        public async Task<int> AddLevel(LevelDTO level)
+        {
+            if (level == null)
+            {
+                throw new ArgumentNullException($"Level cannot be null");
+            }
+
+            var newLevel = AutoMapper.Mapper.Map<Level>(level);
+            await _ctx.Levels.AddAsync(newLevel);
+            await _ctx.SaveChangesAsync();
+            return newLevel.LevelId;
+        }
+
+        public async Task<bool> DeleteLevel(int id)
+        {
+            var level = await _ctx.Levels.FindAsync(id);
+            if (level == null)
+            {
+                return false;
+            }
+
+            level.Deleted = true;
+            return await _ctx.SaveChangesAsync() > 0;
+        }
+
+        public async Task<LevelDTO> UpdateLevel(LevelDTO levelSrc)
+        {
+            var entityDest = await _ctx.Levels.FindAsync(levelSrc.LevelId);
+            if (entityDest != null && !entityDest.Deleted)
+            {
+                entityDest.Description = levelSrc.Description;
+                entityDest.Name = levelSrc.Name;
+                entityDest.Value = levelSrc.Value;
+            }
+            else
+            {
+                return null;
+            }
+            await _ctx.SaveChangesAsync();
+
+            return await Task.FromResult(levelSrc);
         }
     }
 }

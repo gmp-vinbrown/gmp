@@ -51,7 +51,7 @@ namespace gmp.services.implementations.Repositories
         public async Task<ProgramDTO> UpdateProgram(ProgramDTO programSrc)
         {
             var entityDest = await _ctx.Programs.FindAsync(programSrc.ProgramId);
-            if (entityDest != null)
+            if (entityDest != null && !entityDest.Deleted)
             {
                 entityDest.BaseFee = programSrc.BaseFee;
                 entityDest.Description = programSrc.Description;
@@ -120,7 +120,7 @@ namespace gmp.services.implementations.Repositories
         public async Task<FeeScheduleDTO> UpdateFeeSchedule(FeeScheduleDTO scheduleSrc)
         {
             var entityDest = await _ctx.FeeSchedules.FindAsync(scheduleSrc.FeeScheduleId);
-            if (entityDest != null)
+            if (entityDest != null && !entityDest.Deleted)
             {
                 AutoMapper.Mapper.Map(scheduleSrc, entityDest);
             }
@@ -166,7 +166,7 @@ namespace gmp.services.implementations.Repositories
         public async Task<PaymentDTO> UpdatePayment(PaymentDTO paymentSrc)
         {
             var entityDest = await _ctx.Members.FindAsync(paymentSrc.PaymentId);
-            if (entityDest != null)
+            if (entityDest != null && !entityDest.Deleted)
             {
                 AutoMapper.Mapper.Map(paymentSrc, entityDest);
             }
@@ -207,6 +207,7 @@ namespace gmp.services.implementations.Repositories
             return types.Select(AutoMapper.Mapper.Map<TransactionTypeDTO>);
         }
 
+        // Not going to add these since Transaction Type is really system data.
         //public async Task<int> AddTransactionType(TransactionTypeDTO type)
         //{
         //    throw new NotImplementedException();

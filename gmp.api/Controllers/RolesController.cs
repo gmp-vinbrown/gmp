@@ -6,32 +6,32 @@ using Microsoft.AspNetCore.Mvc;
 namespace gmp.api.Controllers
 {
     [ApiController]
-    public class RoleController : ControllerBase
+    public class RolesController : ControllerBase
     {
         private readonly ISchoolService _schoolService;
 
-        public RoleController(ISchoolService schoolService)
+        public RolesController(ISchoolService schoolService)
         {
             _schoolService = schoolService;
         }
 
 
         [HttpPost]
-        [Route("api/role")]
+        [Route("api/roles")]
         public async Task<int> AddRole(RoleDTO role)
         {
             return await _schoolService.AddRole(role);
         }
 
         [HttpPut]
-        [Route("api/role")]
+        [Route("api/roles")]
         public async Task<RoleDTO> UpdateRole(RoleDTO role)
         {
             return await _schoolService.UpdateRole(role);
         }
 
         [HttpDelete]
-        [Route("api/role/{id}")]
+        [Route("api/roles/{id}")]
         public async Task<bool> DeleteRole(int id)
         {
             return await _schoolService.DeleteRole(id);

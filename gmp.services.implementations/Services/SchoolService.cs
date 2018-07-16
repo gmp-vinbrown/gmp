@@ -68,5 +68,25 @@ namespace gmp.services.implementations.Services
         {
             return await _schoolRepository.UpdateRole(role);
         }
+
+        public async Task<LevelDTO> GetLevelById(int id)
+        {
+            return await _schoolRepository.GetLevelById(id);
+        }
+
+        public async Task<int> AddLevel(LevelDTO level)
+        {
+            return await _schoolRepository.AddLevel(level);
+        }
+
+        public async Task<bool> DeleteLevel(int id)
+        {
+            return await _schoolRepository.DeleteLevel(id);
+        }
+
+        public async Task<LevelDTO> UpdateLevel(LevelDTO level)
+        {
+            return await _schoolRepository.UpdateLevel(level);
+        }
     }
 }

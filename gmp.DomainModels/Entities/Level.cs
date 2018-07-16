@@ -8,7 +8,7 @@ namespace gmp.DomainModels.Entities
     {
         public Level()
         {
-            Member = new HashSet<Member>();
+            Members = new HashSet<Member>();
         }
 
         public int LevelId { get; set; }
@@ -16,8 +16,9 @@ namespace gmp.DomainModels.Entities
         public string Name { get; set; }
         public string Description { get; set; }
         public int? Value { get; set; }
+        public bool Deleted { get; set; }
 
         public virtual School School { get; set; }
-        public virtual ICollection<Member> Member { get; set; }
+        public virtual ICollection<Member> Members { get; set; }
     }
 }

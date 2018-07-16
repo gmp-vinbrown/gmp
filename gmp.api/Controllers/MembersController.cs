@@ -6,38 +6,38 @@ using Microsoft.AspNetCore.Mvc;
 namespace gmp.api.Controllers
 {    
     [ApiController]
-    public class MembershipController : ControllerBase
+    public class MembersController : ControllerBase
     {
         private readonly IMembershipService _membershipService;
 
-        public MembershipController(IMembershipService membershipService)
+        public MembersController(IMembershipService membershipService)
         {
             _membershipService = membershipService;
         }
 
         [HttpGet]
-        [Route("api/member/{id}")]
+        [Route("api/members/{id}")]
         public async Task<MemberDTO> GetMemberById(int id)
         {
             return await _membershipService.GetMemberById(id);
         }
 
         [HttpPost]
-        [Route("api/member")]
+        [Route("api/members")]
         public async Task<int> AddMember(MemberDTO member)
         {
             return await _membershipService.AddMember(member);
         }
 
         [HttpPut]
-        [Route("api/member")]
+        [Route("api/members")]
         public async Task<MemberDTO> UpdateMember(MemberDTO member)
         {
             return await _membershipService.UpdateMember(member);
         }
 
         [HttpDelete]
-        [Route("api/member/{id}")]
+        [Route("api/members/{id}")]
         public async Task<bool> DeleteMember(int id)
         {
             return await _membershipService.DeleteMember(id);

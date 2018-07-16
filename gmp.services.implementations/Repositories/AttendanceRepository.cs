@@ -54,11 +54,16 @@ namespace gmp.services.implementations.Repositories
 
         public async Task<EventRegistrationDTO> UpdateRegistration(EventRegistrationDTO eventRegistrationSrc)
         {
-            var eventRegistrationDest = await _ctx.EventRegistrations.FindAsync(eventRegistrationSrc.EventRegistrationId);
-            if (eventRegistrationDest != null)
+            var entityDest = await _ctx.EventRegistrations.FindAsync(eventRegistrationSrc.EventRegistrationId);
+            if (entityDest != null && !entityDest.Deleted)
             {
-                AutoMapper.Mapper.Map(eventRegistrationSrc, eventRegistrationDest);
+                AutoMapper.Mapper.Map(eventRegistrationSrc, entityDest);
             }
+            else
+            {
+                return null;
+            }
+
             await _ctx.SaveChangesAsync();
 
             return await Task.FromResult(eventRegistrationSrc);

@@ -5,6 +5,7 @@ using AutoMapper;
 using gmp.Core.Security;
 using gmp.Core.Services;
 using gmp.DomainModels.Entities;
+using gmp.DomainModels.Projections;
 using gmp.services.contracts.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;

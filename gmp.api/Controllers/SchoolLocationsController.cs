@@ -6,38 +6,38 @@ using Microsoft.AspNetCore.Mvc;
 namespace gmp.api.Controllers
 {
     [ApiController]
-    public class SchoolLocationController : ControllerBase
+    public class SchoolLocationsController : ControllerBase
     {
         private readonly ISchoolService _schoolService;
 
-        public SchoolLocationController(ISchoolService schoolLocationService)
+        public SchoolLocationsController(ISchoolService schoolLocationService)
         {
             _schoolService = schoolLocationService;
         }
 
         [HttpGet]
-        [Route("api/schoolLocation/{id}")]
+        [Route("api/schoolLocations/{id}")]
         public async Task<SchoolLocationDTO> GetSchoolLocationById(int id)
         {
             return await _schoolService.GetSchoolLocationById(id);
         }
 
         [HttpPost]
-        [Route("api/schoolLocation")]
+        [Route("api/schoolLocations")]
         public async Task<int> AddSchoolLocation(SchoolLocationDTO schoolLocation)
         {
             return await _schoolService.AddSchoolLocation(schoolLocation);
         }
 
         [HttpPut]
-        [Route("api/schoolLocation")]
+        [Route("api/schoolLocations")]
         public async Task<SchoolLocationDTO> UpdateSchoolLocation(SchoolLocationDTO schoolLocation)
         {
             return await _schoolService.UpdateSchoolLocation(schoolLocation);
         }
 
         [HttpDelete]
-        [Route("api/schoolLocation/{id}")]
+        [Route("api/schoolLocations/{id}")]
         public async Task<bool> DeleteSchoolLocation(int id)
         {
             return await _schoolService.DeleteSchoolLocation(id);

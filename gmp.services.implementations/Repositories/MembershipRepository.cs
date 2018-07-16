@@ -46,7 +46,7 @@ namespace gmp.services.implementations.Repositories
         public async Task<MemberDTO> UpdateMember(MemberDTO memberSrc)
         {
             var entityDest = await _ctx.Members.FindAsync(memberSrc.MemberId);
-            if (entityDest != null)
+            if (entityDest != null && !entityDest.Deleted)
             {
                 AutoMapper.Mapper.Map(memberSrc, entityDest);
             }
