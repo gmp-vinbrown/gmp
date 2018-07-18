@@ -22,6 +22,10 @@ namespace gmp.services.implementations.Repositories
             var school = await (from s in _ctx.Schools
                                 where s.SchoolId == id && !s.Deleted
                 select s)
+                .Include("Roles")
+                .Include("Levels")
+                .Include("Programs")
+                .Include("SchoolLocations")
                 .SingleOrDefaultAsync();
 
             var ret = Mapper.Map<SchoolDTO>(school);
@@ -98,13 +102,7 @@ namespace gmp.services.implementations.Repositories
             var entityDest = await _ctx.SchoolLocations.FindAsync(locationSrc.SchoolLocationId);
             if (entityDest != null && !entityDest.Deleted)
             {
-                entityDest.Name = locationSrc.Name;
-                entityDest.IsPrimary = locationSrc.IsPrimary;
-                entityDest.Address1 = locationSrc.Address1;
-                entityDest.Address2 = locationSrc.Address2;
-                entityDest.City = locationSrc.City;
-                entityDest.StateCode = locationSrc.StateCode;
-                entityDest.Zip = locationSrc.Zip;
+                AutoMapper.Mapper.Map(locationSrc, entityDest);
 
                 await _ctx.SaveChangesAsync();
             }
@@ -211,9 +209,7 @@ namespace gmp.services.implementations.Repositories
             var entityDest = await _ctx.Levels.FindAsync(levelSrc.LevelId);
             if (entityDest != null && !entityDest.Deleted)
             {
-                entityDest.Description = levelSrc.Description;
-                entityDest.Name = levelSrc.Name;
-                entityDest.Value = levelSrc.Value;
+                AutoMapper.Mapper.Map(levelSrc, entityDest);
             }
             else
             {

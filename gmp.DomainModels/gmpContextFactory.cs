@@ -19,7 +19,7 @@ namespace gmp.DomainModels
             var connection = @"Server=(local);Database=gmp;Trusted_Connection=True;ConnectRetryCount=0";
             var optionsBuilder = new DbContextOptionsBuilder<gmpContext>();
             optionsBuilder
-                .UseLazyLoadingProxies()
+                //.UseLazyLoadingProxies()
                 .UseSqlServer(connection);
 
             return new gmpContext(optionsBuilder.Options, _userInfoService);

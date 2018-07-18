@@ -19,7 +19,16 @@ namespace gmp.services.implementations.Repositories
 
         public async Task<MemberDTO> GetMemberById(int id)
         {
-            var member = await _ctx.FindAsync<Member>(id);
+            var member = await (from m in _ctx.Members
+                                where m.MemberId == id
+                                select m)
+                                .Include("Role")
+                                .Include("Level")
+                                .Include("Program")
+                                .Include("FeeSchedule")
+                                .Include("ContactInfo")
+                                .Include("SchoolLocation")
+                                .SingleOrDefaultAsync();
             return member.Deleted ? null : AutoMapper.Mapper.Map<MemberDTO>(member);
         }
 

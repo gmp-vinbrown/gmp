@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using AutoMapper.Attributes;
 using gmp.DomainModels.Entities;
+using Newtonsoft.Json;
 
 namespace gmp.DomainModels.Projections
 {
@@ -24,8 +25,10 @@ namespace gmp.DomainModels.Projections
         public string Zip { get; set; }
         public bool Deleted { get; set; }
 
-
+        [JsonIgnore]
         public virtual SchoolDTO School { get; set; }
+
+        [JsonIgnore]
         public virtual ICollection<MemberDTO> Members { get; set; }
     }
 }
