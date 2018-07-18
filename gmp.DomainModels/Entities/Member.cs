@@ -19,7 +19,7 @@ namespace gmp.DomainModels.Entities
         public int SchoolLocationId { get; set; }
         public int? ContactInfoId { get; set; }
         public int RoleId { get; set; }
-        public int ProgramId { get; set; }
+        public int? ProgramId { get; set; }
         public int? FeeScheduleId { get; set; }
         public string Prefix { get; set; }
         public string FirstName { get; set; }
@@ -27,10 +27,10 @@ namespace gmp.DomainModels.Entities
         public string LastName { get; set; }
         public string Suffix { get; set; }
         public string Gender { get; set; }
-        public decimal Weight { get; set; }
-        public DateTime DOB { get; set; }
-        public int Age { get; set; }
-        public int LevelId { get; set; }
+        public decimal? Weight { get; set; }
+        public DateTime? DOB { get; set; }
+        public int? Age { get; set; }
+        public int? LevelId { get; set; }
         public string Notes { get; set; }
         public bool Deleted { get; set; }
 

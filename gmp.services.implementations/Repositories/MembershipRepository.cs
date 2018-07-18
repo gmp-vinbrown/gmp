@@ -70,7 +70,11 @@ namespace gmp.services.implementations.Repositories
                 from schoolLocation in _ctx.SchoolLocations
                 where schoolLocation.SchoolId == schoolId 
                 && schoolLocation.Deleted == false && member.Deleted == false
-                select member).ToListAsync();
+                select member)
+                .Include("ContactInfo")
+                .Include("Role")
+                .Include("Level")
+                .ToListAsync();
 
             return members.Select(AutoMapper.Mapper.Map<MemberDTO>);
         }
@@ -78,9 +82,13 @@ namespace gmp.services.implementations.Repositories
         public async Task<IEnumerable<MemberDTO>> GetMembersBySchoolLocation(int schoolLocationId)
         {
             var members = await (from member in _ctx.Members
-                                 where member.SchoolLocationId == schoolLocationId
-                                 && member.Deleted == false
-                                 select member).ToListAsync();
+                    where member.SchoolLocationId == schoolLocationId
+                          && member.SchoolLocation.Deleted == false && member.Deleted == false
+                    select member)
+                .Include("ContactInfo")
+                .Include("Role")
+                .Include("Level")
+                .ToListAsync();
 
             return members.Select(AutoMapper.Mapper.Map<MemberDTO>);
         }

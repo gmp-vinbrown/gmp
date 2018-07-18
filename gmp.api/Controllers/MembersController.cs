@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using gmp.DomainModels.Projections;
 using gmp.services.contracts.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -20,6 +21,20 @@ namespace gmp.api.Controllers
         public async Task<MemberDTO> GetMemberById(int id)
         {
             return await _membershipService.GetMemberById(id);
+        }
+
+        [HttpGet]
+        [Route("api/school/{id}/members")]
+        public async Task<IEnumerable<MemberDTO>> GetMemberBySchool(int id)
+        {
+            return await _membershipService.GetMembersBySchool(id);
+        }
+
+        [HttpGet]
+        [Route("api/schoollocation/{id}/members")]
+        public async Task<IEnumerable<MemberDTO>> GetMemberBySchoolLocatin(int id)
+        {
+            return await _membershipService.GetMembersBySchoolLocation(id);
         }
 
         [HttpPost]
