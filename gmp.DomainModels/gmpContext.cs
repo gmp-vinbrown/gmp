@@ -30,6 +30,7 @@ namespace gmp.DomainModels.Entities
         public virtual DbSet<Level> Levels { get; set; }
         public virtual DbSet<Member> Members { get; set; }
         public virtual DbSet<MemberEventActivity> MemberEventActivities { get; set; }
+        public virtual DbSet<MemberHistory> MemberHistory { get; set; }
         public virtual DbSet<Payment> Payments { get; set; }
         public virtual DbSet<Program> Programs { get; set; }
         public virtual DbSet<EventRegistration> EventRegistrations { get; set; }
@@ -270,11 +271,66 @@ namespace gmp.DomainModels.Entities
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Member_Role");
 
-                //entity.HasOne(d => d.SchoolLocation)
-                //    .WithMany(p => p.Members)
-                //    .HasForeignKey(d => d.SchoolLocationId)
-                //    .OnDelete(DeleteBehavior.ClientSetNull)
-                //    .HasConstraintName("FK_Member_SchoolLocation");
+                entity.HasOne(d => d.SchoolLocation)
+                    .WithMany(p => p.Members)
+                    .HasForeignKey(d => d.SchoolLocationId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Member_SchoolLocation");
+                
+            });
+
+            modelBuilder.Entity<MemberHistory>(entity =>
+            {
+                entity.HasIndex(e => e.MemberId)
+                    .HasName("IX_Member");
+
+                entity.HasIndex(e => e.RoleId)
+                    .HasName("IX_Role");
+
+                entity.HasIndex(e => e.SchoolLocationId)
+                    .HasName("IX_SchoolLocation");
+
+                entity.Property(e => e.Created).HasColumnType("datetime");
+                entity.Property(e => e.Updated).HasColumnType("datetime");
+
+                entity.Property(e => e.FirstName)
+                    .IsRequired()
+                    .HasMaxLength(150)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Gender)
+                    .IsRequired()
+                    .HasMaxLength(10)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.LastName)
+                    .IsRequired()
+                    .HasMaxLength(150)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.MiddleName)
+                    .HasMaxLength(150)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Notes).IsUnicode(false);
+
+                entity.Property(e => e.Prefix)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Suffix)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.HasOne(d => d.Program);
+
+                entity.HasOne(d => d.FeeSchedule);
+
+                entity.HasOne(d => d.Level);
+
+                entity.HasOne(d => d.Role);
+
+                entity.HasOne(d => d.SchoolLocation);
 
             });
 

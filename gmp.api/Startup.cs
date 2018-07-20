@@ -37,10 +37,12 @@ namespace gmp.api
             {
                 cfg.CreateMissingTypeMaps = true;
                 cfg.ForAllMaps((typeMap, mapConfig) => mapConfig.MaxDepth(3));
+                cfg.CreateMap<Member, MemberHistory>();
             });
-           // services.AddAutoMapper();
-
             
+            // services.AddAutoMapper();
+
+
 
             services.AddCors();
 

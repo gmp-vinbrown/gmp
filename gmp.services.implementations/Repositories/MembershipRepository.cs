@@ -57,7 +57,11 @@ namespace gmp.services.implementations.Repositories
             var entityDest = await _ctx.Members.FindAsync(memberSrc.MemberId);
             if (entityDest != null && !entityDest.Deleted)
             {
+                var hist = AutoMapper.Mapper.Map(entityDest, new MemberHistory());
+                _ctx.MemberHistory.Add(hist);
+
                 AutoMapper.Mapper.Map(memberSrc, entityDest);
+                
             }
             await _ctx.SaveChangesAsync();
 
