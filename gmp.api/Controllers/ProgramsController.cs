@@ -17,21 +17,21 @@ namespace gmp.api.Controllers
 
 
         [HttpPost]
-        [Route("api/programs")]
+        [Route("api/v1/programs")]
         public async Task<int> AddProgram(ProgramDTO program)
         {
             return await _financialService.AddProgram(program);
         }
 
         [HttpPut]
-        [Route("api/programs")]
+        [Route("api/v1/programs")]
         public async Task<ProgramDTO> UpdateProgram(ProgramDTO program)
         {
             return await _financialService.UpdateProgram(program);
         }
 
         [HttpDelete]
-        [Route("api/programs/{id}")]
+        [Route("api/v1/programs/{id}")]
         public async Task<bool> DeleteProgram(int id)
         {
             return await _financialService.DeleteProgram(id);

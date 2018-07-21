@@ -16,28 +16,28 @@ namespace gmp.api.Controllers
         }
 
         [HttpGet]
-        [Route("api/schools/{id}")]
+        [Route("api/v1/schools/{id}")]
         public async Task<SchoolDTO> GetSchoolById(int id)
         {
             return await _schoolService.GetSchoolById(id);
         }
 
         [HttpPost]
-        [Route("api/schools")]
+        [Route("api/v1/schools")]
         public async Task<int> AddSchool([FromBody]SchoolDTO school)
         {
             return await _schoolService.AddSchool(school);
         }
 
         [HttpPut]
-        [Route("api/schools")]
+        [Route("api/v1/schools")]
         public async Task<SchoolDTO> UpdateSchool(SchoolDTO school)
         {
             return await _schoolService.UpdateSchool(school);
         }
 
         [HttpDelete]
-        [Route("api/schools/{id}")]
+        [Route("api/v1/schools/{id}")]
         public async Task<bool> DeleteSchool(int id)
         {
             return await _schoolService.DeleteSchool(id);

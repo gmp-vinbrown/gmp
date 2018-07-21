@@ -17,7 +17,7 @@ namespace gmp.api.Controllers
         }
 
         [HttpGet]
-        [Route("api/transactiontypes")]
+        [Route("api/v1/transactiontypes")]
         public async Task<IEnumerable<TransactionTypeDTO>> GetAllTransactionTypes()
         {
             return await _financialService.GetAllTransactionTypes();

@@ -17,21 +17,21 @@ namespace gmp.api.Controllers
 
 
         [HttpPost]
-        [Route("api/roles")]
+        [Route("api/v1/roles")]
         public async Task<int> AddRole(RoleDTO role)
         {
             return await _schoolService.AddRole(role);
         }
 
         [HttpPut]
-        [Route("api/roles")]
+        [Route("api/v1/roles")]
         public async Task<RoleDTO> UpdateRole(RoleDTO role)
         {
             return await _schoolService.UpdateRole(role);
         }
 
         [HttpDelete]
-        [Route("api/roles/{id}")]
+        [Route("api/v1/roles/{id}")]
         public async Task<bool> DeleteRole(int id)
         {
             return await _schoolService.DeleteRole(id);

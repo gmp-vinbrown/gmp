@@ -18,35 +18,35 @@ namespace gmp.api.Controllers
         }
 
         [HttpGet]
-        [Route("api/members/{memberId}/payments/{transactionTypeId}")]
+        [Route("api/v1/members/{memberId}/payments/{transactionTypeId}")]
         public async Task<IEnumerable<PaymentDTO>> GetPaymentsByPaymentType(int memberId, int transactionTypeId, DateTime? asOfDate = null)
         {
             return await _financialService.GetMemberPaymentsByType(memberId, transactionTypeId, asOfDate);
         }
 
         [HttpGet]
-        [Route("api/schools/{schoolId}/payments")]
+        [Route("api/v1/schools/{schoolId}/payments")]
         public async Task<IEnumerable<PaymentDTO>> GetPaymentsForSchool(int schoolId)
         {
             return await _financialService.GetPaymentsForSchool(schoolId);
         }        
 
         [HttpPost]
-        [Route("api/payments")]
+        [Route("api/v1/payments")]
         public async Task<int> AddPayment(PaymentDTO payment)
         {
             return await _financialService.AddPayment(payment);
         }
 
         [HttpPut]
-        [Route("api/payments")]
+        [Route("api/v1/payments")]
         public async Task<PaymentDTO> UpdatePayment(PaymentDTO payment)
         {
             return await _financialService.UpdatePayment(payment);
         }
 
         [HttpDelete]
-        [Route("api/payments/{id}")]
+        [Route("api/v1/payments/{id}")]
         public async Task<bool> DeletePayment(int id)
         {
             return await _financialService.DeletePayment(id);

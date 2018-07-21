@@ -17,21 +17,21 @@ namespace gmp.api.Controllers
 
 
         [HttpPost]
-        [Route("api/feeschedules")]
+        [Route("api/v1/feeschedules")]
         public async Task<int> AddFeeSchedule(FeeScheduleDTO feeSchedule)
         {
             return await _financialService.AddFeeSchedule(feeSchedule);
         }
 
         [HttpPut]
-        [Route("api/feeschedules")]
+        [Route("api/v1/feeschedules")]
         public async Task<FeeScheduleDTO> UpdateFeeSchedule(FeeScheduleDTO feeSchedule)
         {
             return await _financialService.UpdateFeeSchedule(feeSchedule);
         }
 
         [HttpDelete]
-        [Route("api/feeschedules/{id}")]
+        [Route("api/v1/feeschedules/{id}")]
         public async Task<bool> DeleteFeeSchedule(int id)
         {
             return await _financialService.DeleteFeeSchedule(id);
