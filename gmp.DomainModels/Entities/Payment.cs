@@ -9,7 +9,7 @@ namespace gmp.DomainModels.Entities
     {
         public Payment()
         {
-            Registration = new HashSet<EventRegistration>();
+            Registrations = new HashSet<EventRegistration>();
         }
 
         public int PaymentId { get; set; }
@@ -22,6 +22,6 @@ namespace gmp.DomainModels.Entities
 
         public virtual Member Member { get; set; }
         public virtual TransactionType TransactionType { get; set; }
-        public virtual ICollection<EventRegistration> Registration { get; set; }
+        public virtual ICollection<EventRegistration> Registrations { get; set; }
     }
 }

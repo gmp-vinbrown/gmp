@@ -36,7 +36,7 @@ namespace gmp.services.contracts.Services
         Task<PaymentDTO> UpdatePayment(PaymentDTO payment);
 
         Task<decimal> GetMemberBalanceDue(int memberId);
-        Task<IEnumerable<PaymentDTO>> GetMemberPaymentsByType(int memberId, TransactionTypeDTO type, DateTime? asOfDate = null);
+        Task<IEnumerable<PaymentDTO>> GetMemberPaymentsByType(int memberId, int transactionTypeId, DateTime? asOfDate = null);
         Task<IEnumerable<PaymentDTO>> GetPaymentsForSchool(int schoolId);
 
         #endregion

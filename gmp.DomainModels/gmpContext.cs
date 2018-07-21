@@ -371,7 +371,7 @@ namespace gmp.DomainModels.Entities
                     .HasConstraintName("FK_Payment_Member");
 
                 entity.HasOne(d => d.TransactionType)
-                    .WithMany(p => p.Payment)
+                    .WithMany(p => p.Payments)
                     .HasForeignKey(d => d.TransactionTypeId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Payment_TransactionType");
@@ -411,7 +411,7 @@ namespace gmp.DomainModels.Entities
                     .HasConstraintName("FK_Registration_Member");
 
                 entity.HasOne(d => d.Payment)
-                    .WithMany(p => p.Registration)
+                    .WithMany(p => p.Registrations)
                     .HasForeignKey(d => d.PaymentId)
                     .HasConstraintName("FK_Registration_Payment");
             });

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using AutoMapper.Attributes;
 using gmp.DomainModels.Entities;
+using Newtonsoft.Json;
 
 namespace gmp.DomainModels.Projections
 {
@@ -16,6 +17,7 @@ namespace gmp.DomainModels.Projections
         public string Name { get; set; }
         public string Description { get; set; }
 
+        [JsonIgnore]
         public ICollection<PaymentDTO> Payments { get; set; }
     }
 }

@@ -8,15 +8,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace gmp.api.Controllers
 {
-    [Authorize]
     [Route("api/[controller]")]
     public class ValuesController : ControllerBase
     {
-        private readonly IUserInfoService<int> _userInfoService;
-
-        public ValuesController(IUserInfoService<int> userInfoService)
+        public ValuesController()
         {
-            _userInfoService = userInfoService;
         }
 
         // GET api/values

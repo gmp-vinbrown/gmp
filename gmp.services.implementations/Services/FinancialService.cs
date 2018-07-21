@@ -134,9 +134,9 @@ namespace gmp.services.implementations.Services
             return baseFee - discount - paidToDate;
         }
 
-        public async Task<IEnumerable<PaymentDTO>> GetMemberPaymentsByType(int memberId, TransactionTypeDTO type, DateTime? asOfDate = null)
+        public async Task<IEnumerable<PaymentDTO>> GetMemberPaymentsByType(int memberId, int transactionTypeId, DateTime? asOfDate = null)
         {
-            var payments = await _financialRepository.GetMemberPaymentsByType(memberId, type);
+            var payments = await _financialRepository.GetMemberPaymentsByType(memberId, transactionTypeId);
             if (asOfDate.HasValue)
             {
                 return payments.Where(p => p.TransactionDate >= asOfDate.Value);

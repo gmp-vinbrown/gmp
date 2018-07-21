@@ -34,7 +34,7 @@ namespace gmp.services.contracts.Repositories
         Task<bool> DeletePayment(int id);
         Task<PaymentDTO> UpdatePayment(PaymentDTO payment);
 
-        Task<IEnumerable<PaymentDTO>> GetMemberPaymentsByType(int memberId, TransactionTypeDTO type);
+        Task<IEnumerable<PaymentDTO>> GetMemberPaymentsByType(int memberId, int transactionTypeId);
         Task<IEnumerable<PaymentDTO>> GetPaymentsForSchool(int schoolId);
 
         #endregion

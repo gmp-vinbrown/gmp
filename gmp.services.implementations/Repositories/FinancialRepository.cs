@@ -153,7 +153,7 @@ namespace gmp.services.implementations.Repositories
             var newPayment = AutoMapper.Mapper.Map<Payment>(payment);
             await _ctx.Payments.AddAsync(newPayment);
             await _ctx.SaveChangesAsync();
-            return payment.PaymentId;
+            return newPayment.PaymentId;
         }
 
         public async Task<bool> DeletePayment(int id)
@@ -165,7 +165,7 @@ namespace gmp.services.implementations.Repositories
 
         public async Task<PaymentDTO> UpdatePayment(PaymentDTO paymentSrc)
         {
-            var entityDest = await _ctx.Members.FindAsync(paymentSrc.PaymentId);
+            var entityDest = await _ctx.Payments.FindAsync(paymentSrc.PaymentId);
             if (entityDest != null && !entityDest.Deleted)
             {
                 AutoMapper.Mapper.Map(paymentSrc, entityDest);
@@ -175,13 +175,16 @@ namespace gmp.services.implementations.Repositories
             return await Task.FromResult(paymentSrc);
         }
 
-        public async Task<IEnumerable<PaymentDTO>> GetMemberPaymentsByType(int memberId, TransactionTypeDTO type)
+        public async Task<IEnumerable<PaymentDTO>> GetMemberPaymentsByType(int memberId, int transactionTypeId)
         {
-            var member = await _ctx.FindAsync<Member>(memberId);
-            return member.Deleted
-                ? new List<PaymentDTO>()
-                : member.Payments
-                    .Where(p => p.TransactionTypeId == type.TransactionTypeId)
+            var member = await (from memb in _ctx.Members
+                                where memb.MemberId == memberId && !memb.Deleted
+                                select memb)
+                                .Include("Payments")
+                                .SingleOrDefaultAsync();
+
+            return  member.Payments
+                    .Where(p => p.TransactionTypeId == transactionTypeId)
                     .Select(AutoMapper.Mapper.Map<PaymentDTO>);
         }
 

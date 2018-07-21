@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using AutoMapper.Attributes;
 using gmp.DomainModels.Entities;
+using Newtonsoft.Json;
 
 namespace gmp.DomainModels.Projections
 {
@@ -21,8 +22,12 @@ namespace gmp.DomainModels.Projections
         public decimal Amount { get; set; }
         public bool Deleted { get; set; }
 
+        [JsonIgnore]
         public virtual MemberDTO Member { get; set; }
+
         public virtual TransactionTypeDTO TransactionType { get; set; }
+
+        [JsonIgnore]
         public virtual ICollection<EventRegistrationDTO> Registrations { get; set; }
     }
 }
