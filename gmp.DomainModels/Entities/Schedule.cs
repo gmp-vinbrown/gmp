@@ -15,6 +15,7 @@ namespace gmp.DomainModels.Entities
         public string Days { get; set; }
         public string StartTime { get; set; }
         public int DurationMinutes { get; set; }
+        public bool Deleted { get; set; }
 
         public virtual Event Event { get; set; }
     }

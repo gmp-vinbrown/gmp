@@ -84,7 +84,7 @@ namespace gmp.services.implementations.Repositories
                            .Include("Schedules")
                            .SingleOrDefaultAsync();
 
-            return e.Deleted ? null : AutoMapper.Mapper.Map<EventDTO>(e);
+            return e == null ? null : AutoMapper.Mapper.Map<EventDTO>(e);
         }
 
         public async Task<IEnumerable<EventDTO>> GetMemberEvents(int memberId)
@@ -147,13 +147,6 @@ namespace gmp.services.implementations.Repositories
 
             var newEvent = AutoMapper.Mapper.Map<Event>(e);
             await _ctx.Events.AddAsync(newEvent);
-
-            foreach (var schedule in e.Schedules)
-            {
-                var newSchedule = AutoMapper.Mapper.Map<Schedule>(schedule);
-                await _ctx.Schedules.AddAsync(newSchedule);
-            }
-
             await _ctx.SaveChangesAsync();
 
             return newEvent.EventId;
@@ -186,6 +179,54 @@ namespace gmp.services.implementations.Repositories
         public void Dispose()
         {
             _ctx?.Dispose();
+        }
+
+        public async Task<ScheduleDTO> GetSchedule(int id)
+        {
+            var schedule = await(from sched in _ctx.Schedules
+                          where sched.ScheduleId == id && !sched.Deleted
+                          select sched)
+                           .SingleOrDefaultAsync();
+
+            return schedule == null ? null : AutoMapper.Mapper.Map<ScheduleDTO>(schedule);
+        }
+
+        public async Task<int> AddSchedule(ScheduleDTO schedule)
+        {
+            if (schedule == null)
+            {
+                throw new ArgumentNullException($"Schedule cannot be null");
+            }
+
+            var newSchedule = AutoMapper.Mapper.Map<Schedule>(schedule);
+            await _ctx.Schedules.AddAsync(newSchedule);
+            await _ctx.SaveChangesAsync();
+
+            return newSchedule.ScheduleId;
+        }
+
+        public async Task<ScheduleDTO> UpdateSchedule(ScheduleDTO scheduleSrc)
+        {
+            var entityDest = await _ctx.Schedules.FindAsync(scheduleSrc.ScheduleId);
+            if (entityDest != null && !entityDest.Deleted)
+            {
+                AutoMapper.Mapper.Map(scheduleSrc, entityDest);
+            }
+            else
+            {
+                return null;
+            }
+
+            await _ctx.SaveChangesAsync();
+
+            return await Task.FromResult(scheduleSrc);
+        }
+
+        public async Task<bool> DeleteSchedule(int id)
+        {
+            var schedule = await _ctx.Schedules.FindAsync(id);
+            schedule.Deleted = true;
+            return await _ctx.SaveChangesAsync() > 0;
         }
     }
 }

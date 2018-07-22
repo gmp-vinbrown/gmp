@@ -29,6 +29,6 @@ namespace gmp.DomainModels.Projections
         public virtual ICollection<AttendanceDTO> Attendance { get; set; }
         public virtual ICollection<EventActivityDTO> EventActivities { get; set; }
         public virtual ICollection<EventRegistrationDTO> Registrations { get; set; }
-        public virtual ICollection<ScheduleDTO> Schedules { get; set; }
+        public virtual IEnumerable<ScheduleDTO> Schedules { get; set; }
     }
 }

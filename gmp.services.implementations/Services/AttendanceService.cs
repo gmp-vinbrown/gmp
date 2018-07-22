@@ -85,5 +85,25 @@ namespace gmp.services.implementations.Services
         {
             return await _attendanceRepository.DeleteEvent(eventId);
         }
+
+        public async Task<ScheduleDTO> GetSchedule(int id)
+        {
+            return await _attendanceRepository.GetSchedule(id);
+        }
+
+        public async Task<int> AddSchedule(ScheduleDTO schedule)
+        {
+            return await _attendanceRepository.AddSchedule(schedule);
+        }
+
+        public async Task<ScheduleDTO> UpdateSchedule(ScheduleDTO scheduleSrc)
+        {
+            return await _attendanceRepository.UpdateSchedule(scheduleSrc);
+        }
+
+        public async Task<bool> DeleteSchedule(int id)
+        {
+            return await _attendanceRepository.DeleteSchedule(id);
+        }
     }
 }

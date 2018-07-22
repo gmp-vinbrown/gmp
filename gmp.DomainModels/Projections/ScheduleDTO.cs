@@ -17,6 +17,7 @@ namespace gmp.DomainModels.Projections
         public string Days { get; set; }
         public string StartTime { get; set; }
         public int DurationMinutes { get; set; }
+        public bool Deleted { get; set; }
 
         [JsonIgnore]
         public virtual EventDTO Event { get; set; }

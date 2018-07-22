@@ -24,7 +24,7 @@ namespace gmp.api.Controllers
 
         [HttpPost]
         [Route("api/v1/events")]
-        public async Task<int> AddEvent([FromBody]EventDTO e)
+        public async Task<int> AddEvent(EventDTO e)
         {
             return await _attendanceService.AddEvent(e);
         }
