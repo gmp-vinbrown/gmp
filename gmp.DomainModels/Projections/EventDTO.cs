@@ -11,8 +11,9 @@ namespace gmp.DomainModels.Projections
         public EventDTO()
         {
             Attendance = new HashSet<AttendanceDTO>();
-            EventActivity = new HashSet<EventActivityDTO>();
-            Registration = new HashSet<EventRegistrationDTO>();
+            EventActivities = new HashSet<EventActivityDTO>();
+            Registrations = new HashSet<EventRegistrationDTO>();
+            Schedules = new HashSet<ScheduleDTO>();
         }
 
         public int EventId { get; set; }
@@ -22,13 +23,12 @@ namespace gmp.DomainModels.Projections
         public int SchoolLocationId { get; set; }
         public DateTime EventStartDate { get; set; }
         public DateTime? EventEndDate { get; set; }
-        public string Schedule { get; set; }
         public bool Deleted { get; set; }
 
         public virtual EventTypeDTO EventType { get; set; }
         public virtual ICollection<AttendanceDTO> Attendance { get; set; }
-        public virtual ICollection<EventActivityDTO> EventActivity { get; set; }
-        public virtual ICollection<EventRegistrationDTO> Registration { get; set; }
+        public virtual ICollection<EventActivityDTO> EventActivities { get; set; }
+        public virtual ICollection<EventRegistrationDTO> Registrations { get; set; }
         public virtual ICollection<ScheduleDTO> Schedules { get; set; }
     }
 }

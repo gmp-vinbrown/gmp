@@ -18,6 +18,7 @@ namespace gmp.services.contracts.Repositories
         Task<IEnumerable<EventDTO>> GetSchoolLocationEvents(int schoolLocationId);
         Task<IEnumerable<EventActivityTypeDTO>> GetEventActivityTypes();
         Task<int> AddEvent(EventDTO e);
+        Task<EventDTO> UpdateEvent(EventDTO eventSrc);
         Task<bool> DeleteEvent(int eventId);
     }
 }

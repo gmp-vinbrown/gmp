@@ -78,7 +78,12 @@ namespace gmp.services.implementations.Repositories
 
         public async Task<EventDTO> GetEvent(int eventId)
         {
-            var e = await _ctx.FindAsync<Event>(eventId);
+            var e = await (from evt in _ctx.Events
+                           where evt.EventId == eventId && !evt.Deleted
+                           select evt)
+                           .Include("Schedules")
+                           .SingleOrDefaultAsync();
+
             return e.Deleted ? null : AutoMapper.Mapper.Map<EventDTO>(e);
         }
 
@@ -152,6 +157,23 @@ namespace gmp.services.implementations.Repositories
             await _ctx.SaveChangesAsync();
 
             return newEvent.EventId;
+        }
+
+        public async Task<EventDTO> UpdateEvent(EventDTO eventSrc)
+        {
+            var entityDest = await _ctx.Events.FindAsync(eventSrc.EventId);
+            if (entityDest != null && !entityDest.Deleted)
+            {
+                AutoMapper.Mapper.Map(eventSrc, entityDest);
+            }
+            else
+            {
+                return null;
+            }
+
+            await _ctx.SaveChangesAsync();
+
+            return await Task.FromResult(eventSrc);
         }
 
         public async Task<bool> DeleteEvent(int eventId)

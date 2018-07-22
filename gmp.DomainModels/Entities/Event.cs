@@ -10,8 +10,9 @@ namespace gmp.DomainModels.Entities
         public Event()
         {
             Attendance = new HashSet<Attendance>();
-            EventActivity = new HashSet<EventActivity>();
-            Registration = new HashSet<EventRegistration>();
+            EventActivities = new HashSet<EventActivity>();
+            Registrations = new HashSet<EventRegistration>();
+            Schedules = new HashSet<Schedule>();
         }
 
         public int EventId { get; set; }
@@ -21,13 +22,12 @@ namespace gmp.DomainModels.Entities
         public int SchoolLocationId { get; set; }
         public DateTime EventStartDate { get; set; }
         public DateTime? EventEndDate { get; set; }
-        public string Schedule { get; set; }
         public bool Deleted { get; set; }
 
         public virtual EventType EventType { get; set; }
         public virtual ICollection<Attendance> Attendance { get; set; }
-        public virtual ICollection<EventActivity> EventActivity { get; set; }
-        public virtual ICollection<EventRegistration> Registration { get; set; }
+        public virtual ICollection<EventActivity> EventActivities { get; set; }
+        public virtual ICollection<EventRegistration> Registrations { get; set; }
         public virtual ICollection<Schedule> Schedules { get; set; }
     }
 }

@@ -124,9 +124,9 @@ namespace gmp.DomainModels.Entities
                     .HasMaxLength(200)
                     .IsUnicode(false);
 
-                entity.Property(e => e.Schedule)
-                    .HasMaxLength(13)
-                    .IsUnicode(false);
+                entity.HasMany(e => e.Schedules)
+                    .WithOne(e => e.Event)
+                    .HasForeignKey(e => e.EventId);
 
                 entity.HasOne(d => d.EventType)
                     .WithMany(p => p.Event)
@@ -144,7 +144,7 @@ namespace gmp.DomainModels.Entities
                     .HasConstraintName("FK_EventActivity_EventActivityType");
 
                 entity.HasOne(d => d.Event)
-                    .WithMany(p => p.EventActivity)
+                    .WithMany(p => p.EventActivities)
                     .HasForeignKey(d => d.EventId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_EventActivity_Event");
@@ -399,7 +399,7 @@ namespace gmp.DomainModels.Entities
             modelBuilder.Entity<EventRegistration>(entity =>
             {
                 entity.HasOne(d => d.Event)
-                    .WithMany(p => p.Registration)
+                    .WithMany(p => p.Registrations)
                     .HasForeignKey(d => d.EventActivityId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Registration_EventActivity");
@@ -431,6 +431,21 @@ namespace gmp.DomainModels.Entities
                     .HasForeignKey(d => d.SchoolId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Role_School");
+            });
+
+            modelBuilder.Entity<Schedule>(entity =>
+            {
+                entity.Property(e => e.Days)
+                    .HasMaxLength(13)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.StartTime)
+                    .HasMaxLength(5)
+                    .IsUnicode(false);
+
+                entity.HasOne(s => s.Event)
+                    .WithMany(s => s.Schedules)
+                    .HasForeignKey(e => e.EventId);
             });
 
             modelBuilder.Entity<School>(entity =>
