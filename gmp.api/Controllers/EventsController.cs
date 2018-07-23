@@ -10,9 +10,9 @@ namespace gmp.api.Controllers
     {
         private readonly IAttendanceService _attendanceService;
 
-        public EventsController(IAttendanceService membershipService)
+        public EventsController(IAttendanceService attendanceService)
         {
-            _attendanceService = membershipService;
+            _attendanceService = attendanceService;
         }
 
         [HttpGet]

@@ -20,6 +20,10 @@ namespace gmp.services.contracts.Services
         Task<int> AddEvent(EventDTO e);
         Task<EventDTO> UpdateEvent(EventDTO eventSrc);
         Task<bool> DeleteEvent(int eventId);
+        Task<EventActivityDTO> GetEventActivity(int id);
+        Task<int> AddEventActivity(EventActivityDTO eventActivity);
+        Task<EventActivityDTO> UpdateEventActivity(EventActivityDTO eventActivitySrc);
+        Task<bool> DeleteEventActivity(int id);
         Task<ScheduleDTO> GetSchedule(int id);
         Task<int> AddSchedule(ScheduleDTO schedule);
         Task<ScheduleDTO> UpdateSchedule(ScheduleDTO scheduleSrc);

@@ -86,6 +86,26 @@ namespace gmp.services.implementations.Services
             return await _attendanceRepository.DeleteEvent(eventId);
         }
 
+        public async Task<EventActivityDTO> GetEventActivity(int id)
+        {
+            return await _attendanceRepository.GetEventActivity(id);
+        }
+
+        public async Task<int> AddEventActivity(EventActivityDTO eventActivity)
+        {
+            return await _attendanceRepository.AddEventActivity(eventActivity);
+        }
+
+        public async Task<EventActivityDTO> UpdateEventActivity(EventActivityDTO eventActivitySrc)
+        {
+            return await _attendanceRepository.UpdateEventActivity(eventActivitySrc);
+        }
+
+        public async Task<bool> DeleteEventActivity(int id)
+        {
+            return await _attendanceRepository.DeleteEventActivity(id);
+        }
+
         public async Task<ScheduleDTO> GetSchedule(int id)
         {
             return await _attendanceRepository.GetSchedule(id);
