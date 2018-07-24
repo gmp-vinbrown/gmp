@@ -3,10 +3,10 @@
 namespace gmp.DomainModels.Entities
 {
     [Table("EventRegistration")]
-    public partial class EventRegistration
+    public partial class EventRegistration : AuditableEntity
     {
         public int EventRegistrationId { get; set; }
-        public int EventActivityId { get; set; }
+        public int EventId { get; set; }
         public int MemberId { get; set; }
         public int? PaymentId { get; set; }
         public bool Deleted { get; set; }

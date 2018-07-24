@@ -8,6 +8,7 @@ namespace gmp.services.contracts.Services
     {
         Task<int> AddAttendance(AttendanceDTO attendance);
         Task<bool> DeleteAttendance(int attendanceId);
+        Task<EventRegistrationDTO> GetRegistration(int id);
         Task<int> AddRegistration(EventRegistrationDTO eventRegistration);
         Task<EventRegistrationDTO> UpdateRegistration(EventRegistrationDTO eventRegistration);
         Task<bool> DeleteRegistration(int registrationId);

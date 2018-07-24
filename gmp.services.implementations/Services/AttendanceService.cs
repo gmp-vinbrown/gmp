@@ -15,7 +15,7 @@ namespace gmp.services.implementations.Services
             _attendanceRepository = attendanceRepository;
         }
 
-
+        #region Attendance
         public async Task<int> AddAttendance(AttendanceDTO attendance)
         {
             return await _attendanceRepository.AddAttendance(attendance);
@@ -24,6 +24,13 @@ namespace gmp.services.implementations.Services
         public async Task<bool> DeleteAttendance(int attendanceId)
         {
             return await _attendanceRepository.DeleteAttendance(attendanceId);
+        }
+        #endregion
+
+        #region Registrations
+        public async Task<EventRegistrationDTO> GetRegistration(int id)
+        {
+            return await _attendanceRepository.GetRegistration(id);
         }
 
         public async Task<int> AddRegistration(EventRegistrationDTO eventRegistration)
@@ -40,7 +47,9 @@ namespace gmp.services.implementations.Services
         {
             return await _attendanceRepository.DeleteRegistration(registrationId);
         }
+        #endregion
 
+        #region Events
         public async Task<EventDTO> GetEvent(int eventId)
         {
             return await _attendanceRepository.GetEvent(eventId);
@@ -66,11 +75,6 @@ namespace gmp.services.implementations.Services
             return await _attendanceRepository.GetSchoolLocationEvents(schoolLocationId);
         }
 
-        public async Task<IEnumerable<EventActivityTypeDTO>> GetEventActivityTypes()
-        {
-            return await _attendanceRepository.GetEventActivityTypes();
-        }
-
         public async Task<int> AddEvent(EventDTO e)
         {
             return await _attendanceRepository.AddEvent(e);
@@ -85,7 +89,17 @@ namespace gmp.services.implementations.Services
         {
             return await _attendanceRepository.DeleteEvent(eventId);
         }
+        #endregion
 
+        #region EventActivityTypes
+        public async Task<IEnumerable<EventActivityTypeDTO>> GetEventActivityTypes()
+        {
+            return await _attendanceRepository.GetEventActivityTypes();
+        }
+
+        #endregion
+
+        #region Event Activities
         public async Task<EventActivityDTO> GetEventActivity(int id)
         {
             return await _attendanceRepository.GetEventActivity(id);
@@ -105,7 +119,9 @@ namespace gmp.services.implementations.Services
         {
             return await _attendanceRepository.DeleteEventActivity(id);
         }
+        #endregion
 
+        #region Schedules
         public async Task<ScheduleDTO> GetSchedule(int id)
         {
             return await _attendanceRepository.GetSchedule(id);
@@ -125,5 +141,6 @@ namespace gmp.services.implementations.Services
         {
             return await _attendanceRepository.DeleteSchedule(id);
         }
+        #endregion
     }
 }

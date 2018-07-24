@@ -400,9 +400,9 @@ namespace gmp.DomainModels.Entities
             {
                 entity.HasOne(d => d.Event)
                     .WithMany(p => p.Registrations)
-                    .HasForeignKey(d => d.EventActivityId)
+                    .HasForeignKey(d => d.EventId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Registration_EventActivity");
+                    .HasConstraintName("FK_Registration_Event");
 
                 entity.HasOne(d => d.Member)
                     .WithMany(p => p.Registrations)

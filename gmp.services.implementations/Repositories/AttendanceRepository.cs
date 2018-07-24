@@ -17,6 +17,7 @@ namespace gmp.services.implementations.Repositories
 
         }
 
+        #region Attendance
         public async Task<int> AddAttendance(AttendanceDTO attendance)
         {
             if (attendance == null)
@@ -36,6 +37,19 @@ namespace gmp.services.implementations.Repositories
             var attendance = await _ctx.Attendance.FindAsync(id);
             attendance.Deleted = true;
             return await _ctx.SaveChangesAsync() > 0;
+        }
+        #endregion
+
+        #region Registrations
+        public async Task<EventRegistrationDTO> GetRegistration(int id)
+        {
+            var e = await (from reg in _ctx.EventRegistrations
+                           where reg.EventRegistrationId == id && !reg.Deleted
+                           select reg)
+                           .Include(r => r.Event)
+                           .SingleOrDefaultAsync();
+
+            return e == null ? null : AutoMapper.Mapper.Map<EventRegistrationDTO>(e);
         }
 
         public async Task<int> AddRegistration(EventRegistrationDTO eventRegistration)
@@ -75,7 +89,9 @@ namespace gmp.services.implementations.Repositories
             registration.Deleted = true;
             return await _ctx.SaveChangesAsync() > 0;
         }
+        #endregion
 
+        #region Events
         public async Task<EventDTO> GetEvent(int eventId)
         {
             var e = await (from evt in _ctx.Events
@@ -134,14 +150,6 @@ namespace gmp.services.implementations.Repositories
             return events.Select(AutoMapper.Mapper.Map<EventDTO>);
         }
 
-        public async Task<IEnumerable<EventActivityTypeDTO>> GetEventActivityTypes()
-        {
-            var eventActivityTypes = await (from t in _ctx.EventActivityTypes
-                select t).ToListAsync();
-
-            return eventActivityTypes.Select(AutoMapper.Mapper.Map<EventActivityTypeDTO>);
-        }
-
         public async Task<int> AddEvent(EventDTO e)
         {
             if (e == null)
@@ -179,12 +187,20 @@ namespace gmp.services.implementations.Repositories
             e.Deleted = true;
             return await _ctx.SaveChangesAsync() > 0;
         }
+        #endregion
 
-        public void Dispose()
+        #region Event Activity Types
+        public async Task<IEnumerable<EventActivityTypeDTO>> GetEventActivityTypes()
         {
-            _ctx?.Dispose();
+            var eventActivityTypes = await (from t in _ctx.EventActivityTypes
+                select t).ToListAsync();
+
+            return eventActivityTypes.Select(AutoMapper.Mapper.Map<EventActivityTypeDTO>);
         }
 
+        #endregion
+
+        #region Schedules
         public async Task<ScheduleDTO> GetSchedule(int id)
         {
             var schedule = await(from sched in _ctx.Schedules
@@ -232,12 +248,15 @@ namespace gmp.services.implementations.Repositories
             schedule.Deleted = true;
             return await _ctx.SaveChangesAsync() > 0;
         }
+        #endregion
+
+        #region Event Activities
 
         public async Task<EventActivityDTO> GetEventActivity(int id)
         {
-            var eventActivity = await(from ea in _ctx.EventActivities
-                                 where ea.EventActivityId == id && !ea.Deleted
-                                 select ea)
+            var eventActivity = await (from ea in _ctx.EventActivities
+                                       where ea.EventActivityId == id && !ea.Deleted
+                                       select ea)
                                  .Include(ea => ea.EventActivityType)
                            .SingleOrDefaultAsync();
 
@@ -280,6 +299,13 @@ namespace gmp.services.implementations.Repositories
             var eventActivity = await _ctx.EventActivities.FindAsync(id);
             eventActivity.Deleted = true;
             return await _ctx.SaveChangesAsync() > 0;
+        }
+
+        #endregion
+
+        public void Dispose()
+        {
+            _ctx?.Dispose();
         }
     }
 }
