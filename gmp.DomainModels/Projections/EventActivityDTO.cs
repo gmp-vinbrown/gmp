@@ -16,7 +16,6 @@ namespace gmp.DomainModels.Projections
         public int EventActivityId { get; set; }
         public int EventId { get; set; }
         public int EventActivityTypeId { get; set; }
-        public decimal? Fee { get; set; }
         public bool Deleted { get; set; }
 
         [JsonIgnore]

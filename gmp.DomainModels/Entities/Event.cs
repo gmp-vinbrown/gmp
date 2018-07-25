@@ -23,7 +23,6 @@ namespace gmp.DomainModels.Entities
         public int SchoolLocationId { get; set; }
         public DateTime EventStartDate { get; set; }
         public DateTime? EventEndDate { get; set; }
-        public decimal? Fee { get; set; }
         public bool Deleted { get; set; }
 
         public virtual EventType EventType { get; set; }

@@ -25,7 +25,6 @@ namespace gmp.DomainModels.Projections
         public int SchoolLocationId { get; set; }
         public DateTime EventStartDate { get; set; }
         public DateTime? EventEndDate { get; set; }
-        public decimal? Fee { get; set; }
         public bool Deleted { get; set; }
 
         public virtual EventTypeDTO EventType { get; set; }
