@@ -26,6 +26,7 @@ namespace gmp.DomainModels.Entities
         public virtual DbSet<EventActivity> EventActivities { get; set; }
         public virtual DbSet<EventActivityType> EventActivityTypes { get; set; }
         public virtual DbSet<EventType> EventTypes { get; set; }
+        public virtual DbSet<EventFeeGroup> EventFeeGroups { get; set; }
         public virtual DbSet<FeeSchedule> FeeSchedules { get; set; }
         public virtual DbSet<Level> Levels { get; set; }
         public virtual DbSet<Member> Members { get; set; }
@@ -124,6 +125,10 @@ namespace gmp.DomainModels.Entities
                     .HasMaxLength(200)
                     .IsUnicode(false);
 
+                entity.HasMany(e => e.FeeGroups)
+                    .WithOne(e => e.Event)
+                    .HasForeignKey(e => e.EventId);
+
                 entity.HasMany(e => e.Schedules)
                     .WithOne(e => e.Event)
                     .HasForeignKey(e => e.EventId);
@@ -168,6 +173,24 @@ namespace gmp.DomainModels.Entities
                     .IsRequired()
                     .HasMaxLength(150)
                     .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<EventFeeGroup>(entity =>
+            {
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(250)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Description)
+                    .IsRequired()
+                    .HasMaxLength(350)
+                    .IsUnicode(false);
+
+                entity.HasOne(e => e.Event)
+                    .WithMany(e => e.FeeGroups)
+                    .HasForeignKey(e => e.EventId);
+
             });
 
             modelBuilder.Entity<FeeSchedule>(entity =>

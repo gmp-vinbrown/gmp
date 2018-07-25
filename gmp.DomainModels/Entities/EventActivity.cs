@@ -14,6 +14,7 @@ namespace gmp.DomainModels.Entities
         public int EventActivityId { get; set; }
         public int EventId { get; set; }
         public int EventActivityTypeId { get; set; }
+        public decimal? Fee { get; set; }
         public bool Deleted { get; set; }
 
         public virtual Event Event { get; set; }

@@ -97,7 +97,8 @@ namespace gmp.services.implementations.Repositories
             var e = await (from evt in _ctx.Events
                            where evt.EventId == eventId && !evt.Deleted
                            select evt)
-                           .Include("Schedules")
+                           .Include(_evt => _evt.Schedules)
+                           .Include(_evt => _evt.FeeGroups)
                            .Include(_evt => _evt.EventActivities)
                            .ThenInclude(ea => ea.EventActivityType)
                            .SingleOrDefaultAsync();
