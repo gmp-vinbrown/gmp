@@ -14,10 +14,21 @@ namespace gmp.services.implementations.Repositories
     {
         public AttendanceRepository(IUserInfoService<int> userInfoService) : base(userInfoService)
         {
-
         }
 
         #region Attendance
+
+        public async Task<IEnumerable<AttendanceDTO>> GetMemberAttendance(int memberId, int eventId)
+        {
+            var attendance = await (from a in _ctx.Attendance
+                           where a.MemberId == memberId && a.EventId == eventId
+                           select a)
+                           .Include(r => r.Event)
+                           .ToListAsync();
+
+            return attendance.Select(AutoMapper.Mapper.Map<AttendanceDTO>);
+        }
+
         public async Task<int> AddAttendance(AttendanceDTO attendance)
         {
             if (attendance == null)
@@ -44,12 +55,12 @@ namespace gmp.services.implementations.Repositories
         public async Task<EventRegistrationDTO> GetRegistration(int id)
         {
             var e = await (from reg in _ctx.EventRegistrations
-                           where reg.EventRegistrationId == id && !reg.Deleted
+                           where reg.EventRegistrationId == id
                            select reg)
                            .Include(r => r.Event)
                            .SingleOrDefaultAsync();
 
-            return e == null ? null : AutoMapper.Mapper.Map<EventRegistrationDTO>(e);
+            return AutoMapper.Mapper.Map<EventRegistrationDTO>(e);
         }
 
         public async Task<int> AddRegistration(EventRegistrationDTO eventRegistration)
@@ -69,7 +80,7 @@ namespace gmp.services.implementations.Repositories
         public async Task<EventRegistrationDTO> UpdateRegistration(EventRegistrationDTO eventRegistrationSrc)
         {
             var entityDest = await _ctx.EventRegistrations.FindAsync(eventRegistrationSrc.EventRegistrationId);
-            if (entityDest != null && !entityDest.Deleted)
+            if (entityDest != null)
             {
                 AutoMapper.Mapper.Map(eventRegistrationSrc, entityDest);
             }
@@ -95,7 +106,7 @@ namespace gmp.services.implementations.Repositories
         public async Task<EventDTO> GetEvent(int eventId)
         {
             var e = await (from evt in _ctx.Events
-                           where evt.EventId == eventId && !evt.Deleted
+                           where evt.EventId == eventId
                            select evt)
                            .Include(_evt => _evt.Schedules)
                            .Include(_evt => _evt.FeeGroups)
@@ -110,10 +121,9 @@ namespace gmp.services.implementations.Repositories
         {
             var events = await (from activity in _ctx.MemberEventActivities
                 from e in _ctx.Events
-                where activity.Member.MemberId == memberId &&
-                !activity.Member.Deleted && !activity.Deleted && !e.Deleted
+                where activity.Member.MemberId == memberId
                 select e)
-                .Include("EventActivities")
+                .Include(e => e.EventActivities)
                 .ToListAsync();
 
             return events.Select(AutoMapper.Mapper.Map<EventDTO>);
@@ -123,8 +133,7 @@ namespace gmp.services.implementations.Repositories
         {
             var members = await (from activity in _ctx.MemberEventActivities
                                 from e in _ctx.Events
-                                where e.EventId == eventId &&
-                                !activity.Member.Deleted && !activity.Deleted && !e.Deleted
+                                where e.EventId == eventId 
                                 select activity.Member).ToListAsync();
 
             return members.Select(AutoMapper.Mapper.Map<MemberDTO>);
@@ -133,8 +142,7 @@ namespace gmp.services.implementations.Repositories
         public async Task<IEnumerable<MemberDTO>> GetMembersForEventActivity(int eventActivityId)
         {
             var members = await (from activity in _ctx.MemberEventActivities
-                                 where activity.EventActivityId == eventActivityId &&
-                                 !activity.Member.Deleted && !activity.Deleted
+                                 where activity.EventActivityId == eventActivityId 
                                  select activity.Member).ToListAsync();
 
             return members.Select(AutoMapper.Mapper.Map<MemberDTO>);
@@ -144,8 +152,7 @@ namespace gmp.services.implementations.Repositories
         {
             var events = await (from activity in _ctx.MemberEventActivities
                                 from e in _ctx.Events
-                                where e.SchoolLocationId == schoolLocationId &&
-                                !e.Deleted
+                                where e.SchoolLocationId == schoolLocationId 
                                 select e).ToListAsync();
 
             return events.Select(AutoMapper.Mapper.Map<EventDTO>);
@@ -168,7 +175,7 @@ namespace gmp.services.implementations.Repositories
         public async Task<EventDTO> UpdateEvent(EventDTO eventSrc)
         {
             var entityDest = await _ctx.Events.FindAsync(eventSrc.EventId);
-            if (entityDest != null && !entityDest.Deleted)
+            if (entityDest != null)
             {
                 AutoMapper.Mapper.Map(eventSrc, entityDest);
             }
@@ -190,6 +197,56 @@ namespace gmp.services.implementations.Repositories
         }
         #endregion
 
+        #region Event Fee Groups
+        public async Task<EventFeeGroupDTO> GetEventFeeGroup(int id)
+        {
+            var e = await (from item in _ctx.EventFeeGroups
+                           where item.EventFeeGroupId == id 
+                           select item)
+                           .SingleOrDefaultAsync();
+
+            return e == null ? null : AutoMapper.Mapper.Map<EventFeeGroupDTO>(e);
+        }
+
+        public async Task<int> AddEventFeeGroup(EventFeeGroupDTO feeGroupDto)
+        {
+            if (feeGroupDto == null)
+            {
+                throw new ArgumentNullException($"Event Fee Group cannot be null");
+            }
+
+            var newEntity = AutoMapper.Mapper.Map<EventFeeGroup>(feeGroupDto);
+            await _ctx.EventFeeGroups.AddAsync(newEntity);
+            await _ctx.SaveChangesAsync();
+
+            return newEntity.EventFeeGroupId;
+        }
+
+        public async Task<EventFeeGroupDTO> UpdateEventFeeGroup(EventFeeGroupDTO feeGroupSrc)
+        {
+            var entityDest = await _ctx.EventFeeGroups.FindAsync(feeGroupSrc.EventFeeGroupId);
+            if (entityDest != null)
+            {
+                AutoMapper.Mapper.Map(feeGroupSrc, entityDest);
+            }
+            else
+            {
+                return null;
+            }
+
+            await _ctx.SaveChangesAsync();
+
+            return await Task.FromResult(feeGroupSrc);
+        }
+
+        public async Task<bool> DeleteEventFeeGroup(int id)
+        {
+            var e = await _ctx.EventFeeGroups.FindAsync(id);
+            e.Deleted = true;
+            return await _ctx.SaveChangesAsync() > 0;
+        }
+        #endregion
+
         #region Event Activity Types
         public async Task<IEnumerable<EventActivityTypeDTO>> GetEventActivityTypes()
         {
@@ -205,7 +262,7 @@ namespace gmp.services.implementations.Repositories
         public async Task<ScheduleDTO> GetSchedule(int id)
         {
             var schedule = await(from sched in _ctx.Schedules
-                          where sched.ScheduleId == id && !sched.Deleted
+                          where sched.ScheduleId == id
                           select sched)
                            .SingleOrDefaultAsync();
 
@@ -229,7 +286,7 @@ namespace gmp.services.implementations.Repositories
         public async Task<ScheduleDTO> UpdateSchedule(ScheduleDTO scheduleSrc)
         {
             var entityDest = await _ctx.Schedules.FindAsync(scheduleSrc.ScheduleId);
-            if (entityDest != null && !entityDest.Deleted)
+            if (entityDest != null)
             {
                 AutoMapper.Mapper.Map(scheduleSrc, entityDest);
             }
@@ -256,7 +313,7 @@ namespace gmp.services.implementations.Repositories
         public async Task<EventActivityDTO> GetEventActivity(int id)
         {
             var eventActivity = await (from ea in _ctx.EventActivities
-                                       where ea.EventActivityId == id && !ea.Deleted
+                                       where ea.EventActivityId == id
                                        select ea)
                                  .Include(ea => ea.EventActivityType)
                            .SingleOrDefaultAsync();
@@ -281,7 +338,7 @@ namespace gmp.services.implementations.Repositories
         public async Task<EventActivityDTO> UpdateEventActivity(EventActivityDTO eventActivitySrc)
         {
             var entityDest = await _ctx.EventActivities.FindAsync(eventActivitySrc.EventActivityId);
-            if (entityDest != null && !entityDest.Deleted)
+            if (entityDest != null)
             {
                 AutoMapper.Mapper.Map(eventActivitySrc, entityDest);
             }
@@ -307,6 +364,6 @@ namespace gmp.services.implementations.Repositories
         public void Dispose()
         {
             _ctx?.Dispose();
-        }
+        }        
     }
 }

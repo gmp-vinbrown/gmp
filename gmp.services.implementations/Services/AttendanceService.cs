@@ -16,6 +16,12 @@ namespace gmp.services.implementations.Services
         }
 
         #region Attendance
+
+        public async Task<IEnumerable<AttendanceDTO>> GetMemberAttendance(int memberId, int eventId)
+        {
+            return await _attendanceRepository.GetMemberAttendance(memberId, eventId);
+        }
+
         public async Task<int> AddAttendance(AttendanceDTO attendance)
         {
             return await _attendanceRepository.AddAttendance(attendance);
@@ -141,6 +147,30 @@ namespace gmp.services.implementations.Services
         {
             return await _attendanceRepository.DeleteSchedule(id);
         }
+        #endregion
+
+        #region Event Fee Groups
+
+        public async Task<EventFeeGroupDTO> GetEventFeeGroup(int id)
+        {
+            return await _attendanceRepository.GetEventFeeGroup(id);
+        }
+
+        public async Task<int> AddEventFeeGroup(EventFeeGroupDTO feeGroupDto)
+        {
+            return await _attendanceRepository.AddEventFeeGroup(feeGroupDto);
+        }
+
+        public async Task<EventFeeGroupDTO> UpdateEventFeeGroup(EventFeeGroupDTO feeGroupSrc)
+        {
+            return await _attendanceRepository.UpdateEventFeeGroup(feeGroupSrc);
+        }
+
+        public async Task<bool> DeleteEventFeeGroup(int id)
+        {
+            return await _attendanceRepository.DeleteEventFeeGroup(id);
+        }
+
         #endregion
     }
 }

@@ -20,12 +20,12 @@ namespace gmp.services.implementations.Repositories
         public async Task<SchoolDTO> GetSchoolById(int id)
         {
             var school = await (from s in _ctx.Schools
-                                where s.SchoolId == id && !s.Deleted
+                                where s.SchoolId == id
                 select s)
-                .Include("Roles")
-                .Include("Levels")
-                .Include("Programs")
-                .Include("SchoolLocations")
+                .Include(item => item.Roles)
+                .Include(item => item.Levels)
+                .Include(item => item.Programs)
+                .Include(item => item.SchoolLocations)
                 .SingleOrDefaultAsync();
 
             var ret = Mapper.Map<SchoolDTO>(school);
@@ -48,7 +48,7 @@ namespace gmp.services.implementations.Repositories
         public async Task<SchoolDTO> UpdateSchool(SchoolDTO schoolSrc)
         {
             var entityDest = await _ctx.Schools.FindAsync(schoolSrc.SchoolId);
-            if (entityDest != null && !entityDest.Deleted)
+            if (entityDest != null)
             {
                 AutoMapper.Mapper.Map(schoolSrc, entityDest);
             }
@@ -76,7 +76,7 @@ namespace gmp.services.implementations.Repositories
         public async Task<SchoolLocationDTO> GetSchoolLocationById(int id)
         {
             var location = await (from loc in _ctx.SchoolLocations
-                                where loc.SchoolLocationId == id && !loc.Deleted
+                                where loc.SchoolLocationId == id
                                 select loc)
                 .SingleOrDefaultAsync();
 
@@ -100,7 +100,7 @@ namespace gmp.services.implementations.Repositories
         public async Task<SchoolLocationDTO> UpdateSchoolLocation(SchoolLocationDTO locationSrc)
         {
             var entityDest = await _ctx.SchoolLocations.FindAsync(locationSrc.SchoolLocationId);
-            if (entityDest != null && !entityDest.Deleted)
+            if (entityDest != null)
             {
                 AutoMapper.Mapper.Map(locationSrc, entityDest);
 
@@ -154,7 +154,7 @@ namespace gmp.services.implementations.Repositories
         public async Task<RoleDTO> UpdateRole(RoleDTO roleSrc)
         {
             var entityDest = await _ctx.Roles.FindAsync(roleSrc.RoleId);
-            if (entityDest != null && !entityDest.Deleted)
+            if (entityDest != null)
             {
                 AutoMapper.Mapper.Map(roleSrc, entityDest);
             }
@@ -170,7 +170,7 @@ namespace gmp.services.implementations.Repositories
         public async Task<LevelDTO> GetLevelById(int id)
         {
             var level = await(from lvl in _ctx.Levels
-                              where lvl.LevelId == id && !lvl.Deleted
+                              where lvl.LevelId == id
                               select lvl)
                 .SingleOrDefaultAsync();
 
@@ -207,7 +207,7 @@ namespace gmp.services.implementations.Repositories
         public async Task<LevelDTO> UpdateLevel(LevelDTO levelSrc)
         {
             var entityDest = await _ctx.Levels.FindAsync(levelSrc.LevelId);
-            if (entityDest != null && !entityDest.Deleted)
+            if (entityDest != null)
             {
                 AutoMapper.Mapper.Map(levelSrc, entityDest);
             }

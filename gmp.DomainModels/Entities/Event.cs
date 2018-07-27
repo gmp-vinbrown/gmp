@@ -25,11 +25,11 @@ namespace gmp.DomainModels.Entities
         public DateTime? EventEndDate { get; set; }
         public bool Deleted { get; set; }
 
-        public virtual EventType EventType { get; set; }
-        public virtual ICollection<EventFeeGroup> FeeGroups { get; set; }
-        public virtual ICollection<Attendance> Attendance { get; set; }
-        public virtual ICollection<EventActivity> EventActivities { get; set; }
-        public virtual ICollection<EventRegistration> Registrations { get; set; }
-        public virtual ICollection<Schedule> Schedules { get; set; }
+        public EventType EventType { get; set; }
+        public ICollection<EventFeeGroup> FeeGroups { get; set; }
+        public ICollection<Attendance> Attendance { get; set; }
+        public ICollection<EventActivity> EventActivities { get; set; }
+        public ICollection<EventRegistration> Registrations { get; set; }
+        public ICollection<Schedule> Schedules { get; set; }
     }
 }

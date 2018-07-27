@@ -6,6 +6,7 @@ namespace gmp.services.contracts.Services
 {
     public interface IAttendanceService
     {
+        Task<IEnumerable<AttendanceDTO>> GetMemberAttendance(int memberId, int eventId);
         Task<int> AddAttendance(AttendanceDTO attendance);
         Task<bool> DeleteAttendance(int attendanceId);
         Task<EventRegistrationDTO> GetRegistration(int id);
@@ -21,6 +22,10 @@ namespace gmp.services.contracts.Services
         Task<int> AddEvent(EventDTO e);
         Task<EventDTO> UpdateEvent(EventDTO eventSrc);
         Task<bool> DeleteEvent(int eventId);
+        Task<EventFeeGroupDTO> GetEventFeeGroup(int id);
+        Task<int> AddEventFeeGroup(EventFeeGroupDTO feeGroupDto);
+        Task<EventFeeGroupDTO> UpdateEventFeeGroup(EventFeeGroupDTO feeGroupSrc);
+        Task<bool> DeleteEventFeeGroup(int id);
         Task<EventActivityDTO> GetEventActivity(int id);
         Task<int> AddEventActivity(EventActivityDTO eventActivity);
         Task<EventActivityDTO> UpdateEventActivity(EventActivityDTO eventActivitySrc);

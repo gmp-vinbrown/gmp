@@ -20,7 +20,7 @@ namespace gmp.services.implementations.Repositories
         public async Task<ProgramDTO> GetProgramById(int id)
         {
             var program = await _ctx.FindAsync<Program>(id);
-            return program.Deleted ? null : AutoMapper.Mapper.Map<ProgramDTO>(program);
+            return AutoMapper.Mapper.Map<ProgramDTO>(program);
         }
 
         public async Task<int> AddProgram(ProgramDTO program)
@@ -51,7 +51,7 @@ namespace gmp.services.implementations.Repositories
         public async Task<ProgramDTO> UpdateProgram(ProgramDTO programSrc)
         {
             var entityDest = await _ctx.Programs.FindAsync(programSrc.ProgramId);
-            if (entityDest != null && !entityDest.Deleted)
+            if (entityDest != null)
             {
                 entityDest.BaseFee = programSrc.BaseFee;
                 entityDest.Description = programSrc.Description;
@@ -66,8 +66,7 @@ namespace gmp.services.implementations.Repositories
         public async Task<IEnumerable<ProgramDTO>> GetProgramsForSchool(int schoolId)
         {
             var programs = await (from program in _ctx.Programs
-                    where program.SchoolId == schoolId &&
-                          !program.Deleted && !program.School.Deleted
+                    where program.SchoolId == schoolId
                     select program).
                 ToListAsync();
 
@@ -79,8 +78,7 @@ namespace gmp.services.implementations.Repositories
             var program = await (
                 from p in _ctx.Programs
                 from member in p.Members
-                where member.MemberId == memberId &&
-                      !member.Deleted && !p.Deleted
+                where member.MemberId == memberId
                 select p).SingleOrDefaultAsync();
 
             return AutoMapper.Mapper.Map<ProgramDTO>(program);
@@ -120,7 +118,7 @@ namespace gmp.services.implementations.Repositories
         public async Task<FeeScheduleDTO> UpdateFeeSchedule(FeeScheduleDTO scheduleSrc)
         {
             var entityDest = await _ctx.FeeSchedules.FindAsync(scheduleSrc.FeeScheduleId);
-            if (entityDest != null && !entityDest.Deleted)
+            if (entityDest != null)
             {
                 AutoMapper.Mapper.Map(scheduleSrc, entityDest);
             }
@@ -140,7 +138,7 @@ namespace gmp.services.implementations.Repositories
         {
             var member = await _ctx.Members.FindAsync(memberId);
 
-            return member.Payments.Where(p => !p.Deleted).Select(AutoMapper.Mapper.Map<PaymentDTO>);
+            return member.Payments.Select(AutoMapper.Mapper.Map<PaymentDTO>);
         }
 
         public async Task<int> AddPayment(PaymentDTO payment)
@@ -166,7 +164,7 @@ namespace gmp.services.implementations.Repositories
         public async Task<PaymentDTO> UpdatePayment(PaymentDTO paymentSrc)
         {
             var entityDest = await _ctx.Payments.FindAsync(paymentSrc.PaymentId);
-            if (entityDest != null && !entityDest.Deleted)
+            if (entityDest != null)
             {
                 AutoMapper.Mapper.Map(paymentSrc, entityDest);
             }
@@ -178,7 +176,7 @@ namespace gmp.services.implementations.Repositories
         public async Task<IEnumerable<PaymentDTO>> GetMemberPaymentsByType(int memberId, int transactionTypeId)
         {
             var member = await (from memb in _ctx.Members
-                                where memb.MemberId == memberId && !memb.Deleted
+                                where memb.MemberId == memberId
                                 select memb)
                                 .Include("Payments")
                                 .SingleOrDefaultAsync();
@@ -195,7 +193,6 @@ namespace gmp.services.implementations.Repositories
                 from p in member.Payments
                 where loc.SchoolId == schoolId &&
                       member.SchoolLocationId == loc.SchoolLocationId
-                      && !member.Deleted && !p.Deleted && !loc.Deleted
                 select p
             ).ToListAsync();
 

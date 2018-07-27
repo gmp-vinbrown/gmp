@@ -53,6 +53,8 @@ namespace gmp.DomainModels.Entities
         {
             modelBuilder.Entity<Attendance>(entity =>
             {
+                entity.HasQueryFilter(e => !e.Deleted);
+
                 entity.Property(e => e.EventDate).HasColumnType("datetime");
 
                 entity.Property(e => e.Notes).IsUnicode(false);
@@ -87,6 +89,8 @@ namespace gmp.DomainModels.Entities
 
             modelBuilder.Entity<ContactInfo>(entity =>
             {
+                entity.HasQueryFilter(e => !e.Deleted);
+
                 entity.Property(e => e.Created).HasColumnType("datetime");
 
                 entity.Property(e => e.Email)
@@ -114,6 +118,8 @@ namespace gmp.DomainModels.Entities
 
             modelBuilder.Entity<Event>(entity =>
             {
+                entity.HasQueryFilter(e => !e.Deleted);
+
                 entity.Property(e => e.Description).IsUnicode(false);
 
                 entity.Property(e => e.EventEndDate).HasColumnType("datetime");
@@ -142,6 +148,8 @@ namespace gmp.DomainModels.Entities
 
             modelBuilder.Entity<EventActivity>(entity =>
             {
+                entity.HasQueryFilter(e => !e.Deleted);
+
                 entity.HasOne(d => d.EventActivityType)
                     .WithMany(p => p.EventActivity)
                     .HasForeignKey(d => d.EventActivityTypeId)
@@ -177,6 +185,8 @@ namespace gmp.DomainModels.Entities
 
             modelBuilder.Entity<EventFeeGroup>(entity =>
             {
+                entity.HasQueryFilter(e => !e.Deleted);
+
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(250)
@@ -195,6 +205,8 @@ namespace gmp.DomainModels.Entities
 
             modelBuilder.Entity<FeeSchedule>(entity =>
             {
+                entity.HasQueryFilter(e => !e.Deleted);
+
                 entity.Property(e => e.Description)
                     .HasMaxLength(250)
                     .IsUnicode(false);
@@ -215,6 +227,8 @@ namespace gmp.DomainModels.Entities
 
             modelBuilder.Entity<Level>(entity =>
             {
+                entity.HasQueryFilter(e => !e.Deleted);
+
                 entity.Property(e => e.Description)
                     .HasMaxLength(250)
                     .IsUnicode(false);
@@ -232,6 +246,8 @@ namespace gmp.DomainModels.Entities
 
             modelBuilder.Entity<Member>(entity =>
             {
+                entity.HasQueryFilter(e => !e.Deleted);
+
                 entity.HasIndex(e => e.RoleId)
                     .HasName("IX_Role");
 
@@ -359,6 +375,8 @@ namespace gmp.DomainModels.Entities
 
             modelBuilder.Entity<MemberEventActivity>(entity =>
             {
+                entity.HasQueryFilter(e => !e.Deleted);
+
                 entity.Property(e => e.Notes).IsUnicode(false);
 
                 entity.Property(e => e.Result)
@@ -366,7 +384,7 @@ namespace gmp.DomainModels.Entities
                     .IsUnicode(false);
 
                 entity.HasOne(d => d.EventActivity)
-                    .WithMany(p => p.MemberEventActivity)
+                    .WithMany(p => p.MemberEventActivities)
                     .HasForeignKey(d => d.EventActivityId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_MemberEventActivity_EventActivity");
@@ -380,6 +398,8 @@ namespace gmp.DomainModels.Entities
 
             modelBuilder.Entity<Payment>(entity =>
             {
+                entity.HasQueryFilter(e => !e.Deleted);
+
                 entity.Property(e => e.Amount).HasColumnType("decimal(5, 2)");
 
                 entity.Property(e => e.Notes)
@@ -402,6 +422,8 @@ namespace gmp.DomainModels.Entities
 
             modelBuilder.Entity<Program>(entity =>
             {
+                entity.HasQueryFilter(e => !e.Deleted);
+
                 entity.Property(e => e.BaseFee).HasColumnType("decimal(5, 2)");
 
                 entity.Property(e => e.Description)
@@ -421,6 +443,8 @@ namespace gmp.DomainModels.Entities
 
             modelBuilder.Entity<EventRegistration>(entity =>
             {
+                entity.HasQueryFilter(e => !e.Deleted);
+
                 entity.HasOne(d => d.Event)
                     .WithMany(p => p.Registrations)
                     .HasForeignKey(d => d.EventId)
@@ -433,6 +457,8 @@ namespace gmp.DomainModels.Entities
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Registration_Member");
 
+                entity.HasOne(d => d.FeeGroup);
+
                 entity.HasOne(d => d.Payment)
                     .WithMany(p => p.Registrations)
                     .HasForeignKey(d => d.PaymentId)
@@ -441,6 +467,8 @@ namespace gmp.DomainModels.Entities
 
             modelBuilder.Entity<Role>(entity =>
             {
+                entity.HasQueryFilter(e => !e.Deleted);
+
                 entity.Property(e => e.Description)
                     .HasMaxLength(250)
                     .IsUnicode(false);
@@ -458,6 +486,8 @@ namespace gmp.DomainModels.Entities
 
             modelBuilder.Entity<Schedule>(entity =>
             {
+                entity.HasQueryFilter(e => !e.Deleted);
+
                 entity.Property(e => e.Days)
                     .HasMaxLength(13)
                     .IsUnicode(false);
@@ -473,6 +503,8 @@ namespace gmp.DomainModels.Entities
 
             modelBuilder.Entity<School>(entity =>
             {
+                entity.HasQueryFilter(e => !e.Deleted);
+
                 entity.Property(e => e.Code)
                     .HasMaxLength(10)
                     .IsUnicode(false);
@@ -491,6 +523,8 @@ namespace gmp.DomainModels.Entities
 
             modelBuilder.Entity<SchoolLocation>(entity =>
             {
+                entity.HasQueryFilter(e => !e.Deleted);
+
                 entity.HasIndex(e => e.SchoolId)
                     .HasName("IX_School");
 

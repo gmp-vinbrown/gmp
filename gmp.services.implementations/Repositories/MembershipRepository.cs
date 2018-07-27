@@ -22,14 +22,14 @@ namespace gmp.services.implementations.Repositories
             var member = await (from m in _ctx.Members
                                 where m.MemberId == id
                                 select m)
-                                .Include("Role")
-                                .Include("Level")
-                                .Include("Program")
-                                .Include("FeeSchedule")
-                                .Include("ContactInfo")
-                                .Include("SchoolLocation")
+                                .Include(item => item.Role)
+                                .Include(item => item.Level)
+                                .Include(item => item.Program)
+                                .Include(item => item.FeeSchedule)
+                                .Include(item => item.ContactInfo)
+                                .Include(item => item.SchoolLocation)
                                 .SingleOrDefaultAsync();
-            return member.Deleted ? null : AutoMapper.Mapper.Map<MemberDTO>(member);
+            return AutoMapper.Mapper.Map<MemberDTO>(member);
         }
 
         public async Task<int> AddMember(MemberDTO member)
@@ -55,7 +55,7 @@ namespace gmp.services.implementations.Repositories
         public async Task<MemberDTO> UpdateMember(MemberDTO memberSrc)
         {
             var entityDest = await _ctx.Members.FindAsync(memberSrc.MemberId);
-            if (entityDest != null && !entityDest.Deleted)
+            if (entityDest != null)
             {
                 var hist = AutoMapper.Mapper.Map(entityDest, new MemberHistory());
                 _ctx.MemberHistory.Add(hist);
@@ -72,12 +72,11 @@ namespace gmp.services.implementations.Repositories
         {
             var members = await (from member in _ctx.Members
                 from schoolLocation in _ctx.SchoolLocations
-                where schoolLocation.SchoolId == schoolId 
-                && schoolLocation.Deleted == false && member.Deleted == false
+                where schoolLocation.SchoolId == schoolId                
                 select member)
-                .Include("ContactInfo")
-                .Include("Role")
-                .Include("Level")
+                .Include(item => item.ContactInfo)
+                .Include(item => item.Role)
+                .Include(item => item.Level)
                 .ToListAsync();
 
             return members.Select(AutoMapper.Mapper.Map<MemberDTO>);
@@ -87,11 +86,10 @@ namespace gmp.services.implementations.Repositories
         {
             var members = await (from member in _ctx.Members
                     where member.SchoolLocationId == schoolLocationId
-                          && member.SchoolLocation.Deleted == false && member.Deleted == false
                     select member)
-                .Include("ContactInfo")
-                .Include("Role")
-                .Include("Level")
+                .Include(item => item.ContactInfo)
+                .Include(item => item.Role)
+                .Include(item => item.Level)
                 .ToListAsync();
 
             return members.Select(AutoMapper.Mapper.Map<MemberDTO>);
