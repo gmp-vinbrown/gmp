@@ -23,9 +23,18 @@ namespace gmp.services.implementations.Repositories
             var attendance = await (from a in _ctx.Attendance
                            where a.MemberId == memberId && a.EventId == eventId
                            select a)
-                           .Include(r => r.Event)
                            .ToListAsync();
 
+            return attendance.Select(AutoMapper.Mapper.Map<AttendanceDTO>);
+        }
+
+        public async Task<IEnumerable<AttendanceDTO>> GetEventAttendance(int eventId)
+        {
+            var attendance = await (from a in _ctx.Attendance
+                                    where a.EventId == eventId
+                                    select a)
+                           .ToListAsync();
+            
             return attendance.Select(AutoMapper.Mapper.Map<AttendanceDTO>);
         }
 

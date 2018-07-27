@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using AutoMapper.Attributes;
 using gmp.DomainModels.Entities;
+using Newtonsoft.Json;
 
 namespace gmp.DomainModels.Projections
 {
@@ -10,7 +11,7 @@ namespace gmp.DomainModels.Projections
     {
         public AttendanceDTO()
         {
-            AttendanceEventActivityType = new HashSet<AttendanceEventActivityTypeDTO>();
+            AttendanceEventActivityTypes = new HashSet<AttendanceEventActivityTypeDTO>();
         }
 
         public int AttendanceId { get; set; }
@@ -20,8 +21,11 @@ namespace gmp.DomainModels.Projections
         public string Notes { get; set; }
         public bool Deleted { get; set; }
 
+        [JsonIgnore]
         public virtual EventDTO Event { get; set; }
+        [JsonIgnore]
         public virtual MemberDTO Member { get; set; }
-        public virtual ICollection<AttendanceEventActivityTypeDTO> AttendanceEventActivityType { get; set; }
+        [JsonIgnore]
+        public virtual ICollection<AttendanceEventActivityTypeDTO> AttendanceEventActivityTypes { get; set; }
     }
 }

@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using gmp.DomainModels.Projections;
 using gmp.services.contracts.Repositories;
@@ -20,6 +22,16 @@ namespace gmp.services.implementations.Services
         public async Task<IEnumerable<AttendanceDTO>> GetMemberAttendance(int memberId, int eventId)
         {
             return await _attendanceRepository.GetMemberAttendance(memberId, eventId);
+        }
+
+        public async Task<IEnumerable<AttendanceDTO>> GetEventAttendance(int eventId, DateTime? date = null)
+        {
+            var attendance = await _attendanceRepository.GetEventAttendance(eventId);
+            if (date.HasValue)
+            {
+                attendance = attendance.Where(a => a.EventDate.Date == date.Value.Date).ToList();
+            }
+            return attendance;
         }
 
         public async Task<int> AddAttendance(AttendanceDTO attendance)

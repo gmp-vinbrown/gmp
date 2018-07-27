@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using gmp.DomainModels.Projections;
 
@@ -7,6 +8,7 @@ namespace gmp.services.contracts.Repositories
     public interface IAttendanceRepository
     {
         Task<IEnumerable<AttendanceDTO>> GetMemberAttendance(int memberId, int eventId);
+        Task<IEnumerable<AttendanceDTO>> GetEventAttendance(int eventId);
         Task<int> AddAttendance(AttendanceDTO attendance);
         Task<bool> DeleteAttendance(int id);
         Task<EventRegistrationDTO> GetRegistration(int id);

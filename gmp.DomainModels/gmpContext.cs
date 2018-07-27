@@ -75,7 +75,7 @@ namespace gmp.DomainModels.Entities
             modelBuilder.Entity<AttendanceEventActivityType>(entity =>
             {
                 entity.HasOne(d => d.Attendance)
-                    .WithMany(p => p.AttendanceEventActivityType)
+                    .WithMany(p => p.AttendanceEventActivityTypes)
                     .HasForeignKey(d => d.AttendanceId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_AttendanceEventActivityType_Attendance");

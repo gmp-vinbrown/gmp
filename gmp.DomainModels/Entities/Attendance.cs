@@ -9,7 +9,7 @@ namespace gmp.DomainModels.Entities
     {
         public Attendance()
         {
-            AttendanceEventActivityType = new HashSet<AttendanceEventActivityType>();
+            AttendanceEventActivityTypes = new HashSet<AttendanceEventActivityType>();
         }
 
         public int AttendanceId { get; set; }
@@ -18,9 +18,9 @@ namespace gmp.DomainModels.Entities
         public DateTime EventDate { get; set; }
         public string Notes { get; set; }
         public bool Deleted { get; set; }
-
+        
         public virtual Event Event { get; set; }
         public virtual Member Member { get; set; }
-        public virtual ICollection<AttendanceEventActivityType> AttendanceEventActivityType { get; set; }
+        public virtual ICollection<AttendanceEventActivityType> AttendanceEventActivityTypes { get; set; }
     }
 }
