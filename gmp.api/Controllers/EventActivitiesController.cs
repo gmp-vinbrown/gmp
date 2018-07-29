@@ -28,13 +28,13 @@ namespace gmp.api.Controllers
         {
             return await _attendanceService.AddEventActivity(eventActivity);
         }
-
+       
         [HttpPut]
         [Route("api/v1/eventactivities")]
         public async Task<EventActivityDTO> UpdateEventActivity(EventActivityDTO eventActivitySrc)
         {
             return await _attendanceService.UpdateEventActivity(eventActivitySrc);
-        }
+        }        
 
         [HttpDelete]
         [Route("api/v1/eventactivities/{id}")]

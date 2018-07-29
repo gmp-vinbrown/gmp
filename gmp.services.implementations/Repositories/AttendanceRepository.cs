@@ -45,17 +45,17 @@ namespace gmp.services.implementations.Repositories
                 throw new ArgumentNullException($"Attendance cannot be null");
             }
 
-            var newAttendance = AutoMapper.Mapper.Map<Attendance>(attendance);
-            await _ctx.Attendance.AddAsync(newAttendance);
+            var newEntity = AutoMapper.Mapper.Map<Attendance>(attendance);
+            await _ctx.Attendance.AddAsync(newEntity);
             await _ctx.SaveChangesAsync();
 
-            return newAttendance.AttendanceId;
+            return newEntity.AttendanceId;
         }
 
         public async Task<bool> DeleteAttendance(int id)
         {
-            var attendance = await _ctx.Attendance.FindAsync(id);
-            attendance.Deleted = true;
+            var entity = await _ctx.Attendance.FindAsync(id);
+            entity.Deleted = true;
             return await _ctx.SaveChangesAsync() > 0;
         }
         #endregion
@@ -79,19 +79,19 @@ namespace gmp.services.implementations.Repositories
                 throw new ArgumentNullException($"EventRegistration cannot be null");
             }
 
-            var newRegistration = AutoMapper.Mapper.Map<EventRegistration>(eventRegistration);
-            await _ctx.EventRegistrations.AddAsync(newRegistration);
+            var newEntity = AutoMapper.Mapper.Map<EventRegistration>(eventRegistration);
+            await _ctx.EventRegistrations.AddAsync(newEntity);
             await _ctx.SaveChangesAsync();
 
-            return newRegistration.EventRegistrationId;
+            return newEntity.EventRegistrationId;
         }
 
-        public async Task<EventRegistrationDTO> UpdateRegistration(EventRegistrationDTO eventRegistrationSrc)
+        public async Task<EventRegistrationDTO> UpdateRegistration(EventRegistrationDTO entitySrc)
         {
-            var entityDest = await _ctx.EventRegistrations.FindAsync(eventRegistrationSrc.EventRegistrationId);
+            var entityDest = await _ctx.EventRegistrations.FindAsync(entitySrc.EventRegistrationId);
             if (entityDest != null)
             {
-                AutoMapper.Mapper.Map(eventRegistrationSrc, entityDest);
+                AutoMapper.Mapper.Map(entitySrc, entityDest);
             }
             else
             {
@@ -100,13 +100,13 @@ namespace gmp.services.implementations.Repositories
 
             await _ctx.SaveChangesAsync();
 
-            return await Task.FromResult(eventRegistrationSrc);
+            return await Task.FromResult(entitySrc);
         }
 
         public async Task<bool> DeleteRegistration(int id)
         {
-            var registration = await _ctx.EventRegistrations.FindAsync(id);
-            registration.Deleted = true;
+            var entity = await _ctx.EventRegistrations.FindAsync(id);
+            entity.Deleted = true;
             return await _ctx.SaveChangesAsync() > 0;
         }
         #endregion
@@ -174,19 +174,19 @@ namespace gmp.services.implementations.Repositories
                 throw new ArgumentNullException($"Event cannot be null");
             }
 
-            var newEvent = AutoMapper.Mapper.Map<Event>(e);
-            await _ctx.Events.AddAsync(newEvent);
+            var newEntity = AutoMapper.Mapper.Map<Event>(e);
+            await _ctx.Events.AddAsync(newEntity);
             await _ctx.SaveChangesAsync();
 
-            return newEvent.EventId;
+            return newEntity.EventId;
         }
 
-        public async Task<EventDTO> UpdateEvent(EventDTO eventSrc)
+        public async Task<EventDTO> UpdateEvent(EventDTO entitySrc)
         {
-            var entityDest = await _ctx.Events.FindAsync(eventSrc.EventId);
+            var entityDest = await _ctx.Events.FindAsync(entitySrc.EventId);
             if (entityDest != null)
             {
-                AutoMapper.Mapper.Map(eventSrc, entityDest);
+                AutoMapper.Mapper.Map(entitySrc, entityDest);
             }
             else
             {
@@ -195,13 +195,13 @@ namespace gmp.services.implementations.Repositories
 
             await _ctx.SaveChangesAsync();
 
-            return await Task.FromResult(eventSrc);
+            return await Task.FromResult(entitySrc);
         }
 
-        public async Task<bool> DeleteEvent(int eventId)
+        public async Task<bool> DeleteEvent(int id)
         {
-            var e = await _ctx.Events.FindAsync(eventId);
-            e.Deleted = true;
+            var entity = await _ctx.Events.FindAsync(id);
+            entity.Deleted = true;
             return await _ctx.SaveChangesAsync() > 0;
         }
         #endregion
@@ -231,12 +231,12 @@ namespace gmp.services.implementations.Repositories
             return newEntity.EventFeeGroupId;
         }
 
-        public async Task<EventFeeGroupDTO> UpdateEventFeeGroup(EventFeeGroupDTO feeGroupSrc)
+        public async Task<EventFeeGroupDTO> UpdateEventFeeGroup(EventFeeGroupDTO entitySrc)
         {
-            var entityDest = await _ctx.EventFeeGroups.FindAsync(feeGroupSrc.EventFeeGroupId);
+            var entityDest = await _ctx.EventFeeGroups.FindAsync(entitySrc.EventFeeGroupId);
             if (entityDest != null)
             {
-                AutoMapper.Mapper.Map(feeGroupSrc, entityDest);
+                AutoMapper.Mapper.Map(entitySrc, entityDest);
             }
             else
             {
@@ -245,13 +245,13 @@ namespace gmp.services.implementations.Repositories
 
             await _ctx.SaveChangesAsync();
 
-            return await Task.FromResult(feeGroupSrc);
+            return await Task.FromResult(entitySrc);
         }
 
         public async Task<bool> DeleteEventFeeGroup(int id)
         {
-            var e = await _ctx.EventFeeGroups.FindAsync(id);
-            e.Deleted = true;
+            var entity = await _ctx.EventFeeGroups.FindAsync(id);
+            entity.Deleted = true;
             return await _ctx.SaveChangesAsync() > 0;
         }
         #endregion
@@ -285,19 +285,19 @@ namespace gmp.services.implementations.Repositories
                 throw new ArgumentNullException($"Schedule cannot be null");
             }
 
-            var newSchedule = AutoMapper.Mapper.Map<Schedule>(schedule);
-            await _ctx.Schedules.AddAsync(newSchedule);
+            var newEntity = AutoMapper.Mapper.Map<Schedule>(schedule);
+            await _ctx.Schedules.AddAsync(newEntity);
             await _ctx.SaveChangesAsync();
 
-            return newSchedule.ScheduleId;
+            return newEntity.ScheduleId;
         }
 
-        public async Task<ScheduleDTO> UpdateSchedule(ScheduleDTO scheduleSrc)
+        public async Task<ScheduleDTO> UpdateSchedule(ScheduleDTO entitySrc)
         {
-            var entityDest = await _ctx.Schedules.FindAsync(scheduleSrc.ScheduleId);
+            var entityDest = await _ctx.Schedules.FindAsync(entitySrc.ScheduleId);
             if (entityDest != null)
             {
-                AutoMapper.Mapper.Map(scheduleSrc, entityDest);
+                AutoMapper.Mapper.Map(entitySrc, entityDest);
             }
             else
             {
@@ -306,13 +306,13 @@ namespace gmp.services.implementations.Repositories
 
             await _ctx.SaveChangesAsync();
 
-            return await Task.FromResult(scheduleSrc);
+            return await Task.FromResult(entitySrc);
         }
 
         public async Task<bool> DeleteSchedule(int id)
         {
-            var schedule = await _ctx.Schedules.FindAsync(id);
-            schedule.Deleted = true;
+            var entity = await _ctx.Schedules.FindAsync(id);
+            entity.Deleted = true;
             return await _ctx.SaveChangesAsync() > 0;
         }
         #endregion
@@ -327,7 +327,7 @@ namespace gmp.services.implementations.Repositories
                                  .Include(ea => ea.EventActivityType)
                            .SingleOrDefaultAsync();
 
-            return eventActivity == null ? null : AutoMapper.Mapper.Map<EventActivityDTO>(eventActivity);
+            return AutoMapper.Mapper.Map<EventActivityDTO>(eventActivity);
         }
 
         public async Task<int> AddEventActivity(EventActivityDTO eventActivity)
@@ -337,19 +337,19 @@ namespace gmp.services.implementations.Repositories
                 throw new ArgumentNullException($"Event Activity cannot be null");
             }
 
-            var newEventActivity = AutoMapper.Mapper.Map<EventActivity>(eventActivity);
-            await _ctx.EventActivities.AddAsync(newEventActivity);
+            var newEntity = AutoMapper.Mapper.Map<EventActivity>(eventActivity);
+            await _ctx.EventActivities.AddAsync(newEntity);
             await _ctx.SaveChangesAsync();
 
-            return newEventActivity.EventActivityId;
+            return newEntity.EventActivityId;
         }
 
-        public async Task<EventActivityDTO> UpdateEventActivity(EventActivityDTO eventActivitySrc)
+        public async Task<EventActivityDTO> UpdateEventActivity(EventActivityDTO entitySrc)
         {
-            var entityDest = await _ctx.EventActivities.FindAsync(eventActivitySrc.EventActivityId);
+            var entityDest = await _ctx.EventActivities.FindAsync(entitySrc.EventActivityId);
             if (entityDest != null)
             {
-                AutoMapper.Mapper.Map(eventActivitySrc, entityDest);
+                AutoMapper.Mapper.Map(entitySrc, entityDest);
             }
             else
             {
@@ -358,13 +358,13 @@ namespace gmp.services.implementations.Repositories
 
             await _ctx.SaveChangesAsync();
 
-            return await Task.FromResult(eventActivitySrc);
+            return await Task.FromResult(entitySrc);
         }
 
         public async Task<bool> DeleteEventActivity(int id)
         {
-            var eventActivity = await _ctx.EventActivities.FindAsync(id);
-            eventActivity.Deleted = true;
+            var entity = await _ctx.EventActivities.FindAsync(id);
+            entity.Deleted = true;
             return await _ctx.SaveChangesAsync() > 0;
         }
 
@@ -373,6 +373,55 @@ namespace gmp.services.implementations.Repositories
         public void Dispose()
         {
             _ctx?.Dispose();
-        }        
+        }
+
+        public async Task<IEnumerable<MemberEventActivityDTO>> GetMemberEventActivitiesForEvent(int eventId, int memberId)
+        {
+            var memberEventActivities = await (from mea in _ctx.MemberEventActivities
+                                       where mea.EventActivity.EventId == eventId &&
+                                       mea.MemberId == memberId
+                                       select mea)
+                           .ToListAsync();
+
+            return memberEventActivities.Select(AutoMapper.Mapper.Map<MemberEventActivityDTO>);
+        }
+
+        public async Task<int> AddMemberEventActivity(MemberEventActivityDTO memberEventActivity)
+        {
+            if (memberEventActivity == null)
+            {
+                throw new ArgumentNullException($"MemberEventActivity cannot be null");
+            }
+
+            var newEntity = AutoMapper.Mapper.Map<MemberEventActivity>(memberEventActivity);
+            await _ctx.MemberEventActivities.AddAsync(newEntity);
+            await _ctx.SaveChangesAsync();
+
+            return newEntity.MemberEventActivityId;
+        }
+
+        public async Task<MemberEventActivityDTO> UpdateMemberEventActivity(MemberEventActivityDTO entitySrc)
+        {
+            var entityDest = await _ctx.MemberEventActivities.FindAsync(entitySrc.MemberEventActivityId);
+            if (entityDest != null)
+            {
+                AutoMapper.Mapper.Map(entitySrc, entityDest);
+            }
+            else
+            {
+                return null;
+            }
+
+            await _ctx.SaveChangesAsync();
+
+            return await Task.FromResult(entitySrc);
+        }
+
+        public async Task<bool> DeleteMemberEventActivity(int id)
+        {
+            var entity = await _ctx.MemberEventActivities.FindAsync(id);
+            entity.Deleted = true;
+            return await _ctx.SaveChangesAsync() > 0;
+        }
     }
 }

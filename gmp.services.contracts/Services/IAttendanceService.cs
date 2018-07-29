@@ -20,6 +20,10 @@ namespace gmp.services.contracts.Services
         Task<IEnumerable<MemberDTO>> GetMembersForEvent(int eventId);
         Task<IEnumerable<MemberDTO>> GetMembersForEventActivity(int eventActivityId);
         Task<IEnumerable<EventDTO>> GetSchoolLocationEvents(int schoolLocationId);
+        Task<IEnumerable<MemberEventActivityDTO>> GetMemberEventActivitiesForEvent(int eventId, int memberId);
+        Task<int> AddMemberEventActivity(MemberEventActivityDTO memberEventActivity);
+        Task<MemberEventActivityDTO> UpdateMemberEventActivity(MemberEventActivityDTO memberEventActivity);
+        Task<bool> DeleteMemberEventActivity(int memberEventActivityId);
         Task<IEnumerable<EventActivityTypeDTO>> GetEventActivityTypes();
         Task<int> AddEvent(EventDTO e);
         Task<EventDTO> UpdateEvent(EventDTO eventSrc);

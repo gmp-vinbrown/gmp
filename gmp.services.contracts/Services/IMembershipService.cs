@@ -12,5 +12,6 @@ namespace gmp.services.contracts.Services
         Task<MemberDTO> UpdateMember(MemberDTO member);
         Task<IEnumerable<MemberDTO>> GetMembersBySchool(int schoolId);
         Task<IEnumerable<MemberDTO>> GetMembersBySchoolLocation(int schoolLocationId);
+        Task<IEnumerable<MemberDTO>> GetMembersByEvent(int eventId);
     }
 }

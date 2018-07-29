@@ -182,6 +182,29 @@ namespace gmp.services.implementations.Services
         {
             return await _attendanceRepository.DeleteEventFeeGroup(id);
         }
+        #endregion
+
+        #region Member Event Activities
+
+        public async Task<IEnumerable<MemberEventActivityDTO>> GetMemberEventActivitiesForEvent(int eventId, int memberId)
+        {
+            return await _attendanceRepository.GetMemberEventActivitiesForEvent(eventId, memberId);
+        }
+
+        public async Task<int> AddMemberEventActivity(MemberEventActivityDTO memberEventActivity)
+        {
+            return await _attendanceRepository.AddMemberEventActivity(memberEventActivity);
+        }
+
+        public async Task<MemberEventActivityDTO> UpdateMemberEventActivity(MemberEventActivityDTO memberEventActivity)
+        {
+            return await _attendanceRepository.UpdateMemberEventActivity(memberEventActivity);
+        }
+
+        public async Task<bool> DeleteMemberEventActivity(int id)
+        {
+            return await _attendanceRepository.DeleteMemberEventActivity(id);
+        }
 
         #endregion
     }

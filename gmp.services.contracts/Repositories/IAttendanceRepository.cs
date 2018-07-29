@@ -17,8 +17,12 @@ namespace gmp.services.contracts.Repositories
         Task<bool> DeleteRegistration(int id);
         Task<IEnumerable<EventDTO>> GetMemberEvents(int memberId);
         Task<IEnumerable<MemberDTO>> GetMembersForEvent(int eventId);
-        Task<IEnumerable<MemberDTO>> GetMembersForEventActivity(int eventActivityId);
+        Task<IEnumerable<MemberDTO>> GetMembersForEventActivity(int eventActivityId);        
         Task<IEnumerable<EventDTO>> GetSchoolLocationEvents(int schoolLocationId);
+        Task<IEnumerable<MemberEventActivityDTO>> GetMemberEventActivitiesForEvent(int eventId, int memberId);
+        Task<int> AddMemberEventActivity(MemberEventActivityDTO memberEventActivity);
+        Task<MemberEventActivityDTO> UpdateMemberEventActivity(MemberEventActivityDTO memberEventActivity);
+        Task<bool> DeleteMemberEventActivity(int memberEventActivityId);
         Task<IEnumerable<EventActivityTypeDTO>> GetEventActivityTypes();
         Task<EventDTO> GetEvent(int eventId);
         Task<int> AddEvent(EventDTO e);

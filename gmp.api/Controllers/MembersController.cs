@@ -37,6 +37,13 @@ namespace gmp.api.Controllers
             return await _membershipService.GetMembersBySchoolLocation(id);
         }
 
+        [HttpGet]
+        [Route("api/v1/events/{id}/members")]
+        public async Task<IEnumerable<MemberDTO>> GetMemberByEvent(int id)
+        {
+            return await _membershipService.GetMembersByEvent(id);
+        }
+
         [HttpPost]
         [Route("api/v1/members")]
         public async Task<int> AddMember(MemberDTO member)

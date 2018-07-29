@@ -95,9 +95,32 @@ namespace gmp.services.implementations.Repositories
             return members.Select(AutoMapper.Mapper.Map<MemberDTO>);
         }
 
+        public async Task<IEnumerable<MemberDTO>> GetMembersByEvent(int eventId)
+        {
+            var members = await (from member in _ctx.Members
+                    from memberRegistration in _ctx.EventRegistrations
+                    where memberRegistration.EventId == eventId &&
+                          memberRegistration.MemberId == member.MemberId
+                    select member)
+                .Include(item => item.ContactInfo)
+                .Include(item => item.SchoolLocation)
+                .Include(item => item.Registrations)
+                .Include(item => item.MemberEventActivities)
+                .Include(item => item.Level)
+                .ToListAsync();
+
+            members.ForEach(
+                    m => m.Registrations = m.Registrations.Where(_m => _m.EventId == eventId).ToList()
+                );
+            members.ForEach(
+                    m => m.MemberEventActivities = m.MemberEventActivities.Where(_m => _m.EventActivity.EventId == eventId).ToList()
+                );
+            return members.Select(AutoMapper.Mapper.Map<MemberDTO>);
+        }
+
         public void Dispose()
         {
             _ctx?.Dispose();
-        }
+        }        
     }
 }

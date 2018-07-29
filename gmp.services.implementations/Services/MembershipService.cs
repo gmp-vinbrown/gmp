@@ -45,5 +45,10 @@ namespace gmp.services.implementations.Services
         {
             return await _membershipRepository.GetMembersBySchoolLocation(schoolLocationId);
         }
+
+        public async Task<IEnumerable<MemberDTO>> GetMembersByEvent(int eventId)
+        {
+            return await _membershipRepository.GetMembersByEvent(eventId);
+        }
     }
 }
