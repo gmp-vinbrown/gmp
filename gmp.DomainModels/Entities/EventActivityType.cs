@@ -8,15 +8,15 @@ namespace gmp.DomainModels.Entities
     {
         public EventActivityType()
         {
-            AttendanceEventActivityType = new HashSet<AttendanceEventActivityType>();
-            EventActivity = new HashSet<EventActivity>();
+            AttendanceEventActivityTypes = new HashSet<AttendanceEventActivityType>();
+            EventActivities = new HashSet<EventActivity>();
         }
 
         public int EventActivityTypeId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
 
-        public virtual ICollection<AttendanceEventActivityType> AttendanceEventActivityType { get; set; }
-        public virtual ICollection<EventActivity> EventActivity { get; set; }
+        public virtual ICollection<AttendanceEventActivityType> AttendanceEventActivityTypes { get; set; }
+        public virtual ICollection<EventActivity> EventActivities { get; set; }
     }
 }

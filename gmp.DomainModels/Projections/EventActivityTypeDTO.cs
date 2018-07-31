@@ -10,8 +10,8 @@ namespace gmp.DomainModels.Projections
     {
         public EventActivityTypeDTO()
         {
-            AttendanceEventActivityType = new HashSet<AttendanceEventActivityTypeDTO>();
-            EventActivity = new HashSet<EventActivityDTO>();
+            AttendanceEventActivityTypes = new HashSet<AttendanceEventActivityTypeDTO>();
+            EventActivities = new HashSet<EventActivityDTO>();
         }
 
         public int EventActivityTypeId { get; set; }
@@ -19,9 +19,9 @@ namespace gmp.DomainModels.Projections
         public string Description { get; set; }
 
         [JsonIgnore]
-        public ICollection<AttendanceEventActivityTypeDTO> AttendanceEventActivityType { get; set; }
+        public ICollection<AttendanceEventActivityTypeDTO> AttendanceEventActivityTypes { get; set; }
 
         [JsonIgnore]
-        public ICollection<EventActivityDTO> EventActivity { get; set; }
+        public ICollection<EventActivityDTO> EventActivities { get; set; }
     }
 }
