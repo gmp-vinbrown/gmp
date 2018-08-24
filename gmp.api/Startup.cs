@@ -1,6 +1,8 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using AutoMapper;
 using gmp.Core.Services;
+using gmp.DomainModels;
 using gmp.DomainModels.Entities;
 using gmp.services.contracts.Repositories;
 using Microsoft.AspNetCore.Builder;
@@ -12,6 +14,7 @@ using gmp.services.contracts.Services;
 using gmp.services.implementations.Repositories;
 using gmp.services.implementations.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Http;
 
 namespace gmp.api
@@ -39,12 +42,19 @@ namespace gmp.api
                 cfg.ForAllMaps((typeMap, mapConfig) => mapConfig.MaxDepth(3));
                 cfg.CreateMap<Member, MemberHistory>();
             });
-            
+
             // services.AddAutoMapper();
 
 
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy",
+                    builder => builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowCredentials());
+            });
 
-            services.AddCors();
 
             var conn = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<gmpContext>(
@@ -96,9 +106,10 @@ namespace gmp.api
             }
 
             app.UseAuthentication();
+            app.UseCors("CorsPolicy");
             app.UseMvc();
+            
 
-          
         }
     }
 }

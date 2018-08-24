@@ -2,11 +2,11 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using gmp.Core;
 using gmp.Core.Services;
+using gmp.DomainModels.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace gmp.DomainModels.Entities
+namespace gmp.DomainModels
 {
     public partial class gmpContext : DbContext
     {
@@ -81,7 +81,7 @@ namespace gmp.DomainModels.Entities
                     .HasConstraintName("FK_AttendanceEventActivityType_Attendance");
 
                 entity.HasOne(d => d.EventActivityType)
-                    .WithMany(p => p.AttendanceEventActivityType)
+                    .WithMany(p => p.AttendanceEventActivityTypes)
                     .HasForeignKey(d => d.EventActivityTypeId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_AttendanceEventActivityType_EventActivityType");
@@ -140,7 +140,7 @@ namespace gmp.DomainModels.Entities
                     .HasForeignKey(e => e.EventId);
 
                 entity.HasOne(d => d.EventType)
-                    .WithMany(p => p.Event)
+                    .WithMany(p => p.Events)
                     .HasForeignKey(d => d.EventTypeId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Event_EventType");
@@ -151,7 +151,7 @@ namespace gmp.DomainModels.Entities
                 entity.HasQueryFilter(e => !e.Deleted);
 
                 entity.HasOne(d => d.EventActivityType)
-                    .WithMany(p => p.EventActivity)
+                    .WithMany(p => p.EventActivities)
                     .HasForeignKey(d => d.EventActivityTypeId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_EventActivity_EventActivityType");
