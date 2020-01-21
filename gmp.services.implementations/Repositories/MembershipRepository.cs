@@ -29,7 +29,7 @@ namespace gmp.services.implementations.Repositories
                                 .Include(item => item.ContactInfo)
                                 .Include(item => item.SchoolLocation)
                                 .SingleOrDefaultAsync();
-            return AutoMapper.Mapper.Map<MemberDTO>(member);
+            return mapper.Map<MemberDTO>(member);
         }
 
         public async Task<int> AddMember(MemberDTO member)
@@ -39,7 +39,7 @@ namespace gmp.services.implementations.Repositories
                 throw new ArgumentNullException($"Member cannot be null");
             }
 
-            var newMember = AutoMapper.Mapper.Map<Member>(member);
+            var newMember = mapper.Map<Member>(member);
             await _ctx.Members.AddAsync(newMember);
             await _ctx.SaveChangesAsync();
             return newMember.MemberId;
@@ -57,10 +57,10 @@ namespace gmp.services.implementations.Repositories
             var entityDest = await _ctx.Members.FindAsync(memberSrc.MemberId);
             if (entityDest != null)
             {
-                var hist = AutoMapper.Mapper.Map(entityDest, new MemberHistory());
+                var hist = mapper.Map(entityDest, new MemberHistory());
                 _ctx.MemberHistory.Add(hist);
 
-                AutoMapper.Mapper.Map(memberSrc, entityDest);
+                mapper.Map(memberSrc, entityDest);
                 
             }
             await _ctx.SaveChangesAsync();
@@ -79,7 +79,7 @@ namespace gmp.services.implementations.Repositories
                 .Include(item => item.Level)
                 .ToListAsync();
 
-            return members.Select(AutoMapper.Mapper.Map<MemberDTO>);
+            return members.Select(mapper.Map<MemberDTO>);
         }
 
         public async Task<IEnumerable<MemberDTO>> GetMembersBySchoolLocation(int schoolLocationId)
@@ -92,7 +92,7 @@ namespace gmp.services.implementations.Repositories
                 .Include(item => item.Level)
                 .ToListAsync();
 
-            return members.Select(AutoMapper.Mapper.Map<MemberDTO>);
+            return members.Select(mapper.Map<MemberDTO>);
         }
 
         public async Task<IEnumerable<MemberDTO>> GetMembersByEvent(int eventId)
@@ -115,7 +115,7 @@ namespace gmp.services.implementations.Repositories
             members.ForEach(
                     m => m.MemberEventActivities = m.MemberEventActivities.Where(_m => _m.EventActivity.EventId == eventId).ToList()
                 );
-            return members.Select(AutoMapper.Mapper.Map<MemberDTO>);
+            return members.Select(mapper.Map<MemberDTO>);
         }
 
         public void Dispose()

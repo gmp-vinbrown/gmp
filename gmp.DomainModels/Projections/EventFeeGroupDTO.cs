@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 using AutoMapper.Attributes;
 using gmp.DomainModels.Entities;
-using Newtonsoft.Json;
 
 namespace gmp.DomainModels.Projections
 {

@@ -32,7 +32,7 @@ namespace gmp.api.Controllers
         public async Task<int> Get()
         {
             
-            return _userInfoService.GetCurrentUserId();
+            return await Task.FromResult(_userInfoService.GetCurrentUserId());
         }
 
         [HttpPost]

@@ -16,6 +16,17 @@ namespace gmp.DomainModels.Entities
         public string Name { get; set; }
         public string Description { get; set; }
 
+        public int? MinAge { get; set; }
+        public int? MaxAge { get; set; }
+
+        public int? MinWeight { get; set; }
+        public int? MaxWeight { get; set; }
+
+        public int? MinLevel { get; set; }
+        public int? MaxLevel { get; set; }
+
+        public int? GenderId { get; set; }
+        
         public virtual ICollection<AttendanceEventActivityType> AttendanceEventActivityTypes { get; set; }
         public virtual ICollection<EventActivity> EventActivities { get; set; }
     }

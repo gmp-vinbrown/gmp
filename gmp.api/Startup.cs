@@ -1,9 +1,6 @@
-﻿using System;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using System.Threading.Tasks;
 using gmp.Core.Services;
 using gmp.DomainModels;
-using gmp.DomainModels.Entities;
 using gmp.services.contracts.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -14,8 +11,9 @@ using gmp.services.contracts.Services;
 using gmp.services.implementations.Repositories;
 using gmp.services.implementations.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Hosting;
+using Microsoft.AspNetCore.Mvc.Authorization;
 
 namespace gmp.api
 {
@@ -34,25 +32,32 @@ namespace gmp.api
             services.AddMvc()
                 .AddJsonOptions(options =>
                 {
-                    options.SerializerSettings.MaxDepth = 1;
+                    options.JsonSerializerOptions.MaxDepth = 3;
                 });
-            Mapper.Initialize(cfg =>
-            {
-                cfg.CreateMissingTypeMaps = true;
-                cfg.ForAllMaps((typeMap, mapConfig) => mapConfig.MaxDepth(3));
-                cfg.CreateMap<Member, MemberHistory>();
-            });
+            
+            //Mapper.Initialize(cfg =>
+            //{
+            //    cfg.CreateMissingTypeMaps = true;
+            //    cfg.ForAllMaps((typeMap, mapConfig) => mapConfig.MaxDepth(3));
+            //    cfg.CreateMap<Member, MemberHistory>();
+            //});
 
             // services.AddAutoMapper();
 
+            services.AddControllers(config => config.EnableEndpointRouting = false).ConfigureApiBehaviorOptions(options =>
+            {
+                options.SuppressConsumesConstraintForFormFileParameters = true;
+                options.SuppressInferBindingSourcesForParameters = true;
+                options.SuppressModelStateInvalidFilter = true;
+                options.SuppressMapClientErrors = true;
+            });
 
             services.AddCors(options =>
             {
                 options.AddPolicy("CorsPolicy",
                     builder => builder.AllowAnyOrigin()
                     .AllowAnyMethod()
-                    .AllowAnyHeader()
-                    .AllowCredentials());
+                    .AllowAnyHeader());
             });
 
 
@@ -78,6 +83,7 @@ namespace gmp.api
             //services.AddIdentity<AppUser, IdentityRole>()
             //    .AddEntityFrameworkStores<gmpContext>()
             //    .AddDefaultTokenProviders();
+            services.AddHttpContextAccessor();
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options =>
@@ -94,19 +100,34 @@ namespace gmp.api
                     };
                 });
 
+            services.AddMvcCore();
             
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
+            else
+            {
+                app.UseHsts();
+            }
 
             app.UseAuthentication();
+            
             app.UseCors("CorsPolicy");
+
+            app.UseHttpsRedirection();
+            app.UseStaticFiles();
+            app.UseRouting();
+            app.UseAuthorization();
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapRazorPages();
+            });
             app.UseMvc();
             
 

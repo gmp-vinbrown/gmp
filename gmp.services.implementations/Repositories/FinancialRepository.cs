@@ -20,7 +20,7 @@ namespace gmp.services.implementations.Repositories
         public async Task<ProgramDTO> GetProgramById(int id)
         {
             var program = await _ctx.FindAsync<Program>(id);
-            return AutoMapper.Mapper.Map<ProgramDTO>(program);
+            return mapper.Map<ProgramDTO>(program);
         }
 
         public async Task<int> AddProgram(ProgramDTO program)
@@ -30,7 +30,7 @@ namespace gmp.services.implementations.Repositories
                 throw new ArgumentNullException($"Program cannot be null");
             }
 
-            var newProgram = AutoMapper.Mapper.Map<Program>(program);
+            var newProgram = mapper.Map<Program>(program);
             await _ctx.Programs.AddAsync(newProgram);
             await _ctx.SaveChangesAsync();
             return newProgram.ProgramId;
@@ -70,7 +70,7 @@ namespace gmp.services.implementations.Repositories
                     select program).
                 ToListAsync();
 
-            return programs.Select(AutoMapper.Mapper.Map<ProgramDTO>);
+            return programs.Select(p => mapper.Map<ProgramDTO>(p));
         }
 
         public async Task<ProgramDTO> GetProgramForMember(int memberId)
@@ -81,13 +81,13 @@ namespace gmp.services.implementations.Repositories
                 where member.MemberId == memberId
                 select p).SingleOrDefaultAsync();
 
-            return AutoMapper.Mapper.Map<ProgramDTO>(program);
+            return mapper.Map<ProgramDTO>(program);
         }
 
         public async Task<FeeScheduleDTO> GetFeeScheduleById(int id)
         {
             var fs = await _ctx.FeeSchedules.FindAsync(id);
-            return fs == null ? null : AutoMapper.Mapper.Map<FeeScheduleDTO>(fs);
+            return fs == null ? null : mapper.Map<FeeScheduleDTO>(fs);
         }
 
         public async Task<int> AddFeeSchedule(FeeScheduleDTO schedule)
@@ -97,7 +97,7 @@ namespace gmp.services.implementations.Repositories
                 throw new ArgumentNullException($"FeeSchedule cannot be null");
             }
 
-            var newFeeSchedule = AutoMapper.Mapper.Map<FeeSchedule>(schedule);
+            var newFeeSchedule = mapper.Map<FeeSchedule>(schedule);
             await _ctx.FeeSchedules.AddAsync(newFeeSchedule);
             await _ctx.SaveChangesAsync();
             return newFeeSchedule.FeeScheduleId;
@@ -120,7 +120,7 @@ namespace gmp.services.implementations.Repositories
             var entityDest = await _ctx.FeeSchedules.FindAsync(scheduleSrc.FeeScheduleId);
             if (entityDest != null)
             {
-                AutoMapper.Mapper.Map(scheduleSrc, entityDest);
+                mapper.Map(scheduleSrc, entityDest);
             }
             await _ctx.SaveChangesAsync();
 
@@ -131,14 +131,14 @@ namespace gmp.services.implementations.Repositories
         {
             var member = await _ctx.Members.FindAsync(memberId);
 
-            return AutoMapper.Mapper.Map<FeeScheduleDTO>(member.FeeSchedule);
+            return mapper.Map<FeeScheduleDTO>(member.FeeSchedule);
         }
 
         public async Task<IEnumerable<PaymentDTO>> GetPaymentsForMember(int memberId)
         {
             var member = await _ctx.Members.FindAsync(memberId);
 
-            return member.Payments.Select(AutoMapper.Mapper.Map<PaymentDTO>);
+            return member.Payments.Select(p => mapper.Map<PaymentDTO>(p));
         }
 
         public async Task<int> AddPayment(PaymentDTO payment)
@@ -148,7 +148,7 @@ namespace gmp.services.implementations.Repositories
                 throw new ArgumentNullException($"Payment cannot be null");
             }
 
-            var newPayment = AutoMapper.Mapper.Map<Payment>(payment);
+            var newPayment = mapper.Map<Payment>(payment);
             await _ctx.Payments.AddAsync(newPayment);
             await _ctx.SaveChangesAsync();
             return newPayment.PaymentId;
@@ -166,7 +166,7 @@ namespace gmp.services.implementations.Repositories
             var entityDest = await _ctx.Payments.FindAsync(paymentSrc.PaymentId);
             if (entityDest != null)
             {
-                AutoMapper.Mapper.Map(paymentSrc, entityDest);
+                mapper.Map(paymentSrc, entityDest);
             }
             await _ctx.SaveChangesAsync();
 
@@ -183,7 +183,7 @@ namespace gmp.services.implementations.Repositories
 
             return  member.Payments
                     .Where(p => p.TransactionTypeId == transactionTypeId)
-                    .Select(AutoMapper.Mapper.Map<PaymentDTO>);
+                    .Select(p => mapper.Map<PaymentDTO>(p));
         }
 
         public async Task<IEnumerable<PaymentDTO>> GetPaymentsForSchool(int schoolId)
@@ -196,7 +196,7 @@ namespace gmp.services.implementations.Repositories
                 select p
             ).ToListAsync();
 
-            return payments.Select(AutoMapper.Mapper.Map<PaymentDTO>);
+            return payments.Select(p => mapper.Map<PaymentDTO>(p));
         }
 
         public async Task<IEnumerable<TransactionTypeDTO>> GetAllTransactionTypes()
@@ -204,7 +204,7 @@ namespace gmp.services.implementations.Repositories
             var types = await (from t in _ctx.TransactionTypes
                 select t).ToListAsync();
 
-            return types.Select(AutoMapper.Mapper.Map<TransactionTypeDTO>);
+            return types.Select(t => mapper.Map<TransactionTypeDTO>(t));
         }
 
         // Not going to add these since Transaction Type is really system data.

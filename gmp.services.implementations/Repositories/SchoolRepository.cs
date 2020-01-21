@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-using AutoMapper;
 using gmp.Core.Services;
 using gmp.DomainModels.Entities;
 using gmp.DomainModels.Projections;
@@ -28,7 +27,7 @@ namespace gmp.services.implementations.Repositories
                 .Include(item => item.SchoolLocations)
                 .SingleOrDefaultAsync();
 
-            var ret = Mapper.Map<SchoolDTO>(school);
+            var ret = mapper.Map<SchoolDTO>(school);
             return ret;
         }
 
@@ -39,7 +38,7 @@ namespace gmp.services.implementations.Repositories
                 throw new ArgumentNullException($"School cannot be null");
             }
 
-            var newSchool = AutoMapper.Mapper.Map<School>(school);
+            var newSchool = mapper.Map<School>(school);
             await _ctx.Schools.AddAsync(newSchool);
             await _ctx.SaveChangesAsync();
             return newSchool.SchoolId;
@@ -50,7 +49,7 @@ namespace gmp.services.implementations.Repositories
             var entityDest = await _ctx.Schools.FindAsync(schoolSrc.SchoolId);
             if (entityDest != null)
             {
-                AutoMapper.Mapper.Map(schoolSrc, entityDest);
+                mapper.Map(schoolSrc, entityDest);
             }
             else
             {
@@ -80,7 +79,7 @@ namespace gmp.services.implementations.Repositories
                                 select loc)
                 .SingleOrDefaultAsync();
 
-            var ret = Mapper.Map<SchoolLocationDTO>(location);
+            var ret = mapper.Map<SchoolLocationDTO>(location);
             return ret;
         }
 
@@ -91,7 +90,7 @@ namespace gmp.services.implementations.Repositories
                 throw new ArgumentNullException($"School cannot be null");
             }
 
-            var newSchoolLocation = AutoMapper.Mapper.Map<SchoolLocation>(location);
+            var newSchoolLocation = mapper.Map<SchoolLocation>(location);
             await _ctx.SchoolLocations.AddAsync(newSchoolLocation);
             await _ctx.SaveChangesAsync();
             return newSchoolLocation.SchoolId;
@@ -102,7 +101,7 @@ namespace gmp.services.implementations.Repositories
             var entityDest = await _ctx.SchoolLocations.FindAsync(locationSrc.SchoolLocationId);
             if (entityDest != null)
             {
-                AutoMapper.Mapper.Map(locationSrc, entityDest);
+                mapper.Map(locationSrc, entityDest);
 
                 await _ctx.SaveChangesAsync();
             }
@@ -133,7 +132,7 @@ namespace gmp.services.implementations.Repositories
                 throw new ArgumentNullException($"Role cannot be null");
             }
 
-            var newRole = AutoMapper.Mapper.Map<Role>(role);
+            var newRole = mapper.Map<Role>(role);
             await _ctx.Roles.AddAsync(newRole);
             await _ctx.SaveChangesAsync();
             return newRole.RoleId;
@@ -156,7 +155,7 @@ namespace gmp.services.implementations.Repositories
             var entityDest = await _ctx.Roles.FindAsync(roleSrc.RoleId);
             if (entityDest != null)
             {
-                AutoMapper.Mapper.Map(roleSrc, entityDest);
+                mapper.Map(roleSrc, entityDest);
             }
             else
             {
@@ -174,7 +173,7 @@ namespace gmp.services.implementations.Repositories
                               select lvl)
                 .SingleOrDefaultAsync();
 
-            var ret = Mapper.Map<LevelDTO>(level);
+            var ret = mapper.Map<LevelDTO>(level);
             return ret;
             
         }
@@ -186,7 +185,7 @@ namespace gmp.services.implementations.Repositories
                 throw new ArgumentNullException($"Level cannot be null");
             }
 
-            var newLevel = AutoMapper.Mapper.Map<Level>(level);
+            var newLevel = mapper.Map<Level>(level);
             await _ctx.Levels.AddAsync(newLevel);
             await _ctx.SaveChangesAsync();
             return newLevel.LevelId;
@@ -209,7 +208,7 @@ namespace gmp.services.implementations.Repositories
             var entityDest = await _ctx.Levels.FindAsync(levelSrc.LevelId);
             if (entityDest != null)
             {
-                AutoMapper.Mapper.Map(levelSrc, entityDest);
+                mapper.Map(levelSrc, entityDest);
             }
             else
             {

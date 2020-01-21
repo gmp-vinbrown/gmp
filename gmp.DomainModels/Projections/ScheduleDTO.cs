@@ -1,6 +1,6 @@
 ﻿using AutoMapper.Attributes;
 using gmp.DomainModels.Entities;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace gmp.DomainModels.Projections
 {

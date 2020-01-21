@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 using AutoMapper.Attributes;
 using gmp.DomainModels.Entities;
-using Newtonsoft.Json;
 
 namespace gmp.DomainModels.Projections
 {
