@@ -31,6 +31,7 @@ namespace gmp.services.implementations.Repositories
                     cfg.CreateMap<MemberHistory, MemberHistoryDTO>();
                     cfg.CreateMap<Payment, PaymentDTO>();
                     cfg.CreateMap<Program, ProgramDTO>();
+                    cfg.CreateMap<Role, RoleDTO>();
                     cfg.CreateMap<Schedule, ScheduleDTO>();
                     cfg.CreateMap<School, SchoolDTO>();
                     cfg.CreateMap<SchoolLocation, SchoolLocationDTO>();

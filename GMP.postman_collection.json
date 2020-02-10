@@ -1,0 +1,1021 @@
+{
+	"info": {
+		"_postman_id": "db1b2f68-d2f3-467a-a9a7-a458959540d6",
+		"name": "GMP",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "School",
+			"item": [
+				{
+					"name": "Roles",
+					"item": [
+						{
+							"name": "Add Role",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"RoleId\": 0,\n    \"SchoolId\": 3,\n    \"Name\": \"Member\",\n    \"Description\": \"Member Role\",\n    \"Deleted\": false,\n    \"School\": null,\n    \"Members\": null\n}"
+								},
+								"url": {
+									"raw": "http://localhost:51171/api/v1/roles",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "51171",
+									"path": [
+										"api",
+										"v1",
+										"roles"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Role",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"RoleId\": 1,\n    \"SchoolId\": 3,\n    \"Name\": \"Member\",\n    \"Description\": \"Member Role\",\n    \"Deleted\": false,\n    \"School\": null,\n    \"Members\": null\n}"
+								},
+								"url": {
+									"raw": "http://localhost:51171/api/v1/roles",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "51171",
+									"path": [
+										"api",
+										"v1",
+										"roles"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Role",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "http://localhost:51171/api/v1/roles/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "51171",
+									"path": [
+										"api",
+										"v1",
+										"roles",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Levels",
+					"item": [
+						{
+							"name": "Get Level By Id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:51171/api/v1/levels/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "51171",
+									"path": [
+										"api",
+										"v1",
+										"levels",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Add Level",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"LevelId\": 0,\n    \"SchoolId\": 3,\n    \"Name\": \"1st Gub\",\n    \"Description\": \"White Belt\",\n    \"Value\": \"1\",\n    \"Deleted\": false,\n    \"School\": null,\n    \"Members\": null\n}"
+								},
+								"url": {
+									"raw": "http://localhost:51171/api/v1/levels",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "51171",
+									"path": [
+										"api",
+										"v1",
+										"levels"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Level",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"LevelId\": 1,\n    \"SchoolId\": 3,\n    \"Name\": \"1st Gub\",\n    \"Description\": \"White Belt\",\n    \"Value\": \"1\",\n    \"Deleted\": false,\n    \"School\": null,\n    \"Members\": null\n}"
+								},
+								"url": {
+									"raw": "http://localhost:51171/api/v1/levels",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "51171",
+									"path": [
+										"api",
+										"v1",
+										"levels"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Level",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "http://localhost:51171/api/v1/levels/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "51171",
+									"path": [
+										"api",
+										"v1",
+										"levels",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Add School",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"SchoolId\": \"0\",\n\"Name\": \"Test School\",\n\"Code\": \"TESTSCHOOL1\",\n\"Created\": \"1/1/2001\",\n\"Deleted\": \"False\",\n\"Levels\": [],\n\"Programs\": [],\n\"Roles\": [],\n\"SchoolLocations\": []\n}"
+						},
+						"url": {
+							"raw": "http://localhost:51171/api/v1/schools",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "51171",
+							"path": [
+								"api",
+								"v1",
+								"schools"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get School By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:51171/api/v1/schools/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "51171",
+							"path": [
+								"api",
+								"v1",
+								"schools",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update School",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"SchoolId\": \"3\",\n\"Name\": \"Test School 1\",\n\"Code\": \"TSTSCHOOL1\",\n\"Created\": \"2018-07-08 22:56:04.920\",\n\"Deleted\": \"False\",\n\"Levels\": [],\n\"Programs\": [],\n\"Roles\": [],\n\"SchoolLocations\": []\n}"
+						},
+						"url": {
+							"raw": "http://localhost:51171/api/v1/schools",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "51171",
+							"path": [
+								"api",
+								"v1",
+								"schools"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete School",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "http://localhost:51171/api/v1/schools/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "51171",
+							"path": [
+								"api",
+								"v1",
+								"schools",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "School Location",
+			"item": [
+				{
+					"name": "Add School Location",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"SchoolId\": \"3\",\n    \"IsPrimary\": \"True\",\n    \"Name\": \"Hong's TKD\",\n    \"Address1\": \"6190 Post Road\",\n    \"Address2\": \"\",\n    \"City\": \"North Kingstown\",\n    \"StateCode\": \"RI\",\n    \"Zip\": \"02852\",\n    \"Deleted\": \"\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:51171/api/v1/schoolLocations",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "51171",
+							"path": [
+								"api",
+								"v1",
+								"schoolLocations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get School Location By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:51171/api/v1/schoolLocations/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "51171",
+							"path": [
+								"api",
+								"v1",
+								"schoolLocations",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update School Location",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"SchoolLocationId\": \"1\",\n\t\"SchoolId\": \"3\",\n    \"IsPrimary\": \"True\",\n    \"Name\": \"Grand Master Hong's World Class Tae Kwon Do\",\n    \"Address1\": \"6190 Post Road\",\n    \"Address2\": \"\",\n    \"City\": \"North Kingstown\",\n    \"StateCode\": \"RI\",\n    \"Zip\": \"02852\",\n    \"Created\": \"2018-07-08 22:56:04.920\",\n    \"Deleted\": \"False\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:51171/api/v1/schoolLocations",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "51171",
+							"path": [
+								"api",
+								"v1",
+								"schoolLocations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete School Location",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "http://localhost:51171/api/v1/schoolLocations/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "51171",
+							"path": [
+								"api",
+								"v1",
+								"schoolLocations",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\": \"vinbrown\",\n\t\"password\": \"a1111111\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:51171/api/account",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "51171",
+							"path": [
+								"api",
+								"account"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Membership",
+			"item": [
+				{
+					"name": "Add Member",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"MemberId\": 0,\n\t\"SchoolLocationId\": 1,\n\t\"ContactInfoId\": null,\n\t\"RoleId\": 1,\n\t\"ProgramId\": 1,\n\t\"FeeScheduleId\": 1,\n\t\"Prefix\": \"\",\n\t\"FirstName\": \"Vincent\",\n\t\"MiddleName\": \"\",\n\t\"LastName\": \"Brown\",\n\t\"Suffix\": \"Jr\",\n\t\"Gender\": \"Male\",\n\t\"Weight\": \"175\",\n\t\"DOB\": \"6/28/1969\",\n\t\"Age\": \"49\",\n\t\"LevelId\": 1,\n\t\"Notes\": \"\",\n\t\"Deleted\": false,\n\t\"Payments\": null,\n\t\"Attendance\": null,\n\t\"MemberEventActivities\": null,\n\t\"Registrations\": null\n}"
+						},
+						"url": {
+							"raw": "http://localhost:51171/api/v1/members",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "51171",
+							"path": [
+								"api",
+								"v1",
+								"members"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Member By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:51171/api/v1/members/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "51171",
+							"path": [
+								"api",
+								"v1",
+								"members",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Member",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"MemberId\": 1,\n\t\"SchoolLocationId\": 1,\n\t\"ContactInfoId\": null,\n\t\"RoleId\": 1,\n\t\"ProgramId\": 1,\n\t\"FeeScheduleId\": 1,\n\t\"Prefix\": \"Mr\",\n\t\"FirstName\": \"Vincent\",\n\t\"MiddleName\": \"\",\n\t\"LastName\": \"Brown\",\n\t\"Suffix\": \"Jr\",\n\t\"Gender\": \"Male\",\n\t\"Weight\": \"172\",\n\t\"DOB\": \"6/28/1969\",\n\t\"Age\": \"49\",\n\t\"LevelId\": 1,\n\t\"Notes\": \"\",\n\t\"Deleted\": false,\n\t\"Payments\": null,\n\t\"Attendance\": null,\n\t\"MemberEventActivities\": null,\n\t\"Registrations\": null,\n\t\"Created\": \"2018-07-16 02:58:01.117\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:51171/api/v1/members",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "51171",
+							"path": [
+								"api",
+								"v1",
+								"members"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Member",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "http://localhost:51171/api/v1/members/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "51171",
+							"path": [
+								"api",
+								"v1",
+								"members",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Members By School",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:51171/api/v1/school/3/members",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "51171",
+							"path": [
+								"api",
+								"v1",
+								"school",
+								"3",
+								"members"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Members By School Location",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:51171/api/v1/schoollocation/1/members",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "51171",
+							"path": [
+								"api",
+								"v1",
+								"schoollocation",
+								"1",
+								"members"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Financial",
+			"item": [
+				{
+					"name": "Program",
+					"item": [
+						{
+							"name": "Add Program",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"ProgramId\": 0,\n    \"SchoolId\": 3,\n    \"Name\": \"1 Year Program\",\n    \"DurationDays\": 365,\n    \"BaseFee\": 1200.00,\n    \"Description\": \"One year program\",\n    \"Deleted\": false,\n    \"School\": null,\n    \"FeeSchedules\": null\n}"
+								},
+								"url": {
+									"raw": "http://localhost:51171/api/v1/programs",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "51171",
+									"path": [
+										"api",
+										"v1",
+										"programs"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Program",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"ProgramId\": 1,\n    \"SchoolId\": 3,\n    \"Name\": \"1 Year Program\",\n    \"DurationDays\": 365,\n    \"BaseFee\": 1250.00,\n    \"Description\": \"One year program. No auto-renewal.\",\n    \"Deleted\": false,\n    \"School\": null,\n    \"FeeSchedules\": null\n}"
+								},
+								"url": {
+									"raw": "http://localhost:51171/api/v1/programs",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "51171",
+									"path": [
+										"api",
+										"v1",
+										"programs"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Program",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "http://localhost:51171/api/v1/programs/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "51171",
+									"path": [
+										"api",
+										"v1",
+										"programs",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Fee Schedule",
+					"item": [
+						{
+							"name": "Add Fee Schedule",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"FeeScheduleId\": 0, \n    \"Name\": \"Monthly Payments\",\n    \"StartDate\": \"7/1/2018\",\n    \"NumberOfPayments\": \"12\",\n    \"DiscountAmount\": \"0\",\n    \"DiscountPercent\": \"0\",\n    \"Description\": \"Monthly Payments - 1 Year\",\n    \"Active\": true,\n    \"Deleted\": false,\n    \"Members\": null\n}"
+								},
+								"url": {
+									"raw": "http://localhost:51171/api/v1/feeschedules",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "51171",
+									"path": [
+										"api",
+										"v1",
+										"feeschedules"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Fee Schedule",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"FeeScheduleId\": 1, \n    \"Name\": \"Monthly Payments\",\n    \"StartDate\": \"8/1/2018\",\n    \"NumberOfPayments\": \"12\",\n    \"DiscountAmount\": \"150\",\n    \"DiscountPercent\": \"0\",\n    \"Description\": \"Monthly Payments - 1 Year\",\n    \"Active\": true,\n    \"Deleted\": false,\n    \"Members\": null\n}"
+								},
+								"url": {
+									"raw": "http://localhost:51171/api/v1/feeschedules",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "51171",
+									"path": [
+										"api",
+										"v1",
+										"feeschedules"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Fee Schedule",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "http://localhost:51171/api/v1/feeschedules/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "51171",
+									"path": [
+										"api",
+										"v1",
+										"feeschedules",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Payment",
+					"item": [
+						{
+							"name": "Add Payment",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"PaymentId\": 0, \n    \"TransactionTypeId\": \"1\",\n    \"MemberId\": \"1\",\n    \"Notes\": \"1st payment\",\n    \"TransactionDate\": \"7/20/2018\",\n    \"Amount\": \"25.00\",\n    \"Deleted\": false\n}"
+								},
+								"url": {
+									"raw": "http://localhost:51171/api/v1/payments",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "51171",
+									"path": [
+										"api",
+										"v1",
+										"payments"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Payment",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"PaymentId\": 1, \n    \"TransactionTypeId\": \"1\",\n    \"MemberId\": \"1\",\n    \"Notes\": \"Initial payment\",\n    \"TransactionDate\": \"7/20/2018\",\n    \"Amount\": \"25.00\",\n    \"Deleted\": false\n}"
+								},
+								"url": {
+									"raw": "http://localhost:51171/api/v1/payments",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "51171",
+									"path": [
+										"api",
+										"v1",
+										"payments"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Payment",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://localhost:51171/api/v1/payments/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "51171",
+									"path": [
+										"api",
+										"v1",
+										"payments",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Member Payments By Transaction Type",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:51171/api/v1/members/1/payments/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "51171",
+									"path": [
+										"api",
+										"v1",
+										"members",
+										"1",
+										"payments",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Payments for School",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:51171/api/v1/schools/3/payments",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "51171",
+									"path": [
+										"api",
+										"v1",
+										"schools",
+										"3",
+										"payments"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Transaction Types",
+					"item": [
+						{
+							"name": "Get All Transaction Types",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:51171/api/v1/transactiontypes",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "51171",
+									"path": [
+										"api",
+										"v1",
+										"transactiontypes"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}

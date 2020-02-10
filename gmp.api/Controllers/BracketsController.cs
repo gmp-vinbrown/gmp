@@ -15,7 +15,7 @@ namespace gmp.api.Controllers
         [HttpPost]
         public Task<List<EventActivityMatchDTO>> Get()
         {
-
+            return null;
         }
     }
 }

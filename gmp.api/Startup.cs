@@ -34,7 +34,7 @@ namespace gmp.api
                 {
                     options.JsonSerializerOptions.MaxDepth = 3;
                 });
-            
+
             //Mapper.Initialize(cfg =>
             //{
             //    cfg.CreateMissingTypeMaps = true;
@@ -50,7 +50,9 @@ namespace gmp.api
                 options.SuppressInferBindingSourcesForParameters = true;
                 options.SuppressModelStateInvalidFilter = true;
                 options.SuppressMapClientErrors = true;
-            });
+            }).AddNewtonsoftJson(options =>
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+            );
 
             services.AddCors(options =>
             {
